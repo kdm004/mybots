@@ -1,7 +1,7 @@
 import pyrosim.pyrosim as pyrosim
-length = 4
-width = 1
-height = 1
+length = 1
+width = 2
+height = 3
 
 pyrosim.Start_SDF("box.sdf")
 
