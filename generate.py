@@ -1,5 +1,5 @@
 import pyrosim.pyrosim as pyrosim
-length = 1
+length = 4
 width = 1
 height = 1
 
