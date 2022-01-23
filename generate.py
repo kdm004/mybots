@@ -5,10 +5,14 @@ height = 1
 x = 0
 y = 0
 z = .5 * height
+
+a = 0
+b = 1
+c = .5 * height
 pyrosim.Start_SDF("boxes.sdf")
 
 pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
-pyrosim.Send_Cube(name="Box2", pos=[x,y,z] , size=[length,width,height])
+pyrosim.Send_Cube(name="Box2", pos=[a,b,c] , size=[length,width,height])
 
 pyrosim.End()
 
