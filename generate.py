@@ -12,7 +12,7 @@ for k in range(10):
     length *= .9
     width *= .9
     height *= .9
-    pyrosim.Send_Cube(name="Box", pos=[x,y,z+k] , size=[length,width,height])
+    pyrosim.Send_Cube(name="Box", pos=[x,y,z+(k*height)] , size=[length,width,height])
 
 pyrosim.End()
 
