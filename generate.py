@@ -12,9 +12,9 @@ for i in range(10):
     x += i
     for j in range (10):
         y += 1
-        new_length *= .9
-        new_width *= .9
-        new_height *= .9
+        new_length = length
+        new_width = width
+        new_height = height
 
         for k in range(10):
             new_length *= .9
