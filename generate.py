@@ -8,18 +8,11 @@ x = 0
 y = 0
 z = .5 * height
 
-for i in range(6):
-    x += i
-    y += i
-    new_length = length
-    new_width = width
-    new_height = height
-
-    for k in range(10):
-        new_length *= .9
-        new_width *= .9
-        new_height *= .9
-        pyrosim.Send_Cube(name="Box", pos=[x,y,z+k] , size=[new_length,new_width,new_height])
+for k in range(10):
+    length *= .9
+    width *= .9
+    height *= .9
+    pyrosim.Send_Cube(name="Box", pos=[x,y,z+(k*.5)] , size=[length,width,height])
 
 pyrosim.End()
 
