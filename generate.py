@@ -8,9 +8,9 @@ x = 0
 y = 0
 z = .5 * height
 
-for i in range(10):
+for i in range(6):
     x += i
-    for j in range (10):
+    for j in range (6):
         y += 1
         new_length = length
         new_width = width
