@@ -10,7 +10,7 @@ z = .5 * height
 
 for i in range(6):
     x += i
-    y += j
+    y += i
     new_length = length
     new_width = width
     new_height = height
