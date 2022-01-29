@@ -27,9 +27,9 @@ x1 = 0
 y1 = 0
 z1 = .5
 
-x2 = 1
+x2 = .5
 y2 = 0
-z2 = 1.5
+z2 = .5
 
 Create_World()
 Create_Robot()
