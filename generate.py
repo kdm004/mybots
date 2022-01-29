@@ -7,19 +7,13 @@ def Create_World():
 
 def Create_Robot():
     pyrosim.Start_URDF("body.urdf")
-    pyrosim.Send_Cube(name="Link0", pos=[x0,y0,z0] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Link0_Link1" , parent= "Link0" , child = "Link1" , type = "revolute", position = [0,0,1])
-    pyrosim.Send_Cube(name="Link1", pos=[x1,y1,z1] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Link1_Link2" , parent= "Link1" , child = "Link2" , type = "revolute", position = [0,0,1])
-    pyrosim.Send_Cube(name="Link2", pos=[x2,y2,z2] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Link2_Link3" , parent= "Link2" , child = "Link3" , type = "revolute", position = [0,.5,.5])
-    pyrosim.Send_Cube(name="Link3", pos=[x3,y3,z3] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Link3_Link4" , parent= "Link3" , child = "Link4" , type = "revolute", position = [0,1,0])
-    pyrosim.Send_Cube(name="Link4", pos=[x4,y4,z4] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Link4_Link5" , parent= "Link4" , child = "Link5" , type = "revolute", position = [0,.5,-.5])
-    pyrosim.Send_Cube(name="Link5", pos=[x5,y5,z5] , size=[length,width,height])  
-    pyrosim.Send_Joint( name = "Link5_Link6" , parent= "Link5" , child = "Link6" , type = "revolute", position = [0,0,-1])
-    pyrosim.Send_Cube(name="Link6", pos=[x6,y6,z6] , size=[length,width,height])
+    pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
+    pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
+    pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[length,width,height])
+
+    pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2,0,1])
+    pyrosim.Send_Cube(name="FrontLeg", pos=[x2,y2,z2] , size=[length,width,height])
+
     pyrosim.End()
 
 #Cube size (length, width, height) and position (x,y,z)
@@ -28,38 +22,23 @@ width = 1
 height = 1
 
 #we want the world block to be at (-3, 3, .5)
-
+# Torso_FrontLeg joint has no upstream joint because we want Torso to be the parent link again. So we use abs coords for Torso_FrontLeg.
 x = -3
 y = 3
 z = .5
 
-x0 = 0
+x0 = 1.5
 y0 = 0
-z0 = .5
+z0 = 1.5
 
-x1 = 0
+x1 = -.5
 y1 = 0
-z1 = .5
+z1 = -.5
 
-x2 = 0
+x2 = .5
 y2 = 0
-z2 = .5
+z2 = -.5
 
-x3 = 0
-y3 = .5
-z3 = 0
-
-x4 = 0
-y4 = .5
-z4 = 0
-
-x5 = 0
-y5 = 0
-z5 = -.5
-
-x6 = 0
-y6 = 0
-z6 = -.5
 
 Create_World()
 Create_Robot()
