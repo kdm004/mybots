@@ -14,13 +14,12 @@ def Create_Robot():
     pyrosim.Send_Cube(name="Link2", pos=[x2,y2,z2] , size=[length,width,height])
     pyrosim.Send_Joint( name = "Link2_Link3" , parent= "Link2" , child = "Link3" , type = "revolute", position = [0,.5,.5])
     pyrosim.Send_Cube(name="Link3", pos=[x3,y3,z3] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Link3_Link4" , parent= "Link3" , child = "Link4" , type = "revolute", position = [0,.5,0])
+    pyrosim.Send_Joint( name = "Link3_Link4" , parent= "Link3" , child = "Link4" , type = "revolute", position = [0,1,0])
     pyrosim.Send_Cube(name="Link4", pos=[x4,y4,z4] , size=[length,width,height])
     pyrosim.Send_Joint( name = "Link4_Link5" , parent= "Link4" , child = "Link5" , type = "revolute", position = [0,.5,-.5])
     pyrosim.Send_Cube(name="Link5", pos=[x5,y5,z5] , size=[length,width,height])  
     pyrosim.Send_Joint( name = "Link5_Link6" , parent= "Link5" , child = "Link6" , type = "revolute", position = [0,0,-1])
     pyrosim.Send_Cube(name="Link6", pos=[x6,y6,z6] , size=[length,width,height])
-
     pyrosim.End()
 
 #Cube size (length, width, height) and position (x,y,z)
@@ -51,15 +50,15 @@ y3 = .5
 z3 = 0
 
 x4 = 0
-y4 = 1
+y4 = .5
 z4 = 0
 
 x5 = 0
-y5 = .5
+y5 = 0
 z5 = -.5
 
 x6 = 0
-y6 = .5
+y6 = 0
 z6 = -.5
 
 Create_World()
