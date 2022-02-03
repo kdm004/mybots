@@ -26,10 +26,17 @@ for i in range (100):
     bodyIndex = robotId,
     jointName = "Torso_BackLeg",
     controlMode = p.POSITION_CONTROL,
-    targetPosition = 0.0,
-    maxForce = 500)    
+    targetPosition = -(numpy.pi)/4,
+    maxForce = 500)  
 
-    time.sleep(1/80)
+    pyrosim.Set_Motor_For_Joint(
+    bodyIndex = robotId,
+    jointName = "Torso_FrontLeg",
+    controlMode = p.POSITION_CONTROL,
+    targetPosition = (numpy.pi)/4,
+    maxForce = 500)  
+
+    time.sleep(1/5)
     print('For loop variable is',i)
     print(backLegSensorValues)
     print(frontLegSensorValues)
