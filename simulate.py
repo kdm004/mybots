@@ -1,3 +1,4 @@
+import constants as c
 import random as random
 import numpy as numpy
 import pyrosim.pyrosim as pyrosim
@@ -12,29 +13,27 @@ robotId = p.loadURDF("body.urdf")
 p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
+
+
+#--------------------------------------------------------------
 # Vectors for sensor values
-backLegSensorValues = numpy.zeros(1000)
-frontLegSensorValues = numpy.zeros(1000)
+backLegSensorValues = numpy.zeros(c.loopLength)
+frontLegSensorValues = numpy.zeros(c.loopLength)
 
-# Target Angles Vector
-targetAngles = numpy.linspace(-numpy.pi,numpy.pi, 1000)
+# Vector for target angles
+targetAngles = numpy.linspace(-numpy.pi,numpy.pi, c.loopLength)
 
-BackLeg_amplitude = numpy.pi/4
-BackLeg_frequency = 10
-BackLeg_phaseOffset = numpy.pi/2
-    
-FrontLeg_amplitude = numpy.pi/4
-FrontLeg_frequency = 20
-FrontLeg_phaseOffset = 0
+# Defining leg motor commands
+BackLeg_motorCommand = c.BackLeg_amplitude * numpy.sin(c.BackLeg_frequency * targetAngles + c.BackLeg_phaseOffset)
+FrontLeg_motorCommand = c.FrontLeg_amplitude * numpy.sin(c.FrontLeg_frequency * targetAngles + c.FrontLeg_phaseOffset)
+#--------------------------------------------------------------
 
 
-BackLeg_motorCommand = BackLeg_amplitude * numpy.sin(BackLeg_frequency * targetAngles + BackLeg_phaseOffset)
-FrontLeg_motorCommand = FrontLeg_amplitude * numpy.sin(FrontLeg_frequency * targetAngles + FrontLeg_phaseOffset)
 
 #numpy.save('data/motorCommand.npy', motorCommand)
 #exit()
 
-for i in range (1000):
+for i in range (c.loopLength):
     p.stepSimulation()
 
     # Sensor values
