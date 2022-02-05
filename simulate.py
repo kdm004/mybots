@@ -15,7 +15,7 @@ pyrosim.Prepare_To_Simulate(robotId)
 
 
 
-#--------------------------------------------------------------
+#-------------------------------------------------------------
 # Vectors for sensor values
 backLegSensorValues = numpy.zeros(c.loopLength)
 frontLegSensorValues = numpy.zeros(c.loopLength)
