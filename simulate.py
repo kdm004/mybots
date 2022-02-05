@@ -31,8 +31,6 @@ FrontLeg_phaseOffset = 0
 BackLeg_motorCommand = BackLeg_amplitude * numpy.sin(BackLeg_frequency * targetAngles + BackLeg_phaseOffset)
 FrontLeg_motorCommand = FrontLeg_amplitude * numpy.sin(FrontLeg_frequency * targetAngles + FrontLeg_phaseOffset)
 
-#numpy.save('data/motorCommand.npy', motorCommand)
-#exit()
 
 for i in range (1000):
     p.stepSimulation()
@@ -66,4 +64,6 @@ for i in range (1000):
 numpy.save('data/backLegSensorValues.npy', backLegSensorValues)
 numpy.save('data/frontLegSensorValues.npy', frontLegSensorValues)
 #numpy.save('data/targetAngles.npy', targetAngles)
+#numpy.save('data/motorCommand.npy', motorCommand)
+#exit()
 p.disconnect()
