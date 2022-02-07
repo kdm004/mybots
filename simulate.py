@@ -16,12 +16,17 @@ pyrosim.Prepare_To_Simulate(robotId)
 backLegSensorValues = numpy.zeros(1000)
 frontLegSensorValues = numpy.zeros(1000)
 
-# Target Angles Vector
-targetAngles = numpy.linspace(-numpy.pi,numpy.pi, 1000)
+# Target Angles Vector and scale factor mapping function
+targetAngles = numpy.linspace(0,2*numpy.pi, 1000)
+scaleFactor = float(numpy.pi/2) / float(2)
+#newTargetAngles = right_min + (value - left_min)*scaleFactor
+newTargetAngles = -numpy.pi/4 + (numpy.sin(targetAngles) - (-1))*scaleFactor
+
+#value = sin of the targetangles
 
 BackLeg_amplitude = numpy.pi/4
-BackLeg_frequency = 10
-BackLeg_phaseOffset = numpy.pi/2
+BackLeg_frequency = 1
+BackLeg_phaseOffset = 0
     
 FrontLeg_amplitude = numpy.pi/4
 FrontLeg_frequency = 20
@@ -31,6 +36,8 @@ FrontLeg_phaseOffset = 0
 BackLeg_motorCommand = BackLeg_amplitude * numpy.sin(BackLeg_frequency * targetAngles + BackLeg_phaseOffset)
 FrontLeg_motorCommand = FrontLeg_amplitude * numpy.sin(FrontLeg_frequency * targetAngles + FrontLeg_phaseOffset)
 
+numpy.save('data/BackLeg_motorCommand.npy', BackLeg_motorCommand)
+exit()
 
 for i in range (1000):
     p.stepSimulation()
