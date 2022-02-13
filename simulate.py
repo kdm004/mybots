@@ -42,4 +42,4 @@ simulation.Run()
 #numpy.save('data/backLegSensorValues.npy', backLegSensorValues)
 #numpy.save('data/frontLegSensorValues.npy', frontLegSensorValues)
 #numpy.save('data/targetAngles.npy', targetAngles)
-#p.disconnect()
+

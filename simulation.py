@@ -41,4 +41,12 @@ class SIMULATION:
             time.sleep(1/(240))
             print('For loop variable is',i)
         #    print(backLegSensorValues)
-        #    print(frontLegSensorValues)     
+        #    print(frontLegSensorValues)
+
+    del __del__(self):
+        p.disconnect()
+
+
+
+
+     
