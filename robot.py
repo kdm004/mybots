@@ -1,6 +1,7 @@
 import pyrosim.pyrosim as pyrosim
 import pybullet as p
-
+from sensor import SENSOR
+from motor import MOTOR
 
 
 class ROBOT:
