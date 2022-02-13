@@ -1,4 +1,5 @@
 # This is the new simulation file that was created in the refactoring branch
+import time
 import constants as c
 from world import WORLD
 from robot import ROBOT
@@ -15,7 +16,7 @@ class SIMULATION:
         
     def Run(self):
         for i in range (c.loopLength):
-        #    p.stepSimulation()
+            p.stepSimulation()
 
         #    # Sensor values
         #    backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
@@ -37,7 +38,7 @@ class SIMULATION:
         #    maxForce = 20)
 
 
-        #    time.sleep(1/(240))
+            time.sleep(1/(240))
             print('For loop variable is',i)
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues)     
