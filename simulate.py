@@ -8,7 +8,7 @@ import time
 from simulation import SIMULATION
 
 simulation = SIMULATION()
-
+simulation.Run()
 #------------------------------------------------------------
 
 
@@ -37,34 +37,7 @@ simulation = SIMULATION()
 #numpy.save('data/motorCommand.npy', motorCommand)
 #exit()
 
-#for i in range (c.loopLength):
-#    p.stepSimulation()
-
-#    # Sensor values
-#    backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-#    frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-
-
-#    pyrosim.Set_Motor_For_Joint(
-#    bodyIndex = robotId,
-#    jointName = "Torso_BackLeg",
-#    controlMode = p.POSITION_CONTROL,
-#    targetPosition = BackLeg_motorCommand[i],
-#    maxForce = 20)  
-
-#    pyrosim.Set_Motor_For_Joint(
-#    bodyIndex = robotId,
-#    jointName = "Torso_FrontLeg",
-#    controlMode = p.POSITION_CONTROL,
-#    targetPosition = FrontLeg_motorCommand[i],
-#    maxForce = 20)
-  
-
-#    time.sleep(1/(240))
-#    print('For loop variable is',i)
-#    print(backLegSensorValues)
-#    print(frontLegSensorValues)
-    
+#-----    
 
 #numpy.save('data/backLegSensorValues.npy', backLegSensorValues)
 #numpy.save('data/frontLegSensorValues.npy', frontLegSensorValues)
