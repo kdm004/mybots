@@ -43,7 +43,7 @@ class SIMULATION:
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues)
 
-    del __del__(self):
+    def __del__(self):
         p.disconnect()
 
 
