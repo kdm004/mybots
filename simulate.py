@@ -12,15 +12,10 @@ simulation.Run()
 #------------------------------------------------------------
 
 
-#robotId = p.loadURDF("body.urdf")
-
-
-#pyrosim.Prepare_To_Simulate(robotId)
-
 
 
 #-------------------------------------------------------------
-## Vectors for sensor values
+## Vectors for sensor values  (moving sensor values to sensor.py) #####
 #backLegSensorValues = numpy.zeros(c.loopLength)
 #frontLegSensorValues = numpy.zeros(c.loopLength)
 
