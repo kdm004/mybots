@@ -9,6 +9,8 @@ class MOTOR:
         self.Prepare_To_Act()
 
     def Prepare_To_Act(self):
-        pass
-        #BackLeg_motorCommand = c.BackLeg_amplitude * numpy.sin(c.BackLeg_frequency * targetAngles + c.BackLeg_phaseOffset)
-        #FrontLeg_motorCommand = c.FrontLeg_amplitude * numpy.sin(c.FrontLeg_frequency * targetAngles + c.FrontLeg_phaseOffset)        
+        self.amplitude = c.amplitude
+        self.frequency = c.frequency
+        self.offset = c.phaseOffset
+        self.BackLeg_motorCommand = self.amplitude * numpy.sin(self.frequency * c.targetAngles + self.offset)
+        self.FrontLeg_motorCommand = self.amplitude * numpy.sin(self.frequency * c.targetAngles + self.offset)        
