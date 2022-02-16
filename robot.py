@@ -38,3 +38,8 @@ class ROBOT:
             #print(self.motors[key]) ... this prints out a bunch of stuff
 
 
+    def Save_Values(self):
+        for key in self.motors:
+            self.motors[key].Save_Values()
+        for key in self.sensors:
+            self.sensors[key].Save_Values()

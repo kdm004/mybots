@@ -10,12 +10,7 @@ from simulation import SIMULATION
 simulation = SIMULATION()
 simulation.Run()
 
-#numpy.save('data/motorCommand.npy', motorCommand)
-#exit()
 
-#-----    
 
-#numpy.save('data/backLegSensorValues.npy', backLegSensorValues)
-#numpy.save('data/frontLegSensorValues.npy', frontLegSensorValues)
-#numpy.save('data/targetAngles.npy', targetAngles)
+
 

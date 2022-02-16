@@ -27,6 +27,7 @@ class SIMULATION:
         #    print(frontLegSensorValues) #
 
     def __del__(self):
+        #self.robot.Save_Values()
         p.disconnect()
 
 
