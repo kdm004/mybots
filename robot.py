@@ -13,6 +13,7 @@ class ROBOT:
         self.motors = {}
         self.values = {}  
         self.Prepare_To_Sense()
+        self.Prepare_To_Act()
 
 
     def Prepare_To_Sense(self):
@@ -34,4 +35,5 @@ class ROBOT:
     def Act(self,t):
         for key in self.motors:
             self.motors[key].Set_Value(self.robot,t)
+
 
