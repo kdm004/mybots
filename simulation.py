@@ -18,7 +18,7 @@ class SIMULATION:
         for i in range (c.loopLength):
             p.stepSimulation()
             self.robot.Sense(i)
-
+            self.robot.Act(i)   
 
       
 
