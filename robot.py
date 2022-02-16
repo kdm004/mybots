@@ -19,7 +19,7 @@ class ROBOT:
             self.sensors[linkName] = SENSOR(linkName)
 
     def Sense(self):
-        pass           
+        #           
 
 
 
