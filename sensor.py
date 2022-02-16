@@ -4,7 +4,7 @@ import pyrosim.pyrosim as pyrosim
 
 class SENSOR:
     def __init__(self,linkName):
-        self.values = numpy.zeros(c.loopLength)
+        self.values = numpy.zeros(c.loopLength) #moved to SENSOR's Prepare_To_Sense()
         self.linkName = linkName
 
     def Get_Value(self,t):

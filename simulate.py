@@ -19,10 +19,10 @@ simulation.Run()
 #backLegSensorValues = numpy.zeros(c.loopLength)
 #frontLegSensorValues = numpy.zeros(c.loopLength)
 
-## Vector for target angles
+## Vector for target angles (Now found in constants.py as of step 82 refactoring)
 #targetAngles = numpy.linspace(-numpy.pi,numpy.pi, c.loopLength)
 
-## Defining leg motor commands
+## Defining leg motor commands (Now found in motor.py)
 #BackLeg_motorCommand = c.BackLeg_amplitude * numpy.sin(c.BackLeg_frequency * targetAngles + c.BackLeg_phaseOffset)
 #FrontLeg_motorCommand = c.FrontLeg_amplitude * numpy.sin(c.FrontLeg_frequency * targetAngles + c.FrontLeg_phaseOffset)
 #--------------------------------------------------------------
