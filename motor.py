@@ -13,4 +13,9 @@ class MOTOR:
         self.frequency = c.frequency
         self.offset = c.phaseOffset
         self.BackLeg_motorCommand = self.amplitude * numpy.sin(self.frequency * c.targetAngles + self.offset)
-        self.FrontLeg_motorCommand = self.amplitude * numpy.sin(self.frequency * c.targetAngles + self.offset)        
+        self.FrontLeg_motorCommand = self.amplitude * numpy.sin(self.frequency * c.targetAngles + self.offset) 
+
+    def Set_Value(self, robot, t):
+        pass
+    
+    
