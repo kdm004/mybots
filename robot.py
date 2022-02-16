@@ -35,5 +35,6 @@ class ROBOT:
     def Act(self,t):
         for key in self.motors:
             self.motors[key].Set_Value(self.robot,t)
+            #print(self.motors[key]) ... this prints out a bunch of stuff
 
 
