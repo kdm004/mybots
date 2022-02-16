@@ -24,7 +24,8 @@ class ROBOT:
             print(self.sensors)
             print('key is ', key)
             self.values[t] =self.sensors[key].Get_Value(t)
- 
+            #if t == c.loopLength:
+                #print(self.values[t])
 
 
 
