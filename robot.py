@@ -7,13 +7,13 @@ import numpy as numpy
 
 class ROBOT:
     def __init__(self):
+        self.robot = p.loadURDF("body.urdf") #changed from robotId to robot
+        pyrosim.Prepare_To_Simulate(self.robot) #changed from robotId to robot
         self.sensors = {}
         self.motors = {}
-        self.values = {}     ## are you sure? why not just put the numpy.zeros thing as the first line in Sense() down here?
-
-        self.robotId = p.loadURDF("body.urdf")
-        pyrosim.Prepare_To_Simulate(self.robotId)
+        self.values = {}  
         self.Prepare_To_Sense()
+
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
@@ -21,11 +21,12 @@ class ROBOT:
 
     def Sense(self,t):
         for key in self.sensors:
-            print(self.sensors)
-            print('key is ', key)
+            #print(self.sensors)
+            #print('key is ', key)
             self.values[t] =self.sensors[key].Get_Value(t)
-            #if t == c.loopLength:
-                #print(self.values[t])
+            if t == c.loopLength:
+                print(self.values[key])
 
-
-
+    def Prepare_To_Act(self):
+        for jointName in pyrosim.jointNamesToIndices:
+            self.motors[jointName] = MOTOR(jointName)
