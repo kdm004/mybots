@@ -7,24 +7,21 @@ import numpy as numpy
 
 class ROBOT:
     def __init__(self):
-#        self.sensors = {}    #I'm moving this to def Prepare_To_Sense(self):
         self.motors = {}
-
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
 
     def Prepare_To_Sense(self):
         self.sensors = {}
+        self.values = {} # are you sure? why not just put the numpy.zeros thing as the first line in Sense() down here?
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
 
     def Sense(self,t):
-#        self.values = numpy.zeros(c.loopLength) #### Not getting here from sensor.py, so put it in manually. Deleting this causes error
         for key in self.sensors:
             self.values[t] =self.sensors[key].Get_Value(t)
-
-
+ 
 
 
 
