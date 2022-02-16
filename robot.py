@@ -3,6 +3,7 @@ import pybullet as p
 from sensor import SENSOR
 from motor import MOTOR
 import constants as c
+import numpy as numpy
 
 class ROBOT:
     def __init__(self):
@@ -18,9 +19,10 @@ class ROBOT:
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
 
-    def Sense(self):
-        #           
-
+    def Sense(self,t):
+#        self.values = numpy.zeros(c.loopLength) #### Not getting here from sensor.py, so put it in manually. Deleting this causes error
+        for key in self.sensors:
+            self.values[t] =self.sensors[key].Get_Value(t)
 
 
 
