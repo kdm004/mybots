@@ -8,7 +8,7 @@ class SENSOR:
         self.linkName = linkName
 
     def Get_Value():
-        backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")        
+        self.values[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("self.linkName")        
      
 
 
