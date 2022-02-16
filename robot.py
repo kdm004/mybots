@@ -9,7 +9,7 @@ class ROBOT:
     def __init__(self):
         self.sensors = {}
         self.motors = {}
-        self.values = {}     # are you sure? why not just put the numpy.zeros thing as the first line in Sense() down here?
+        self.values = {}     ## are you sure? why not just put the numpy.zeros thing as the first line in Sense() down here?
 
         self.robotId = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
