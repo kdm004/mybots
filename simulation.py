@@ -21,7 +21,7 @@ class SIMULATION:
             self.robot.Act(i)   
 
 
-            time.sleep(1/(240))
+            time.sleep(c.sleepRate)
             print('For loop variable is',i)
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
