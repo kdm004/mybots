@@ -29,7 +29,8 @@ class NEURAL_NETWORK:
         print("")
     
     def Update(self): # created by kevin motia
-        pass
+        for key in self.neurons:
+            print(self.neurons[key])
 
 # ---------------- Private methods --------------------------------------
 
