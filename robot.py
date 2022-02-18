@@ -36,10 +36,13 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
     
-    def Act(self,t):
-        for key in self.motors:
-            self.motors[key].Set_Value(self.robot,t)
-            #print(self.motors[key]) ... this prints out a bunch of stuff
+    def Act(self,neuronName): # took out t from Act()
+        for neuronName in self.nn.Get_Neuron_Names():
+            if self.nn.Is_Motor_Neuron(neuronName):
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
+
 
 
     def Save_Values(self):
