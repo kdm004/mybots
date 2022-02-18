@@ -30,7 +30,7 @@ def Generate_Body():
 
 def Generate_Brain(): 
     pyrosim.Start_NeuralNetwork("brain.nndf")
-    
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
     pyrosim.End()
 #-------------------------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
