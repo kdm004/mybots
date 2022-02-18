@@ -122,5 +122,5 @@ class NEURON:
 
         self.value = math.tanh(self.value)
 
-    def Update_Sensor_Neuron():
-        pass
+    def Update_Sensor_Neuron(self):
+        self.Set_Value(0)
