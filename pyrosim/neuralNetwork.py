@@ -30,7 +30,8 @@ class NEURAL_NETWORK:
     
     def Update(self): # created by kevin motia
         for key in self.neurons:
-            print(self.neurons[key])
+            if self.neurons[neuronName].Is_Sensor_Neuron():
+                pass
 
 # ---------------- Private methods --------------------------------------
 
