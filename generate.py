@@ -17,7 +17,7 @@ def Create_Robot():
 
     #pyrosim.End()
 
-def Generate_Body(): #From neurons
+def Generate_Body(): 
     pyrosim.Start_URDF("body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
     pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
@@ -28,6 +28,10 @@ def Generate_Body(): #From neurons
 
     pyrosim.End()
 
+def Generate_Brain(): 
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    
+    pyrosim.End()
 #-------------------------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
@@ -54,5 +58,7 @@ z2 = -.5
 #-------------------------------------------------------------
 
 Create_World()
-Create_Robot()
-Generate_Body() # From Neurons
+Create_Robot() # this one is commented out. Only has pass in it.
+
+Generate_Body() 
+Generate_Brain()
