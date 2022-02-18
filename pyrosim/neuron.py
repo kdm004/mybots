@@ -121,3 +121,6 @@ class NEURON:
     def Threshold(self):
 
         self.value = math.tanh(self.value)
+
+    def Update_Sensor_Neuron():
+        pass
