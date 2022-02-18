@@ -4,6 +4,8 @@ from sensor import SENSOR
 from motor import MOTOR
 import constants as c
 import numpy as numpy
+from pyrosim.neuralNetwork import NEURAL_NETWORK
+
 
 class ROBOT:
     def __init__(self):
@@ -14,6 +16,8 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
+        self.nn = NEURAL_NETWORK("brain.nndf")
+
 
 
     def Prepare_To_Sense(self):
@@ -43,3 +47,8 @@ class ROBOT:
             self.motors[key].Save_Values()
         for key in self.sensors:
             self.sensors[key].Save_Values()
+
+    def Think(self):
+        self.nn.Print()
+
+    
