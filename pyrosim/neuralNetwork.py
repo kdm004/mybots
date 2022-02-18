@@ -38,7 +38,7 @@ class NEURAL_NETWORK:
 
         neuron = NEURON(line)
 
-        self.neurons[ neuron.Get_Name() ] = neuron
+        self.neurons[ neuron.Get_Name() ] = neuron # neurons step 32
 
     def Add_Synapse_According_To(self,line):
 
