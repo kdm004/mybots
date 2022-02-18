@@ -49,6 +49,6 @@ class ROBOT:
             self.sensors[key].Save_Values()
 
     def Think(self):
-        pass
+        self.nn.Print()
 
     
