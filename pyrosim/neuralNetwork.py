@@ -27,6 +27,9 @@ class NEURAL_NETWORK:
         self.Print_Motor_Neuron_Values()
 
         print("")
+    
+    def Update(self): # created by kevin motia
+        pass
 
 # ---------------- Private methods --------------------------------------
 
