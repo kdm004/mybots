@@ -1,11 +1,23 @@
 import pyrosim.pyrosim as pyrosim
-
+#-------------------------------------------------------------
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
     pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
     pyrosim.End()
 
 def Create_Robot():
+    pass
+    #pyrosim.Start_URDF("body.urdf")
+    #pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
+    #pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
+    #pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[length,width,height])
+
+    #pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2,0,1])
+    #pyrosim.Send_Cube(name="FrontLeg", pos=[x2,y2,z2] , size=[length,width,height])
+
+    #pyrosim.End()
+
+def Generate_Body(): 
     pyrosim.Start_URDF("body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
     pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
@@ -16,6 +28,11 @@ def Create_Robot():
 
     pyrosim.End()
 
+def Generate_Brain(): 
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+    pyrosim.End()
+#-------------------------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
 width = 1
@@ -38,7 +55,10 @@ z1 = -.5
 x2 = .5
 y2 = 0
 z2 = -.5
-
+#-------------------------------------------------------------
 
 Create_World()
-Create_Robot()
+Create_Robot() # this one is commented out. Only has pass in it.
+
+Generate_Body() 
+Generate_Brain()
