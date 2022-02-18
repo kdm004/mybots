@@ -43,3 +43,6 @@ class ROBOT:
             self.motors[key].Save_Values()
         for key in self.sensors:
             self.sensors[key].Save_Values()
+
+    def Think(self):
+        pass
