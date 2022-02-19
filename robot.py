@@ -43,10 +43,7 @@ class ROBOT:
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
 
-                # We want current neuronName. Not all neuronNames. Is something wrong here?
-                print('neuronName=', neuronName) 
-                print('jointName =', jointName)
-                print('desiredAngle=', desiredAngle)
+
 
     def Save_Values(self):
         for key in self.motors:
