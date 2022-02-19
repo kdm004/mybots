@@ -38,7 +38,8 @@ class NEURAL_NETWORK:
     def Get_Neuron_Names(self):
         return self.neurons
 
-
+    def Is_Motor_Neuron(self, neuronName):
+        return self.neurons[neuronName].Is_Motor_Neuron()
 
 # ---------------- Private methods --------------------------------------
 
