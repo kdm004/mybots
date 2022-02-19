@@ -40,7 +40,7 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                print(neuronName) # We want current neuronName. Not all neuronNames
+                print('neuronName=', neuronName, 'jointName=', jointName) # We want current neuronName. Not all neuronNames
 
 
     def Save_Values(self):
