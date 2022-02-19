@@ -39,6 +39,7 @@ class ROBOT:
     def Act(self, neuronName): # took out t from Act()
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 print(neuronName) # We want current neuronName. Not all neuronNames
 
 
