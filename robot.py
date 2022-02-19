@@ -36,11 +36,11 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
     
-    def Act(self): # took out t from Act()
+    def Act(self, neuronName): # took out t from Act()
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
-                #having trouble with printing current neuron name print(neuronName)
-                
+                print(neuronName) # We want current neuronName. Not all neuronNames
+
 
     def Save_Values(self):
         for key in self.motors:
