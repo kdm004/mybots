@@ -28,8 +28,8 @@ class NEURAL_NETWORK:
 
         print("")
     
-    def Update(self, neuronName): # created by kevin motia
-        for key in self.neurons:
+    def Update(self): # created by kevin motia
+        for neuronName in self.neurons:
             if self.neurons[neuronName].Is_Sensor_Neuron():
                 self.neurons[neuronName].Update_Sensor_Neuron()
 
