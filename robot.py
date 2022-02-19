@@ -40,8 +40,12 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                print('neuronName=', neuronName, 'jointName=', jointName) # We want current neuronName. Not all neuronNames
-
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+               
+                # We want current neuronName. Not all neuronNames. Is something wrong here?
+                print('neuronName=', neuronName) 
+                print('jointName =', jointName)
+                print('desiredAngle=', desiredAngle)
 
     def Save_Values(self):
         for key in self.motors:
