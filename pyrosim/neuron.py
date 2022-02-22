@@ -71,15 +71,12 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self,neurons,synapses):
         self.Set_Value(0) # step 77 neurons... setting value from 0 to math.pi/4.0
-        for synapseKey in synapses:
-            if synapseKey[1] == self.GetName(): 
-                pass
-
-    def Allow_Presynaptic_Neuron_To_Influence_Me():
-        pass
-
-
-
+        for key in synapses:
+            if key[1] == self.Get_Name(): 
+                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[1]].Get_Value())
+            print(self.Get_Value())
+    def Allow_Presynaptic_Neuron_To_Influence_Me(self,currentWeight,presynapticNeuron):
+        print('currentWeight=',currentWeight, 'presynapticNeuron=',presynapticNeuron)
 # -------------------------- Private methods -------------------------
 
     def Determine_Name(self,line):
