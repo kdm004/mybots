@@ -70,11 +70,14 @@ class NEURON:
         self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
 
     def Update_Hidden_Or_Motor_Neuron(self,neurons,synapses):
-        self.Set_Value(0) # step 77 neurons... setting value from 0 to math.pi/4.0
+        self.Set_Value(0.0) # step 77 neurons... setting value from 0 to math.pi/4.0
+        print('before update neuron value=',self.Get_Value())
         for key in synapses:
             if key[1] == self.Get_Name(): 
-                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[1]].Get_Value())
-            print(self.Get_Value())
+                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[0]].Get_Value())
+                #return neurons[key[1]].Get_Value() #added this to try to fix all 0s. This is the current task we're working on!!!!
+        print('updated neuron value=',self.Get_Value())
+        exit()
 
     def Allow_Presynaptic_Neuron_To_Influence_Me(self,currentWeight,presynapticNeuron):
         self.Add_To_Value(currentWeight * presynapticNeuron)
