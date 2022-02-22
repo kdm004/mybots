@@ -71,6 +71,14 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self,neurons,synapses):
         self.Set_Value(0) # step 77 neurons... setting value from 0 to math.pi/4.0
+        
+        for synapseKey in synapses:
+            print('synapseKey=',synapseKey)
+        for neuronKey in neurons:
+            print('neuronKey=',neuronKey)
+        exit()
+
+
 
 # -------------------------- Private methods -------------------------
 
