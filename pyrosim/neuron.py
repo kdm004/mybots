@@ -75,8 +75,9 @@ class NEURON:
             if key[1] == self.Get_Name(): 
                 self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[1]].Get_Value())
             print(self.Get_Value())
+
     def Allow_Presynaptic_Neuron_To_Influence_Me(self,currentWeight,presynapticNeuron):
-        print('currentWeight=',currentWeight, 'presynapticNeuron=',presynapticNeuron)
+        self.Add_To_Value(currentWeight * presynapticNeuron)
 # -------------------------- Private methods -------------------------
 
     def Determine_Name(self,line):
