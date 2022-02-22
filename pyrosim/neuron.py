@@ -75,7 +75,8 @@ class NEURON:
         for key in synapses:
             if key[1] == self.Get_Name(): 
                 self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[0]].Get_Value())
-                #return neurons[key[1]].Get_Value() #added this to try to fix all 0s. This is the current task we're working on!!!!
+        self.Threshold() #step 38 synapses
+
         print('updated neuron value=',self.Get_Value())
         exit()
 
