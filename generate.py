@@ -1,4 +1,5 @@
 import pyrosim.pyrosim as pyrosim
+import random
 #-------------------------------------------------------------
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
@@ -35,15 +36,19 @@ def Generate_Brain():
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
-        for i in range(2):
+        
+        for j in range(3):
             pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
             pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
 
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = -1.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = -1.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = -1.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = -1.0 )
+            pyrosim.Send_Synapse( sourceNeuronName = i , targetNeuronName = j , weight = 1.0 ) #step 7 randomsearch
 
+
+
+    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = random.random(0,1) )
+    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = random.random(0,1) )
+    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = random.random(0,1) )
+    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = random.random(0,1) )
 
     pyrosim.End()
 #-------------------------------------------------------------
