@@ -45,10 +45,10 @@ def Generate_Brain():
 
 
 
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = random.random(0,1) )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = random.random(0,1) )
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = random.random(0,1) )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = random.random(0,1) )
+    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = random.random() )
+    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = random.random() )
+    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = random.random() )
+    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = random.random() )
 
     pyrosim.End()
 #-------------------------------------------------------------
