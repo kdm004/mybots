@@ -1,9 +1,9 @@
 from solution import SOLUTION
 #------------------------------------
-class HILL_CLIMBER():
+class HILL_CLIMBER:
     def __init__(self):
-        self.parent = SOLUTION
-        pass
+        self.parent = SOLUTION()
+        
 
 
 
