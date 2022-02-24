@@ -5,6 +5,7 @@ import copy
 class HILL_CLIMBER:
     def __init__(self):
         self.parent = SOLUTION()
+        self.child = SOLUTION()
 
     def Evolve(self):
         self.parent.Evaluate()
@@ -17,13 +18,14 @@ class HILL_CLIMBER:
         self.child.Evaluate()
         self.Select()
 
-def Spawn(self):
-    self.child = copy.deepcopy(self.parent)
+    def Spawn(self):
+        self.child = copy.deepcopy(self.parent)
 
-def Mutate():
-    pass
-def Select():
-    pass
+    def Mutate(self):
+        self.child.Mutate()
+
+    def Select():
+     pass
 
 
         
