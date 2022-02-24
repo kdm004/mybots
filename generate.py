@@ -64,6 +64,7 @@ def Generate_Brain():
     for i in range(3):
 
         for j in range(2):
+            # wasn't working because targetNeuronName = j needed to be changed to targetNeuronName = j+3 to be sent to correct motor neuron name
             pyrosim.Send_Synapse( sourceNeuronName = i , targetNeuronName = j+3 , weight = random.uniform(-1.0,1.0) ) #step 7 randomsearch
 
 
