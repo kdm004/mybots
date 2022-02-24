@@ -1,6 +1,7 @@
 import numpy
 import pyrosim.pyrosim as pyrosim
 import os
+import random
 #--------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
@@ -71,3 +72,8 @@ class SOLUTION:
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn+3 , weight = self.weights[currentRow][currentColumn] ) #step 7 randomsearch
 
         pyrosim.End()
+
+    def Mutate(self):
+        randomRow = random.randint(0,2) #(0,2) represents 0th, 1st, and 2nd rows
+        randomColumn = random.randint(0,1) #(0,1) represents 0th and 1st column
+        self.weights[randomRow, randomColumn] = random.random() * 2 - 1
