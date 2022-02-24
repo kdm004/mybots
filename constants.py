@@ -2,7 +2,7 @@ import numpy as numpy
 #------------------------------------------
 
 
-loopLength = 100 #change back to 1000
+loopLength = 1000 #change back to 1000
 
 amplitude = numpy.pi/4
 frequency = 10

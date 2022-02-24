@@ -55,4 +55,5 @@ class ROBOT:
         self.nn.Update()
         self.nn.Print()
 
-    
+    def Get_Fitness(self):
+        pass
