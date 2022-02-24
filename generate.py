@@ -1,6 +1,31 @@
 import pyrosim.pyrosim as pyrosim
 import random
 #-------------------------------------------------------------
+#Cube size (length, width, height) and position (x,y,z)
+length = 1
+width = 1
+height = 1
+
+#we want the world block to be at (-3, 3, .5)
+# Torso_FrontLeg joint has no upstream joint because we want Torso to be the parent link again. So we use abs coords for Torso_FrontLeg.
+x = -3
+y = 3
+z = .5
+
+x0 = 1.5
+y0 = 0
+z0 = 1.5
+
+x1 = -.5
+y1 = 0
+z1 = -.5
+
+x2 = .5
+y2 = 0
+z2 = -.5
+#-------------------------------------------------------------
+
+
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
     pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
@@ -39,10 +64,11 @@ def Generate_Brain():
     for i in range(3):
 
         for j in range(2):
-            pyrosim.Send_Synapse( sourceNeuronName = i , targetNeuronName = j , weight = random.uniform(-1.0,1.0) ) #step 7 randomsearch
+            pyrosim.Send_Synapse( sourceNeuronName = i , targetNeuronName = j+3 , weight = random.uniform(-1.0,1.0) ) #step 7 randomsearch
 
 
-
+# these are what makes the robot move in simulation when running generate.py then simulate.py. Otherwise, 
+# The robot is generated but doesn't move
     #pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = random.uniform(-1.0,1.0) )
     #pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = random.uniform(-1.0,1.0) )
     #pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = random.uniform(-1.0,1.0) )
@@ -50,32 +76,10 @@ def Generate_Brain():
 
     pyrosim.End()
 #-------------------------------------------------------------
-#Cube size (length, width, height) and position (x,y,z)
-length = 1
-width = 1
-height = 1
 
-#we want the world block to be at (-3, 3, .5)
-# Torso_FrontLeg joint has no upstream joint because we want Torso to be the parent link again. So we use abs coords for Torso_FrontLeg.
-x = -3
-y = 3
-z = .5
-
-x0 = 1.5
-y0 = 0
-z0 = 1.5
-
-x1 = -.5
-y1 = 0
-z1 = -.5
-
-x2 = .5
-y2 = 0
-z2 = -.5
-#-------------------------------------------------------------
 
 Create_World()
-Create_Robot() # this one is commented out. Only has pass in it.
+#Create_Robot() # this one is commented out. Only has pass in it.
 
 Generate_Body() 
 Generate_Brain()

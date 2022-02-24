@@ -32,6 +32,10 @@ class SOLUTION:
         self.weights = self.weights * 2 - 1
 
     def Evaluate(self):
+        self.Create_World()
+        self.Generate_Body()
+        self.Generate_Brain()
+
         os.system("python3 simulate.py")
 
     def Create_World(self):
