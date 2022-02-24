@@ -15,6 +15,8 @@ sleepRate = 1/260
 
 gravityConstant = -9.8 * 2.5 # delete * 2.5
 
+numberOfGenerations = 2
+
 
 
 
