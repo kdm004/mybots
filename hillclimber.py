@@ -8,7 +8,7 @@ class HILL_CLIMBER:
         self.child = SOLUTION()
 
     def Evolve(self): # how to edit this to just show parent???
-        self.parent.Evaluate("DIRECT")
+        self.parent.Evaluate("GUI")
         for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
             self.Evolve_For_One_Generation()
 

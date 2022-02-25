@@ -8,8 +8,8 @@ import pybullet_data
 
 class SIMULATION:
     def __init__(self,mode):
-        self.directOrGUI = mode # step 86 hillclimber
-        if mode == 'DIRECT':
+        self.directOrGUI = mode # step 86 hillclimber ... # make sure the if else statements are correct
+        if mode == "DIRECT":
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
@@ -34,12 +34,14 @@ class SIMULATION:
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
 
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
+
     def __del__(self):
         #self.robot.Save_Values()
         p.disconnect()
 
-    def Get_Fitness(self):
-        self.robot.Get_Fitness()
+ 
     
 
 
