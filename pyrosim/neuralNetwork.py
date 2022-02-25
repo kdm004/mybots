@@ -19,14 +19,14 @@ class NEURAL_NETWORK:
         f.close()
 
     def Print(self):
+        pass                                  # commented this stuff out and placed a pass statement here for step 74 hillclimber
+        #self.Print_Sensor_Neuron_Values()
 
-        self.Print_Sensor_Neuron_Values()
+        #self.Print_Hidden_Neuron_Values()
 
-        self.Print_Hidden_Neuron_Values()
+        #self.Print_Motor_Neuron_Values()
 
-        self.Print_Motor_Neuron_Values()
-
-        print("")
+        #print("")
     
     def Update(self): # created by kevin motia
         for neuronName in self.neurons:
@@ -86,8 +86,8 @@ class NEURAL_NETWORK:
         return "synapse" in line
 
     def Print_Sensor_Neuron_Values(self):
-
-        print("sensor neuron values: " , end = "" )
+        
+        print("sensor neuron values: " , end = "" )        #commented this out for step 74 hillclimber
 
         for neuronName in sorted(self.neurons):
 
@@ -98,8 +98,8 @@ class NEURAL_NETWORK:
         print("")
 
     def Print_Hidden_Neuron_Values(self):
-
-        print("hidden neuron values: " , end = "" )
+        
+        print("hidden neuron values: " , end = "" )       #commented this out for step 74 hillclimber
 
         for neuronName in sorted(self.neurons):
 
@@ -110,8 +110,8 @@ class NEURAL_NETWORK:
         print("")
 
     def Print_Motor_Neuron_Values(self):
-
-        print("motor neuron values: " , end = "" )
+        
+        print("motor neuron values: " , end = "" )        #commented this out for step 74 hillclimber
 
         for neuronName in sorted(self.neurons):
 

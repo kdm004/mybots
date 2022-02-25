@@ -8,7 +8,7 @@ import pybullet_data
 
 class SIMULATION:
     def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+        self.physicsClient = p.connect(p.DIRECT)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
         self.world = WORLD()
@@ -23,7 +23,7 @@ class SIMULATION:
 
 
             time.sleep(c.sleepRate)
-            print('For loop variable is',i)
+            #print('For loop variable is',i)   # commented this out for step 74 hillclimber
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
 
