@@ -53,12 +53,12 @@ class NEURON:
         return self.type == c.MOTOR_NEURON
 
     def Print(self):
-
+        pass               #step 74 hillclimber
         # self.Print_Name()
 
         # self.Print_Type()
 
-        self.Print_Value()
+        #self.Print_Value() #commented this out for step 74 hillclimber
 
         # print("")
 
@@ -114,7 +114,7 @@ class NEURON:
 
     def Print_Value(self):
 
-       print(self.value , " " , end="" )
+       print(self.value , " " , end="" )  #commented this out for step 74 hillclimber
 
     def Search_For_Joint_Name(self,line):
 
