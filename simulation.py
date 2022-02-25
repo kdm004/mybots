@@ -7,9 +7,9 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI):
-
-        if directOrGUI == 'DIRECT':
+    def __init__(self,mode):
+        self.directOrGUI = mode # step 86 hillclimber
+        if mode == 'DIRECT':
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
