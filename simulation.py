@@ -7,8 +7,15 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = p.connect(p.DIRECT)
+    def __init__(self,directOrGUI):
+
+        if directOrGUI == 'DIRECT':
+            p.connect(p.DIRECT)
+        else:
+            p.connect(p.GUI)
+
+
+        #self.physicsClient = p.connect(p.DIRECT)   # should this be directorGUI? Maybe delete this line completely?
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
         self.world = WORLD()
