@@ -4,8 +4,7 @@ import copy
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-        pass
-        #self.parent = SOLUTION()
+        self.parents = {}
         #self.child = SOLUTION()
 
     def Evolve(self): # how to edit this to just show parent???
