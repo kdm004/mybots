@@ -2,6 +2,7 @@ import numpy
 import pyrosim.pyrosim as pyrosim
 import os
 import random
+import time
 #--------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
@@ -28,18 +29,15 @@ z2 = -.5
 #--------------------------------------------
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableID):
+        self.myID = nextAvailableID
+        
         self.weights = numpy.random.rand(3,2)
         self.weights = self.weights * 2 - 1
 
     def Evaluate(self,directOrGUI):
-        self.Create_World()
-        self.Generate_Body()
-        self.Generate_Brain()
-        os.system("python3 simulate.py " + directOrGUI) # changed from "DIRECT" to directOrGUI
-        fitnessFile = open("fitness.txt","r")
-        self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
-        fitnessFile.close()
+        pass
+
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -58,7 +56,8 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Brain(self): 
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf") #changed from brain.nndf
 
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
@@ -77,3 +76,29 @@ class SOLUTION:
         randomRow = random.randint(0,2) #(0,2) represents 0th, 1st, and 2nd rows
         randomColumn = random.randint(0,1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+
+    def Set_ID(self):
+        self.myID
+
+    def Start_Simulation(self, directOrGUI):
+        self.Create_World()
+        self.Generate_Body()
+        self.Generate_Brain()
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI
+
+    def Wait_For_Simulation_To_End(self):
+        while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
+            time.sleep(0.01)
+
+        fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
+        self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
+        #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
+        fitnessFile.close()
+        os.system("rm fitness"+ str(self.myID) + ".txt")
+        time.sleep(.1)
+
+
+
+       
+        while os.path.exists("rm fitness"+ str(self.myID) + ".txt"):
+            time.sleep(.01)
