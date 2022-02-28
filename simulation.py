@@ -7,9 +7,9 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,mode):
-        self.directOrGUI = mode # step 86 hillclimber ... # make sure the if else statements are correct
-        if mode == "DIRECT":
+    def __init__(self,directOrGUI):
+        self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
+        if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
@@ -28,8 +28,8 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(i)   
 
-
-            time.sleep(c.sleepRate)
+            if self.directOrGUI == "GUI":
+                time.sleep(c.sleepRate)
             #print('For loop variable is',i)   # commented this out for step 74 hillclimber
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
