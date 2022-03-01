@@ -31,6 +31,7 @@ z2 = -.5
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
+        
         self.weights = numpy.random.rand(3,2)
         self.weights = self.weights * 2 - 1
 
@@ -91,6 +92,6 @@ class SOLUTION:
 
         fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
         self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
-        print("fitness"+str(self.myID)+"=", self.fitness)
+        #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
         fitnessFile.close()
         os.system("rm fitness"+ str(self.myID) + ".txt")
