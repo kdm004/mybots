@@ -7,8 +7,8 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
-        for i in range(c.populationSize):
-            self.parents[i] = SOLUTION(self.nextAvailableID)
+        for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
+            self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): # how to edit this to just show parent???
@@ -25,14 +25,13 @@ class PARALLEL_HILL_CLIMBER:
         self.Select()
 
     def Spawn(self):
-        self.child = copy.deepcopy(self.parent)
-
-    def Set_ID(self):
-        self.child = {}
-        self.nextAvailableID = 0
-        for i in range(c.populationSize):
-            self.child[i] = SOLUTION(self.nextAvailableID)
+        #self.child = copy.deepcopy(self.parent)
+        self.children = copy.deepcopy(self.parents)
+        for i in range(len(self.parents)):
+            self.children[i].Set_ID()
             self.nextAvailableID = self.nextAvailableID + 1
+
+ 
 
 
     def Mutate(self):
