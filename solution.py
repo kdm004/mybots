@@ -93,4 +93,4 @@ class SOLUTION:
         self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
         print("fitness"+str(self.myID)+"=", self.fitness)
         fitnessFile.close()
-        os.system("rm" + " " + "fitness"+ str(self.myID) + ".txt")
+        os.system("rm fitness"+ str(self.myID) + ".txt")
