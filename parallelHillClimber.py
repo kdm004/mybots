@@ -5,6 +5,7 @@ import copy
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         self.parents = {}
+        self.children = {}
         self.nextAvailableID = 0
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
         for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
@@ -26,13 +27,12 @@ class PARALLEL_HILL_CLIMBER:
 
     def Spawn(self):
         #self.child = copy.deepcopy(self.parent)
-        self.children = copy.deepcopy(self.parents)
         for i in range(len(self.parents)):
             self.children[i].Set_ID()
+            self.children = copy.deepcopy(self.parents)
             self.nextAvailableID = self.nextAvailableID + 1
 
  
-
 
     def Mutate(self):
         self.child.Mutate()
