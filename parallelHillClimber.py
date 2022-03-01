@@ -12,9 +12,9 @@ class PARALLEL_HILL_CLIMBER:
             self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 
-    def Evolve(self): # how to edit this to just show parent???
+    def Evolve(self): 
         for i in range(len(self.parents)):
-            self.parents[i].Start_Simulation("GUI")
+            self.parents[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
         for i in range(len(self.parents)):
             self.parents[i].Wait_For_Simulation_To_End()
         #for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
