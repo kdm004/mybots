@@ -11,7 +11,7 @@ legMaxForce = 120 # change back to 20
 
 targetAngles = numpy.linspace(-numpy.pi,numpy.pi, loopLength)
 
-sleepRate = 1/260
+sleepRate = 1/10000 #changed from 1/260
 
 gravityConstant = -9.8 * 2.5 # delete * 2.5
 

@@ -8,11 +8,10 @@ class PARALLEL_HILL_CLIMBER:
         #self.child = SOLUTION()
         for i in range(c.populationSize):
             self.parents[i] = SOLUTION()
-        print(self.parents)
 
     def Evolve(self): # how to edit this to just show parent???
-        pass
-        #self.parent.Evaluate("GUI")
+        for i in range(len(self.parents)):
+            self.parents[i].Evaluate("GUI")
         #for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
             #self.Evolve_For_One_Generation()
 
