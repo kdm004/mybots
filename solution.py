@@ -28,7 +28,8 @@ z2 = -.5
 #--------------------------------------------
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, nextAvailableID):
+        self.myID = nextAvailableID
         self.weights = numpy.random.rand(3,2)
         self.weights = self.weights * 2 - 1
 
@@ -77,3 +78,6 @@ class SOLUTION:
         randomRow = random.randint(0,2) #(0,2) represents 0th, 1st, and 2nd rows
         randomColumn = random.randint(0,1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+
+    def Set_ID(self):
+        self.myID
