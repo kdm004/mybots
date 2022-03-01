@@ -14,7 +14,9 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self): # how to edit this to just show parent???
         for i in range(len(self.parents)):
-            self.parents[i].Evaluate("GUI")
+            self.parents[i].Start_Simulation("GUI")
+        for i in range(len(self.parents)):
+            self.parents[i].Wait_For_Simulation_To_End()
         #for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
             #self.Evolve_For_One_Generation()
 
