@@ -5,10 +5,11 @@ from motor import MOTOR
 import constants as c
 import numpy as numpy
 from pyrosim.neuralNetwork import NEURAL_NETWORK
+import os
 
 
 class ROBOT:
-    def __init__(self):
+    def __init__(self,solutionID):
         self.robot = p.loadURDF("body.urdf") #changed from robotId to robot
         pyrosim.Prepare_To_Simulate(self.robot) #changed from robotId to robot
         self.sensors = {}
@@ -16,7 +17,9 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf")
+        os.system("rm" + "brain" + str(solutionID) + ".nndf")
+
 
 
 
