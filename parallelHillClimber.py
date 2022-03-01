@@ -8,6 +8,7 @@ class PARALLEL_HILL_CLIMBER:
         #self.child = SOLUTION()
         for i in range(c.populationSize):
             self.parents[i] = SOLUTION()
+        print(self.parents)
 
     def Evolve(self): # how to edit this to just show parent???
         pass
