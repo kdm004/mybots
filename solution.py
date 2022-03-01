@@ -38,8 +38,9 @@ class SOLUTION:
         self.Generate_Body()
         self.Generate_Brain()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI
-        fitnessFile = open("fitness.txt","r")
+        fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
         self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
+        print(self.fitness)
         fitnessFile.close()
 
     def Create_World(self):
