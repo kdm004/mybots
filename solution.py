@@ -93,3 +93,4 @@ class SOLUTION:
         self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
         print(self.fitness)
         fitnessFile.close()
+        os.system("rm" + " " + "fitness"+ str(self.myID) + ".txt")
