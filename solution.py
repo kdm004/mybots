@@ -2,6 +2,7 @@ import numpy
 import pyrosim.pyrosim as pyrosim
 import os
 import random
+import time
 #--------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
@@ -38,6 +39,10 @@ class SOLUTION:
         self.Generate_Body()
         self.Generate_Brain()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI
+
+        while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
+            time.sleep(0.01)
+
         fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
         self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
         print(self.fitness)
