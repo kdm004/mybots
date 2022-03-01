@@ -91,6 +91,6 @@ class SOLUTION:
 
         fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
         self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
-        print(self.fitness)
+        print("fitness"+str(self.myID)+"=", self.fitness)
         fitnessFile.close()
         os.system("rm" + " " + "fitness"+ str(self.myID) + ".txt")
