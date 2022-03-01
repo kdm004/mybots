@@ -5,9 +5,11 @@ import copy
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         self.parents = {}
-        #self.child = SOLUTION()
+        self.nextAvailableID = 0
+        #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
         for i in range(c.populationSize):
-            self.parents[i] = SOLUTION()
+            self.parents[i] = SOLUTION(self.nextAvailableID)
+            self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): # how to edit this to just show parent???
         for i in range(len(self.parents)):
