@@ -9,7 +9,6 @@ class PARALLEL_HILL_CLIMBER:
         os.system("rm brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
-        self.children = {}
         self.nextAvailableID = 0
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
         for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
@@ -26,23 +25,25 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        #self.Mutate()
+        self.Mutate()
         #self.child.Evaluate("DIRECT")
         #self.Print()
         #self.Select()
 
     def Spawn(self):
         self.children = {}
+        #self.parents = {}
         #self.child = copy.deepcopy(self.parent)
-        for i in range(len(self.parents)):
-            self.children[i].Set_ID()
+        for i in range (len(self.parents)): #changed from i in range (len(self.parents))
+            #self.children[i].Set_ID()
             self.children[i] = copy.deepcopy(self.parents[i])
             self.nextAvailableID = self.nextAvailableID + 1
+            
 
- 
 
     def Mutate(self):
-        self.child.Mutate()
+        for i in range(len(self.children)): # len(self.children) iterates through empty keys too
+            self.children[i].Mutate()
 
     def Print(self):
         print('parent fitness =',self.parent.fitness, 'child fitness=',self.child.fitness)
