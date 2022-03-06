@@ -17,7 +17,6 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self): 
         self.Evaluate(self.parents)
-        exit()
         for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
             self.Evolve_For_One_Generation()
 
@@ -55,6 +54,6 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
-            solutions[i].Start_Simulation("GUI") #step 69 parallelHC -- GUI -> DIRECT
+            solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
         for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()
