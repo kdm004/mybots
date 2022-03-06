@@ -43,8 +43,10 @@ class PARALLEL_HILL_CLIMBER:
             self.children[i].Mutate()
 
     def Print(self): # modified according to step 108
+        print('\n')
         for key in range(len(self.parents)):
             print('parents fitness =',self.parents[key].fitness, 'children fitness=',self.children[key].fitness)
+        print('\n')
 
     def Select(self):
         if self.parent.fitness > self.child.fitness:
