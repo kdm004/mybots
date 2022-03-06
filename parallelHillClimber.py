@@ -24,7 +24,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        #self.Print()
+        self.Print() # uncommented call to parallelHC print method ... step 107 parallelHC
         #self.Select()
 
     def Spawn(self):
@@ -42,8 +42,9 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(len(self.children)): # len(self.children) iterates through empty keys too
             self.children[i].Mutate()
 
-    def Print(self):
-        print('parent fitness =',self.parent.fitness, 'child fitness=',self.child.fitness)
+    def Print(self): # modified according to step 108
+        for key in range(len(self.parents)):
+            print('parents fitness =',self.parents[key].fitness, 'children fitness=',self.children[key].fitness)
 
     def Select(self):
         if self.parent.fitness > self.child.fitness:
