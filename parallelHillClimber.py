@@ -16,14 +16,15 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
-        self.parents.Evaluate("GUI")
+        self.Evaluate(self.parents)
+        exit()
         for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
             self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        #self.child.Evaluate("GUI")
+        self.Evaluate(self.children)
         #self.Print()
         #self.Select()
 
@@ -51,11 +52,9 @@ class PARALLEL_HILL_CLIMBER:
         
     def Show_Best(self):
         pass
-        #self.parent.Evaluate("GUI") #why isn't this showing?
 
     def Evaluate(self, solutions):
-
-        for i in range(len(self.solutions)):
-            self.solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
-        for i in range(len(self.solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
-            self.solutions[i].Wait_For_Simulation_To_End()
+        for i in range(len(solutions)):
+            solutions[i].Start_Simulation("GUI") #step 69 parallelHC -- GUI -> DIRECT
+        for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
+            solutions[i].Wait_For_Simulation_To_End()
