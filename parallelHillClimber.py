@@ -16,7 +16,7 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
-        
+        self.parents.Evaluate("GUI")
         for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
             self.Evolve_For_One_Generation()
 
