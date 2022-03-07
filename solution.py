@@ -95,3 +95,10 @@ class SOLUTION:
         #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
         fitnessFile.close()
         os.system("rm fitness"+ str(self.myID) + ".txt")
+        time.sleep(.1)
+
+
+
+       
+        while os.path.exists("rm fitness"+ str(self.myID) + ".txt"):
+            time.sleep(.01)
