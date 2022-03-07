@@ -17,7 +17,7 @@ gravityConstant = -9.8 * 2.5 # delete * 2.5
 
 numberOfGenerations = 10 #initially was 2, changed to 10 for step 75 hillclimber
 
-populationSize = 2 # set to 2
+populationSize = 10 # set to 2
 
 
 
