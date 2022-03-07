@@ -3,6 +3,7 @@ import pyrosim.pyrosim as pyrosim
 import os
 import random
 import time
+import constants as c
 #--------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
@@ -32,7 +33,7 @@ class SOLUTION:
     def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
         
-        self.weights = numpy.random.rand(3,2)
+        self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
 
     def Evaluate(self,directOrGUI):
@@ -65,16 +66,16 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
         pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
    
-        for currentRow in range(3):
+        for currentRow in range(c.numSensorNeurons):
  
-            for currentColumn in range(2):
-                pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn+3 , weight = self.weights[currentRow][currentColumn] ) #step 7 randomsearch
+            for currentColumn in range(c.numMotorNeurons):
+                pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn+c.numSensorNeurons , weight = self.weights[currentRow][currentColumn] ) #step 7 randomsearch
 
         pyrosim.End()
 
     def Mutate(self):
-        randomRow = random.randint(0,2) #(0,2) represents 0th, 1st, and 2nd rows
-        randomColumn = random.randint(0,1) #(0,1) represents 0th and 1st column
+        randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
+        randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
 
     def Set_ID(self):
@@ -84,7 +85,7 @@ class SOLUTION:
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
