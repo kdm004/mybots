@@ -22,14 +22,22 @@ y0 = 0 #y0 = 0
 z0 = 1 #z0 = 1.5
 
 #BackLeg Position
-x1 = -.5
-y1 = 0
-z1 = -.5
+x1 = 0
+y1 = -.5
+z1 = 0
+#BackLeg Size (Dimensions)
+l1 = .2
+w1 = 1
+h1 = .2
 
 #FrontLeg Position
 x2 = 0
 y2 = .5
 z2 = 0
+#FrontLeg Size (Dimensions)
+l2 = .2
+w2 = 1
+h2 = .2
 #--------------------------------------------
 
 class SOLUTION:
@@ -51,11 +59,11 @@ class SOLUTION:
     def Generate_Body(self): 
         pyrosim.Start_URDF("body.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
-        pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[length,width,height])
+        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0,-.5,1])
+        pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[l1,w1,h1])
 
         pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0,.5,1])
-        pyrosim.Send_Cube(name="FrontLeg", pos=[x2,y2,z2] , size=[length,width,height])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[x2,y2,z2] , size=[l2,w2,h2])
 
         pyrosim.End()
 
