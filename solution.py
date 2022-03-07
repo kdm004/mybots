@@ -16,14 +16,17 @@ x = -3
 y = 3
 z = .5
 
-x0 = 1.5
-y0 = 0
-z0 = 1.5
+#Torso position
+x0 = 0 #x0 = 1.5 
+y0 = 0 #y0 = 0
+z0 = 1 #z0 = 1.5
 
+#BackLeg Position
 x1 = -.5
 y1 = 0
 z1 = -.5
 
+#FrontLeg Position
 x2 = .5
 y2 = 0
 z2 = -.5
