@@ -5,7 +5,6 @@ import os
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-
         os.system("rm brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
