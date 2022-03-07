@@ -1,24 +1,24 @@
-import numpy as numpy
-#------------------------------------------
+import numpy as np
 
+# Simulation Parameters
+gravityConstant = -9.8 * 2.5 
+loopLength = 1000 # was evolved for 5000
+sleepRate = 1/5000 
 
-loopLength = 1000 #change back to 1000
-
-amplitude = numpy.pi/4
+# Robot Parameters
+amplitude = np.pi /4
+phaseOffset = np.pi/2
 frequency = 10
-phaseOffset = numpy.pi/2
-legMaxForce = 120 # change back to 20
+legMaxForce = 120 
+motorJointRange = 0.8 
+numSensorNeurons = 4 
+numMotorNeurons = 8
 
-targetAngles = numpy.linspace(-numpy.pi,numpy.pi, loopLength)
-
-sleepRate = 1/5000 #changed from 1/260
-
-gravityConstant = -9.8 * 2.5 # delete * 2.5
-
-numberOfGenerations = 10 #initially was 2, changed to 10 for step 75 hillclimber
-
-populationSize = 10 # set to 2
+# Evolution Parameters
+numberOfGenerations = 3 # change to 10 to complete quadruped #5 for manyBotsV2
+populationSize = 4 # change to 10 to complete quadruped #5 for manyBotsV2
 
 
 
 
+ 
