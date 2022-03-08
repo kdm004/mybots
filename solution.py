@@ -75,15 +75,17 @@ class SOLUTION:
         pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0,-0.5,1], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[l1,w1,h1])
 
-        #Frong Leg
+        #Front Leg
         pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0,0.5,1], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="FrontLeg", pos=[x2,y2,z2] , size=[l2,w2,h2])
 
         #Left Leg
-        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5,0,1], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5,0,1], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="LeftLeg", pos=[x3,y3,z3] , size=[l3,w3,h3])        
 
-
+        #Right Leg
+        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5,0,1], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="RightLeg", pos=[x3,y3,z3] , size=[l3,w3,h3])   
 
 
         pyrosim.End()
@@ -96,11 +98,18 @@ class SOLUTION:
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
-        pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
+        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
+
+
+
+
+
+        pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_BackLeg")
+        pyrosim.Send_Motor_Neuron( name = 5 , jointName = "Torso_FrontLeg")
+        pyrosim.Send_Motor_Neuron( name = 6 , jointName = "Torso_LeftLeg")
+
    
         for currentRow in range(c.numSensorNeurons):
- 
             for currentColumn in range(c.numMotorNeurons):
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn+c.numSensorNeurons , weight = self.weights[currentRow][currentColumn] ) #step 7 randomsearch
 
