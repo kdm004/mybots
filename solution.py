@@ -71,6 +71,7 @@ class SOLUTION:
         #Torso
         pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
         
+#Extremities
         #Back Leg
         pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0,-0.5,1], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[l1,w1,h1])
@@ -86,6 +87,13 @@ class SOLUTION:
         #Right Leg
         pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5,0,1], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="RightLeg", pos=[x3,y3,z3] , size=[l3,w3,h3])   
+
+#Lower Extremities
+        #Back Lower Leg
+        pyrosim.Send_Joint( name = "BackLeg_BackLowerLeg" , parent= "BackLeg" , child = "BackLowerLeg" , type = "revolute", position = [0,- 1, 0], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="BackLeg", pos=[0, 0, -0.5] , size=[0.2, 0.2, 1])
+
+
 
 
         pyrosim.End()
