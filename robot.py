@@ -46,6 +46,9 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange # multiplied by  c.motorJointRange ... finishing quadruped
                 self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
+        
+        # applyExternalForce
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[100,0,0] , posObj=[0,0,1], flags=p.LINK_FRAME)
 
 
 
