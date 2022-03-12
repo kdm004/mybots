@@ -120,7 +120,7 @@ def Send_Link(name,pos,size,objectType):
 
         links.append(link)
     else:
-        link = LINK_URDF(name,pos,size)
+        link = LINK_URDF(name,pos,size, objectType)
 
         links.append(link)
 
