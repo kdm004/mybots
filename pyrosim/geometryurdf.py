@@ -12,23 +12,15 @@ class GEOMETRY_URDF:
 
             sizeString = str(size[0]) + " " + str(size[1]) + " " + str(size[2])
 
-            self.string2 = ' <box>'
+            self.string2 = '    <box size="' + sizeString + '" />'
 
-            self.string3 = ' <size>' + sizeString + '</size>'
-
-            self.string4 = ' </box>'
-
+        
         else:
+            sizeString = str(size[0]) # + " " + str(size[1]) + " " + str(size[2])
 
-            sizeString = str(size[0])
+            self.string2 = '    <sphere radius="' + sizeString + '" />'
 
-            self.string2 = ' <sphere>'
-
-            self.string3 = ' <radius>' + sizeString + '</radius>'
-
-            self.string4 = ' </sphere>'
-
-        self.string5 = '</geometry>'
+        self.string3 = '</geometry>'
 
     def Save(self,f):
 
