@@ -48,7 +48,7 @@ class ROBOT:
                 self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
        
         # applyExternalForce
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[50,0,0] , posObj=[0,.01,-.01], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[100,0,0] , posObj=[0,-.1,-.1], flags=p.LINK_FRAME)
 
 
     def Save_Values(self):
