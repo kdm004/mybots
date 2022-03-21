@@ -6,13 +6,14 @@ import random
 import time
 import constants as c
 #--------------------------------------------
-#Cube size (length, width, height) and position (x,y,z)
+# Cube size (length, width, height) and position (x,y,z)
 length = 1
 width = 1
 height = 1
 
 #we want the world block to be at (-3, 3, .5)
 # Torso_FrontLeg joint has no upstream joint because we want Torso to be the parent link again. So we use abs coords for Torso_FrontLeg.
+# Worldcube dimensions
 x = -3
 y = 3
 z = 0.5
@@ -72,7 +73,7 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Sphere(name="Box", pos=[x,y,z] , size=[length,width,height])
+        pyrosim.Send_Sphere(name="Box", pos=[7, .5, .5] , size=[1,1,1])
 
         pyrosim.End()
 
@@ -80,11 +81,16 @@ class SOLUTION:
         pyrosim.Start_URDF("body.urdf")
         
         #Torso
-        pyrosim.Send_Sphere(name="Torso", pos=[x0,y0,z0] , size=[length, width, height])
+        pyrosim.Send_Sphere(name="Torso", pos=[0,0,2] , size=[.5, .5, .5])
     
         #Right Leg
         pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "fixed", position = [0.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Sphere(name="RightLeg", pos=[x4,y4,z4] , size=[0.8,0.8,0.8])
+        pyrosim.Send_Sphere(name="RightLeg", pos=[0,0,1] , size=[.5,.5,.5])
+
+        pyrosim.Send_Joint( name = "RightLeg_RightLeg2" , parent= "RightLeg" , child = "RightLeg2" , type = "fixed", position = [1.5,0,1], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg2", pos=[-1,0,0] , size=[.5,.5,.5])
+
+
 
 
         pyrosim.End()
