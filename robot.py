@@ -6,7 +6,9 @@ import constants as c
 import numpy as numpy
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import random
 
+a = random.randint(0,20)
 
 class ROBOT:
     def __init__(self,solutionID):
@@ -48,8 +50,9 @@ class ROBOT:
                 self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
        
         # applyExternalForce
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[50,0,0] , posObj=[0,0,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,50,0] , posObj=[0,0,3], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[5,0,0] , posObj=[0,0,0], flags=p.LINK_FRAME)
+        for c.looplength in range(1, 2):
+            p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,5,0] , posObj=[2,0,3], flags=p.LINK_FRAME)
 
 
     def Save_Values(self):
@@ -66,7 +69,8 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robot,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
+        zCoordinateOfLinkZero = positionOfLinkZero[2]
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str( xCoordinateOfLinkZero / zCoordinateOfLinkZero )) # lower z --> larger value
         f.close
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")

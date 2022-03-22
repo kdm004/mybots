@@ -105,9 +105,10 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
-        randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
-        randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
-        self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+        pass
+        #randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
+        #randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
+        #self.weights[randomRow, randomColumn] = random.random() * 2 - 1
 
     def Set_ID(self):
         self.myID
