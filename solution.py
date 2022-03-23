@@ -81,14 +81,14 @@ class SOLUTION:
         pyrosim.Start_URDF("body.urdf")
         
         #Torso
-        pyrosim.Send_Sphere(name="Torso", pos=[0,0,2] , size=[1.5, 1.5, 1.5])
+        pyrosim.Send_Sphere(name="Torso", pos=[0,0,1.5] , size=[1.5, 1.5, 1.5])
     
         #Right Leg
         pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "fixed", position = [0.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Sphere(name="RightLeg", pos=[1,0,1] , size=[1.5,1.5,1.5])
+        pyrosim.Send_Sphere(name="RightLeg", pos=[1,0,.5] , size=[1.5,1.5,1.5])
 
         pyrosim.Send_Joint( name = "RightLeg_RightLeg2" , parent= "RightLeg" , child = "RightLeg2" , type = "fixed", position = [1.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Sphere(name="RightLeg2", pos=[1.2,0,0] , size=[1.5,1.5,1.5])
+        pyrosim.Send_Sphere(name="RightLeg2", pos=[1,0,-.5] , size=[1.5,1.5,1.5])
 
 
 
