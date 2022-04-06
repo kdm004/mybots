@@ -85,12 +85,28 @@ class SOLUTION:
     
         #Right Leg
         pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "fixed", position = [0.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Sphere(name="RightLeg", pos=[1,0,.5] , size=[1.5,1.5,1.5])
+        pyrosim.Send_Sphere(name="RightLeg", pos=[1,0,.5] , size=[1.5])
 
         pyrosim.Send_Joint( name = "RightLeg_RightLeg2" , parent= "RightLeg" , child = "RightLeg2" , type = "fixed", position = [1.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Sphere(name="RightLeg2", pos=[1,0,-.5] , size=[1.5,1.5,1.5])
+        pyrosim.Send_Sphere(name="RightLeg2", pos=[1,0,-.5] , size=[1.5])
+#-----------------
+        pyrosim.Send_Joint( name = "RightLeg2_RightLeg3" , parent= "RightLeg2" , child = "RightLeg3" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg3", pos=[1,0,-.5] , size=[1.5])
+#------------------------
+        pyrosim.Send_Joint( name = "RightLeg3_RightLeg4" , parent= "RightLeg3" , child = "RightLeg4" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg4", pos=[1,0,-.5] , size=[1.5])
 
+        pyrosim.Send_Joint( name = "RightLeg4_RightLeg5" , parent= "RightLeg4" , child = "RightLeg5" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg5", pos=[1,0,-.5] , size=[1.5])
 
+        pyrosim.Send_Joint( name = "RightLeg5_RightLeg6" , parent= "RightLeg5" , child = "RightLeg6" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg6", pos=[1,0,-.5] , size=[1.5])
+
+        pyrosim.Send_Joint( name = "RightLeg6_RightLeg7" , parent= "RightLeg6" , child = "RightLeg7" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg7", pos=[1,0,-.5] , size=[1.5])
+
+        pyrosim.Send_Joint( name = "RightLeg7_RightLeg8" , parent= "RightLeg7" , child = "RightLeg8" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        pyrosim.Send_Sphere(name="RightLeg8", pos=[1,0,-.5] , size=[1.5])
 
 
         pyrosim.End()

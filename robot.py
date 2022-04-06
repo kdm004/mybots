@@ -51,7 +51,30 @@ class ROBOT:
        
         # applyExternalForce
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,0,0] , posObj=[0,0,0], flags=p.LINK_FRAME)
+        
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,2,0] , posObj=[1,0,1], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,2,0] , posObj=[1,1,1], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,2,0] , posObj=[1,2,1], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-2,0] , posObj=[1,0,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-2,0] , posObj=[1,1,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-2,0] , posObj=[1,2,0], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,2] , posObj=[0,-.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,2] , posObj=[1,-.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,2] , posObj=[2,-.5,0], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[0,.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[1,.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[2,.5,0], flags=p.LINK_FRAME)
+
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[0,.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[1,.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[2,.5,0], flags=p.LINK_FRAME)
+
+        
+
 
         #while c.loopLength in range(1, 1000):
         while 10 == c.loopLength:
