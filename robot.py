@@ -50,35 +50,72 @@ class ROBOT:
                 self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
        
         # applyExternalForce
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,0,0] , posObj=[0,0,0], flags=p.LINK_FRAME)
-        
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,2,0] , posObj=[1,0,1], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,2,0] , posObj=[1,1,1], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,2,0] , posObj=[1,2,1], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,0,0] , posObj=[0,0,1.5/2], flags=p.LINK_FRAME) # Rear thruster
 
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-2,0] , posObj=[1,0,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-2,0] , posObj=[1,1,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-2,0] , posObj=[1,2,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 , 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2, 0 ,1.5/2], flags=p.LINK_FRAME)
 
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,2] , posObj=[0,-.5,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,2] , posObj=[1,-.5,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,2] , posObj=[2,-.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 1,0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 1, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 1, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 1, 0 ,1.5/2], flags=p.LINK_FRAME)
+               
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 2, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 2, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 2, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 2, 0 ,1.5/2], flags=p.LINK_FRAME)
+              
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 3, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 3, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 3, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 3, 0 ,1.5], flags=p.LINK_FRAME)
+              
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 4, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 4, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 4, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 4, 0 ,1.5/2], flags=p.LINK_FRAME)
+              
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 5, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 5, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 5, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 5, 0 ,1.5/2], flags=p.LINK_FRAME)
+             
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 6, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 6, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 6, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 6, 0 ,1.5/2], flags=p.LINK_FRAME)
+              
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 7, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 7, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 7, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 7, 0 ,1.5/2], flags=p.LINK_FRAME)
+              
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,-20,0] , posObj=[1.5/2 + 8, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,20,0] , posObj=[1.5/2 + 8, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-20] , posObj=[1.5/2 + 8, 0 ,1.5/2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,20] , posObj=[1.5/2 + 8, 0 , 1.5/2], flags=p.LINK_FRAME)
 
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[0,.5,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[1,.5,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[2,.5,0], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[-10,0,0] , posObj=[1.5/2 + 8,0 , 1.5/2 ], flags=p.LINK_FRAME) # Nose thruster
 
 
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[0,.5,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[1,.5,0], flags=p.LINK_FRAME)
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,0,-2] , posObj=[2,.5,0], flags=p.LINK_FRAME)
+        # Just repeat each sphere with +1 in the x direction.
 
-        
+
+
+
+
+
+
+
 
 
         #while c.loopLength in range(1, 1000):
-        while 10 == c.loopLength:
-            p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,10,0] , posObj=[1,0,1], flags=p.LINK_FRAME)
+        
+        #while 10 == c.loopLength:
+            #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,10,0] , posObj=[1,0,1], flags=p.LINK_FRAME)
+           
             #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[5,0,0] , posObj=[0,0,0], flags=p.LINK_FRAME)
 
 
