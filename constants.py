@@ -1,6 +1,6 @@
 import numpy as numpy
 #------------------------------------------
-gravityConstant = -1  # -9.8
+gravityConstant = 0  # -9.8
 
 loopLength = 100000#change back to 1000
 sleepRate = 1/2500 #changed from 1/260 ... throughout parallelHC it was set to 1/5000
