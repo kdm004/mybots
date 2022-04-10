@@ -51,6 +51,26 @@ class ROBOT:
        
         # applyExternalForce
 
+        #Sphere1
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,1,10] , posObj=[0,0,1], flags=p.LINK_FRAME) # Rear thruster
+
+        #sphere2
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[0,12,13] , posObj=[1 , 0 , 1], flags=p.LINK_FRAME)
+               
+        #sphere3
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[-10,15,8] , posObj=[1 , 0 , 2], flags=p.LINK_FRAME)
+
+        #sphere4
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-1] , posObj=[1 , 0 , 3], flags=p.LINK_FRAME)
+
+        #Sphere5
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-1] , posObj=[1 , 1 , 3], flags=p.LINK_FRAME)
+
+        #Sphere6
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,-11,-7] , posObj=[2 , 0 , 4], flags=p.LINK_FRAME)
+
+   
+
 
 
 
