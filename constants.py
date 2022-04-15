@@ -3,7 +3,7 @@ import numpy as numpy
 gravityConstant = -9.8  # -9.8
 
 loopLength = 100000#change back to 1000
-sleepRate = 1/2500 #changed from 1/260 ... throughout parallelHC it was set to 1/5000
+sleepRate = 1/25000 #changed from 1/260 ... throughout parallelHC it was set to 1/5000
 
 amplitude = numpy.pi /4
 frequency = 10
