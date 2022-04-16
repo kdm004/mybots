@@ -31,10 +31,11 @@ def Create_Robot():
     pyrosim.Send_Joint( name = "RightLeg5_RightLeg6" , parent= "RightLeg5" , child = "RightLeg6" , type = "fixed", position = [0,0,1], jointAxis = "0 1 0")
     pyrosim.Send_Sphere(name="RightLeg6", pos=[0,0,0] , size=[1])
 
-    #pyrosim.Send_Joint( name = "RightLeg6_RightLeg7" , parent= "RightLeg6" , child = "RightLeg7" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
-    #pyrosim.Send_Sphere(name="RightLeg7", pos=[0,0,0] , size=[1])
+    pyrosim.Send_Joint( name = "RightLeg6_RightLeg7" , parent= "RightLeg6" , child = "RightLeg7" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg7", pos=[0,0,0] , size=[1])
     
-
+    pyrosim.Send_Joint( name = "RightLeg7_RightLeg8" , parent= "RightLeg7" , child = "RightLeg8" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg8", pos=[0,0,0] , size=[1])
 #--------------
     pyrosim.End()
 
