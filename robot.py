@@ -63,7 +63,10 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
-
+        
+        for i in range (c.loopLength):
+            if i == c.loopLength-1:
+                print('xCoordinate = ',xCoordinateOfLinkZero)
 
 
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
