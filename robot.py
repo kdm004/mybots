@@ -49,13 +49,34 @@ class ROBOT:
         #Sphere5
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-1] , posObj=[1 , 1 , 3], flags=p.LINK_FRAME)
         #Sphere6
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,-11,-7] , posObj=[2 , 0 , 4], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,-11,-7] , posObj=[2 , 1 , 4], flags=p.LINK_FRAME)
         #Sphere7
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[2,-8,-6] , posObj=[2 , 0 , 5], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[2,-8,-6] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
         #Sphere8
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
         #Sphere9
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[3 , 1 , 5], flags=p.LINK_FRAME)
+
+        #Sphere10
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[3 , 1 , 6], flags=p.LINK_FRAME)
+        #Sphere11
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[3 , 2 , 6], flags=p.LINK_FRAME)
+       
+       
+        #Sphere12
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 2 , 6], flags=p.LINK_FRAME)
+        #Sphere13
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 3 , 6], flags=p.LINK_FRAME)
+        #Sphere14
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 4 , 6], flags=p.LINK_FRAME)
+       
+       
+       
+       
+        #Sphere15
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 4 , 7], flags=p.LINK_FRAME)
+
+
         #-----
    
 
