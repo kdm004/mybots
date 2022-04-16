@@ -2,17 +2,39 @@ import pyrosim.pyrosim as pyrosim
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
-    pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
+    #pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
     pyrosim.End()
 
 def Create_Robot():
     pyrosim.Start_URDF("body.urdf")
-    pyrosim.Send_Cube(name="Torso", pos=[x0,y0,z0] , size=[length,width,height])
-    pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
-    pyrosim.Send_Cube(name="BackLeg", pos=[x1,y1,z1] , size=[length,width,height])
+        
+        #Torso
+    pyrosim.Send_Sphere(name="Torso", pos=[0,0,1] , size=[1])
+    
+        #Right Leg
+    pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "fixed", position = [1,0,1], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg", pos=[0,0,0] , size=[1])
 
-    pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2,0,1])
-    pyrosim.Send_Cube(name="FrontLeg", pos=[x2,y2,z2] , size=[length,width,height])
+    pyrosim.Send_Joint( name = "RightLeg_RightLeg2" , parent= "RightLeg" , child = "RightLeg2" , type = "fixed", position = [0,0,1], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg2", pos=[0,0,0] , size=[1])
+#---------
+    pyrosim.Send_Joint( name = "RightLeg2_RightLeg3" , parent= "RightLeg2" , child = "RightLeg3" , type = "fixed", position = [0,0,1], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg3", pos=[0,0,0] , size=[1])
+
+    pyrosim.Send_Joint( name = "RightLeg3_RightLeg4" , parent= "RightLeg3" , child = "RightLeg4" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg4", pos=[0,0,0] , size=[1])
+
+    pyrosim.Send_Joint( name = "RightLeg4_RightLeg5" , parent= "RightLeg4" , child = "RightLeg5" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg5", pos=[0,0,1] , size=[1])
+
+        #pyrosim.Send_Joint( name = "RightLeg5_RightLeg6" , parent= "RightLeg5" , child = "RightLeg6" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        #pyrosim.Send_Sphere(name="RightLeg6", pos=[1,0,-.5] , size=[1.5])
+
+        #pyrosim.Send_Joint( name = "RightLeg6_RightLeg7" , parent= "RightLeg6" , child = "RightLeg7" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        #pyrosim.Send_Sphere(name="RightLeg7", pos=[1,0,-.5] , size=[1.5])
+
+        #pyrosim.Send_Joint( name = "RightLeg7_RightLeg8" , parent= "RightLeg7" , child = "RightLeg8" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+        #pyrosim.Send_Sphere(name="RightLeg8", pos=[1,0,-.5] , size=[1.5])
 
     pyrosim.End()
 
