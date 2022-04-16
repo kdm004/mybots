@@ -44,14 +44,14 @@ def Create_Robot():
     pyrosim.Send_Joint( name = "RightLeg9_RightLeg10" , parent= "RightLeg9" , child = "RightLeg10" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
     pyrosim.Send_Sphere(name="RightLeg10", pos=[0,0,0] , size=[1])
     
-    #pyrosim.Send_Joint( name = "RightLeg10_RightLeg11" , parent= "RightLeg10" , child = "RightLeg11" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
-    #pyrosim.Send_Sphere(name="RightLeg11", pos=[0,0,0] , size=[1])
+    pyrosim.Send_Joint( name = "RightLeg10_RightLeg11" , parent= "RightLeg10" , child = "RightLeg11" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg11", pos=[0,0,0] , size=[1])
 
-    #pyrosim.Send_Joint( name = "RightLeg11_RightLeg12" , parent= "RightLeg11" , child = "RightLeg12" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
-    #pyrosim.Send_Sphere(name="RightLeg12", pos=[0,0,0] , size=[1])
+    pyrosim.Send_Joint( name = "RightLeg11_RightLeg12" , parent= "RightLeg11" , child = "RightLeg12" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg12", pos=[0,0,0] , size=[1])
 
-    #pyrosim.Send_Joint( name = "RightLeg12_RightLeg13" , parent= "RightLeg12" , child = "RightLeg13" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
-    #pyrosim.Send_Sphere(name="RightLeg13", pos=[0,0,0] , size=[1])
+    pyrosim.Send_Joint( name = "RightLeg12_RightLeg13" , parent= "RightLeg12" , child = "RightLeg13" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
+    pyrosim.Send_Sphere(name="RightLeg13", pos=[0,0,0] , size=[1])
 
 
 

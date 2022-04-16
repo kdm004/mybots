@@ -64,11 +64,11 @@ class ROBOT:
        
        
         #Sphere12
-        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 2 , 6], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 2 , 6], flags=p.LINK_FRAME)
         #Sphere13
-        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 3 , 6], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 3 , 6], flags=p.LINK_FRAME)
         #Sphere14
-        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 4 , 6], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 4 , 6], flags=p.LINK_FRAME)
        
        
        
