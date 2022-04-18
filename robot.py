@@ -45,13 +45,13 @@ class ROBOT:
         #sphere3
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[-10,15,8] , posObj=[1 , 0 , 2], flags=p.LINK_FRAME)
         #sphere4
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-1] , posObj=[1 , 0 , 3], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-10] , posObj=[1 , 0 , 3], flags=p.LINK_FRAME)
         #Sphere5
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-1] , posObj=[1 , 1 , 3], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,12,-10] , posObj=[1 , 1 , 3], flags=p.LINK_FRAME)
         #Sphere6
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,-11,-7] , posObj=[2 , 1 , 4], flags=p.LINK_FRAME)
         #Sphere7
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[2,-8,-6] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[2,-8,-10] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
         #Sphere8
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
         #Sphere9
@@ -64,12 +64,29 @@ class ROBOT:
        
        
         #Sphere12
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 2 , 6], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[2,8,-6] , posObj=[4 , 2 , 6], flags=p.LINK_FRAME)
         #Sphere13
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 3 , 6], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[2,8,-6] , posObj=[4 , 3 , 6], flags=p.LINK_FRAME)
         #Sphere14
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[4 , 4 , 6], flags=p.LINK_FRAME)
-       
+       #------
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[5,-4,-2] , posObj=[4 , 5 , 6], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,-8,-6] , posObj=[4 , 5 , 7], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[-2,4,-10] , posObj=[4 , 5 , 8], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,-10,14] , posObj=[4 , 6 , 8], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[11,8,-6] , posObj=[5 , 6 , 8], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[1,-10,2] , posObj=[5 , 7 , 8], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[13,1,4] , posObj=[5 , 8 , 8], flags=p.LINK_FRAME)
+
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-5] , posObj=[5 , 8 , 9], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[1,1,-6] , posObj=[6 , 8 , 9], flags=p.LINK_FRAME)
+
        
        
        
