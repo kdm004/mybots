@@ -64,6 +64,7 @@ class ROBOT:
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
 
+
         for i in range (c.loopLength):
             if i == c.loopLength-1:
                 print('xCoordinate = ',xCoordinateOfLinkZero)
@@ -72,3 +73,4 @@ class ROBOT:
         f.write(str(xCoordinateOfLinkZero))
         f.close
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+

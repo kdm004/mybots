@@ -2,6 +2,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import robot as robot
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
@@ -46,6 +47,8 @@ class PARALLEL_HILL_CLIMBER:
         for key in range(len(self.parents)):
             print('parents fitness =',self.parents[key].fitness, 'children fitness=',self.children[key].fitness)
         print('\n')
+
+
 
     def Select(self): # modified for step 112
         for key in range(len(self.parents)):
