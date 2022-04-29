@@ -120,3 +120,83 @@ os.system("python3 search.py")
 time.sleep(0.1)
 print("HELLO DATA24")
 time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA25")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA26")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA27")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA28")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA29")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA30")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA31")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA32")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA33")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA34")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA35")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA36")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA37")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA38")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA39")
+time.sleep(0.1)
+
+os.system("python3 search.py")
+time.sleep(0.1)
+print("HELLO DATA40")
+time.sleep(0.1)
