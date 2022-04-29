@@ -13,7 +13,7 @@ class SIMULATION:
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
-            p.connect(p.GUI)
+            p.connect(p.DIRECT)
 
 
         #self.physicsClient = p.connect(p.DIRECT)   # should this be directorGUI? Maybe delete this line completely?
@@ -29,8 +29,8 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(i)   
 
-            if self.directOrGUI == "GUI":
-                time.sleep(c.sleepRate)
+ #           if self.directOrGUI == "GUI":
+ #               time.sleep(c.sleepRate)
             #print('For loop variable is',i)   # commented this out for step 74 hillclimber
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
