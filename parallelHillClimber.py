@@ -77,4 +77,4 @@ class PARALLEL_HILL_CLIMBER:
 
     def Results(self):
         numpy.savetxt('resultsQuadruped1.out', self.record, delimiter=',', fmt='%.4f') #LOOK
-        numpy.save('resultsQuadruped1.npy', self.record) #LOOK
+        numpy.save('resultsQuadruped1'+'.npy', self.record) #LOOK
