@@ -64,9 +64,9 @@ class ROBOT:
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
 
-        for i in range (c.loopLength):
-            if i == c.loopLength-1:
-                print('xCoordinate = ',xCoordinateOfLinkZero)
+#        for i in range (c.loopLength):
+#            if i == c.loopLength-1:
+#                print('xCoordinate = ',xCoordinateOfLinkZero)
 
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
         f.write(str(xCoordinateOfLinkZero))
