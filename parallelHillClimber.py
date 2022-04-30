@@ -76,5 +76,5 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Wait_For_Simulation_To_End()
 
     def Results(self):
-        numpy.savetxt('resultsQuadruped1.out', self.record, delimeter=',', fmt='%.4f') #LOOK
+        numpy.savetxt('resultsQuadruped1.out', self.record, delimiter=',', fmt='%.4f') #LOOK
         numpy.save('resultsQuadruped1.npy', self.record) #LOOK
