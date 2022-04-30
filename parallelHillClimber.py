@@ -11,7 +11,7 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
 
-        self.record = numpy.zeros(c.populationSize, c.numberOfGenerations) # LOOK hello data
+        self.record = numpy.zeros((c.populationSize, c.numberOfGenerations)) # LOOK hello data
 
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
         for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
