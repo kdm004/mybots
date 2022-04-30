@@ -2,6 +2,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import numpy
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
@@ -9,6 +10,9 @@ class PARALLEL_HILL_CLIMBER:
         os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
         self.nextAvailableID = 0
+
+        self.record = numpy.zeros(c.populationSize, c.numberOfGenerations) # LOOK hello data
+
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
         for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
             self.parents[i] = SOLUTION(self.nextAvailableID) 
@@ -16,8 +20,11 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self): 
         self.Evaluate(self.parents)
-        for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
+        for g in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1 LOOK Changed currentGeneration to g
             self.Evolve_For_One_Generation()
+            for p in range(c.populationSize): #LOOK
+                lookFitness = self.parents.get(p).fitness #LOOK
+                self.record.itemset((p,g), lookFitness) #LOOK
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -67,3 +74,7 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
         for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()
+
+    def Results(self):
+        numpy.savetxt('resultsQuadruped1.out', self.record, delimeter=',', fmt='%.4f') #LOOK
+        numpy.save('resultsQuadruped1.npy', self.record) #LOOK
