@@ -4,8 +4,7 @@ import constants as c
 import copy
 import os
 import numpy
-
-import wrapper
+import random
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
@@ -79,6 +78,6 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Wait_For_Simulation_To_End()
 
     def Results(self):
-        #numpy.savetxt('resultsTriped'+wrapper.fileNumber+'.out', self.record, delimiter=',', fmt='%.4f') #LOOK
-        #numpy.save('resultsTriped1'+'.npy', self.record) #LOOK
-        numpy.savetxt('resultsTriped'+wrapper.fileNumber+'.csv', self.record, delimiter=',', fmt='%.4f') #LOOK
+        numpy.savetxt('resultsTriped1.out', self.record, delimiter=',', fmt='%.4f') #LOOK
+        numpy.save('resultsTriped1'+'.npy', self.record) #LOOK
+        numpy.savetxt('resultsTriped1_'+str(random.randint(3,99999))+'.csv', self.record, delimiter=',', fmt='%.4f') #LOOK
