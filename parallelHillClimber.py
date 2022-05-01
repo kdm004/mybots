@@ -4,6 +4,7 @@ import constants as c
 import copy
 import os
 import numpy
+import random
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
@@ -78,5 +79,5 @@ class PARALLEL_HILL_CLIMBER:
 
     def Results(self):
         numpy.savetxt('resultsPentapod1.out', self.record, delimiter=',', fmt='%.4f') #LOOK
-        numpy.save('resultsPentapod1'+'.npy', self.record) #LOOK
-        numpy.savetxt('resultsPentapod1.csv', self.record, delimiter=',', fmt='%.4f') #LOOK
+        #numpy.save('resultsPentapod1'+'.npy', self.record) #LOOK
+        numpy.savetxt('resultsPentapod1_'+str(random.randint(3,99999))+'.csv', self.record, delimiter=',', fmt='%.4f') #LOOK
