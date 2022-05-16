@@ -19,13 +19,14 @@ class SIMULATION:
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Act(i)   
-            self.robot.getFitness(i) #Trying to make position graph of x vs y
-
 
             time.sleep(c.sleepRate)
             #print('For loop variable is',i)
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
     def __del__(self):
         #self.robot.Save_Values()
