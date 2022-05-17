@@ -18,15 +18,16 @@ class SIMULATION:
         for i in range (c.loopLength):
             p.stepSimulation()
             self.robot.Sense(i)
-            self.robot.Act(i)   
+            self.robot.Act(i)
+            self.robot.Get_Fitness()   
 
             time.sleep(c.sleepRate)
             print('For loop variable is',i)
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
 
-    def Get_Fitness(self):
-        self.robot.Get_Fitness()
+    #def Get_Fitness(self):
+    #    self.robot.Get_Fitness()
 
     def __del__(self):
         #self.robot.Save_Values()

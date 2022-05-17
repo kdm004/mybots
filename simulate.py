@@ -6,11 +6,15 @@ import pybullet_data
 import pybullet as p
 import time
 from simulation import SIMULATION
+import robot as ROBOT
 
 simulation = SIMULATION()
 simulation.Run()
 
-simulation.Get_Fitness()
+#for i in range(c.loopLength):
+#    SIMULATION.Get_Fitness(i)
+
+
 
 
 

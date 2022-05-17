@@ -113,15 +113,34 @@ class ROBOT:
             self.sensors[key].Save_Values()
 
     def Get_Fitness(self):
-        # Here is the Get_Fitness method
+
         stateOfLinkZero = p.getLinkState(self.robot,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        yCoordinateOfLinkZero = positionOfLinkZero[1]
-        f = open("fitness.txt", "w")
-        for i in range(c.loopLength):
-            f.write(str(xCoordinateOfLinkZero))
-        f.close
+        print(xCoordinateOfLinkZero)
+
+
+
+
+        #yCoordinateOfLinkZero = positionOfLinkZero[1]
+
+
+        #f = open("fitness.txt", "w")
+        #for i in range(c.loopLength):
+        #    f.write(str(xCoordinateOfLinkZero))
+        #f.close
+
+
+
+
+
+
+
+
+
+
+
+
 #LEFT OFF HERE. DO MATPLOT LIB AND TRY TO GET A GRAPH. MAYBE MODEL IT AFTER THE SENSORS THING. MAYBE EVEN AFTER SENSORS WE GRAPHED SOMETHING ELSE WITH THE MAPPING FUNCTION THAT KRISHNA HELPED US WITH
 # Look at step 33 of motors for help!!!
 # look at motors github. This branch used the mapping function.
