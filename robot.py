@@ -114,18 +114,27 @@ class ROBOT:
 
     def Get_Fitness(self):
         # Here is the Get_Fitness method
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
-        basePosition = basePositionAndOrientation[0]
-        xCoordinateOfLinkZero = basePosition[0]
-        ycoordinateOfLinkZero = basePosition[1]
+        stateOfLinkZero = p.getLinkState(self.robot,0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        yCoordinateOfLinkZero = positionOfLinkZero[1]
+        f = open("fitness.txt", "w")
+        for i in range(c.loopLength):
+            f.write(str(xCoordinateOfLinkZero))
+        f.close
+#LEFT OFF HERE. DO MATPLOT LIB AND TRY TO GET A GRAPH. MAYBE MODEL IT AFTER THE SENSORS THING. MAYBE EVEN AFTER SENSORS WE GRAPHED SOMETHING ELSE WITH THE MAPPING FUNCTION THAT KRISHNA HELPED US WITH
+# Look at step 33 of motors for help!!!
+# look at motors github. This branch used the mapping function.
         
 #        for i in range (c.loopLength):
 #            if i == c.loopLength-1:
 #                print('xCoordinate = ',xCoordinateOfLinkZero)
 
 
-        f = open("tmp" + str(self.solutionID) + ".txt", "w")
-        f.write(str(xCoordinateOfLinkZero))
-        f.write(str(ycoordinateOfLinkZero))
-        f.close
-        os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+        #f = open("tmp" + str(self.solutionID) + ".txt", "w")
+        #f.write(str(xCoordinateOfLinkZero))
+        #f.close
+        #os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+
+
+

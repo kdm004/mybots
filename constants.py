@@ -2,7 +2,7 @@ import numpy as numpy
 #------------------------------------------
 
 
-loopLength = 10000
+loopLength = 1000
 
 amplitude = numpy.pi/20 # change back to numpy.pi/4
 frequency = 10
@@ -11,7 +11,7 @@ legMaxForce = 20
 
 targetAngles = numpy.linspace(-numpy.pi,numpy.pi, loopLength)
 
-sleepRate = 1/25000
+sleepRate = 1/2500
 
 gravityConstant = -9.8
 
