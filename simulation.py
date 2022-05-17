@@ -25,6 +25,7 @@ class SIMULATION:
             self.robot.Act(i)
             self.robot.Get_Fitness()
 
+
             time.sleep(c.sleepRate)
             #print('For loop variable is',i)
         #    print(backLegSensorValues)

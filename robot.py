@@ -116,13 +116,20 @@ class ROBOT:
 
         stateOfLinkZero = p.getLinkState(self.robot,0)
         positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
-        yCoordinateOfLinkZero = positionOfLinkZero[1]
-        print(xCoordinateOfLinkZero, ",", yCoordinateOfLinkZero)
-        #f = open("Xfitness.csv", "w")
-        #f.write(str(xCoordinateOfLinkZero))
-        #f.close
+        self.xCoordinateOfLinkZero = positionOfLinkZero[0]
+        self.yCoordinateOfLinkZero = positionOfLinkZero[1]
+        print(self.xCoordinateOfLinkZero, ",", self.yCoordinateOfLinkZero)
+        
+        f = open("Xfitness1.csv", "a")
+        f.write(str(self.xCoordinateOfLinkZero)+ "\n")
+        f.close
 
+        f = open("Yfitness1.csv", "a")
+        f.write(str(self.yCoordinateOfLinkZero)+ "\n")
+        f.close
+
+
+        
 
         #yCoordinateOfLinkZero = positionOfLinkZero[1]
 
