@@ -5,6 +5,7 @@ from world import WORLD
 from robot import ROBOT
 import pybullet as p
 import pybullet_data
+import numpy
 
 class SIMULATION:
     def __init__(self):
@@ -13,16 +14,19 @@ class SIMULATION:
         p.setGravity(0,0,c.gravityConstant)
         self.world = WORLD()
         self.robot = ROBOT()
+        self.xRecord = numpy.zeros((1, c.loopLength)) 
+
+
         
     def Run(self):
         for i in range (c.loopLength):
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Act(i)
-            self.robot.Get_Fitness()   
+            self.robot.Get_Fitness()
 
             time.sleep(c.sleepRate)
-            print('For loop variable is',i)
+            #print('For loop variable is',i)
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
 
