@@ -22,14 +22,14 @@ def Create_Robot():
     pyrosim.Send_Joint( name = "RightLeg2_RightLeg3" , parent= "RightLeg2" , child = "RightLeg3" , type = "fixed", position = [0,0,1], jointAxis = "0 1 0")
     pyrosim.Send_Sphere(name="RightLeg3", pos=[0,0,0] , size=[1])
     #5
-    pyrosim.Send_Joint( name = "RightLeg3_RightLeg4" , parent= "RightLeg3" , child = "RightLeg4" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
-    pyrosim.Send_Sphere(name="RightLeg4", pos=[0,0,0] , size=[1])
+    #pyrosim.Send_Joint( name = "RightLeg3_RightLeg4" , parent= "RightLeg3" , child = "RightLeg4" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
+    #pyrosim.Send_Sphere(name="RightLeg4", pos=[0,0,0] , size=[1])
     #6
-    pyrosim.Send_Joint( name = "RightLeg4_RightLeg5" , parent= "RightLeg4" , child = "RightLeg5" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0") #for original sim, put pos[0,0,1]
-    pyrosim.Send_Sphere(name="RightLeg5", pos=[0,0,0] , size=[1])
+    #pyrosim.Send_Joint( name = "RightLeg4_RightLeg5" , parent= "RightLeg4" , child = "RightLeg5" , type = "fixed", position = [1,0,0], jointAxis = "0 1 0") #for original sim, put pos[0,0,1]
+    #pyrosim.Send_Sphere(name="RightLeg5", pos=[0,0,0] , size=[1])
 #---#7
-    pyrosim.Send_Joint( name = "RightLeg5_RightLeg6" , parent= "RightLeg5" , child = "RightLeg6" , type = "fixed", position = [0,0,1], jointAxis = "0 1 0")
-    pyrosim.Send_Sphere(name="RightLeg6", pos=[0,0,0] , size=[1])
+    #pyrosim.Send_Joint( name = "RightLeg5_RightLeg6" , parent= "RightLeg5" , child = "RightLeg6" , type = "fixed", position = [0,0,1], jointAxis = "0 1 0")
+    #pyrosim.Send_Sphere(name="RightLeg6", pos=[0,0,0] , size=[1])
     #8
     #pyrosim.Send_Joint( name = "RightLeg6_RightLeg7" , parent= "RightLeg6" , child = "RightLeg7" , type = "fixed", position = [0,1,0], jointAxis = "0 1 0")
     #pyrosim.Send_Sphere(name="RightLeg7", pos=[0,0,0] , size=[1])

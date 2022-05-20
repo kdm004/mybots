@@ -42,19 +42,19 @@ class ROBOT:
                 # applyExternalForce
 
         #Sphere1
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,1,10] , posObj=[0,0,1], flags=p.LINK_FRAME) # Rear thruster
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[8,1,6] , posObj=[0,0,1], flags=p.LINK_FRAME) # Rear thruster
         #sphere2
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[3,8,13] , posObj=[1 , 0 , 1], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[31,8,13] , posObj=[1 , 0 , 1], flags=p.LINK_FRAME)
         #sphere3
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[-8,15,8] , posObj=[1 , 0 , 2], flags=p.LINK_FRAME)
+        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[-8,65,8] , posObj=[1 , 0 , 2], flags=p.LINK_FRAME)
         #sphere4
         p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,8,-10] , posObj=[1 , 0 , 3], flags=p.LINK_FRAME)
         #Sphere5
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,6,-10] , posObj=[1 , 1 , 3], flags=p.LINK_FRAME)
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[4,6,-10] , posObj=[1 , 1 , 3], flags=p.LINK_FRAME)
         #Sphere6
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[5,-11,-7] , posObj=[2 , 1 , 4], flags=p.LINK_FRAME)
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[5,-11,-7] , posObj=[2 , 1 , 4], flags=p.LINK_FRAME)
         #Sphere7
-        p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[6,-8,-10] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
+        #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[6,-8,-10] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
         #Sphere8
         #p.applyExternalForce(objectUniqueId=self.robot, linkIndex=-1, forceObj=[10,8,-6] , posObj=[2 , 1 , 5], flags=p.LINK_FRAME)
         #Sphere9
@@ -120,11 +120,11 @@ class ROBOT:
         self.yCoordinateOfLinkZero = positionOfLinkZero[1]
         print(self.xCoordinateOfLinkZero, ",", self.yCoordinateOfLinkZero)
         
-        f = open("Xfitness7.csv", "a")
+        f = open("Xfitness4.csv", "a")
         f.write(str(self.xCoordinateOfLinkZero)+ "\n")
         f.close
 
-        f = open("Yfitness7.csv", "a")
+        f = open("Yfitness4.csv", "a")
         f.write(str(self.yCoordinateOfLinkZero)+ "\n")
         f.close
 
