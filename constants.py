@@ -21,3 +21,4 @@ motorJointRange = .2 # set to .2 for oscillatory motion ... step 55 quadruped
 numSensorNeurons = 9 # Edit these two statements to set the correct number of sensor and motor neurons. Don't forget the 0th sensor neuron!
 numMotorNeurons = 8
 
+

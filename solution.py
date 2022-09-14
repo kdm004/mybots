@@ -75,7 +75,8 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Body(self,stagger): 
-        pyrosim.Start_URDF("body.urdf")
+
+        pyrosim.Start_URDF("body"+str(stagger)+".urdf")
         
         #Torso
         pyrosim.Send_Cube(name="Torso", pos=[0,0+stagger,1] , size=[length,width,height])
@@ -117,35 +118,36 @@ class SOLUTION:
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf
 
-    def Generate_Brain(self): 
+    def Generate_Brain(self, stagger): 
 
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf") #changed from brain.nndf
 
 
+ 
 # Upper Extremity Sensor Neurons
-        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
-        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
-        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
-        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
-        pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg")
+        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso"
+        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg"
+        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg"
+        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg"
+        pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg"
 
 # Lower Extremity Sensor Neurons
-        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "BackLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "FrontLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name = 7 , linkName = "LeftLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name = 8 , linkName = "RightLowerLeg")
+        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "BackLowerLeg"
+        pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "FrontLowerLeg"
+        pyrosim.Send_Sensor_Neuron(name = 7 , linkName = "LeftLowerLeg"
+        pyrosim.Send_Sensor_Neuron(name = 8 , linkName = "RightLowerLeg"
 
 # Upper Extremity Motor Neurons
-        pyrosim.Send_Motor_Neuron( name = 9, jointName = "Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron( name = 10, jointName = "Torso_FrontLeg")
-        pyrosim.Send_Motor_Neuron( name = 11, jointName = "Torso_LeftLeg")
-        pyrosim.Send_Motor_Neuron( name = 12, jointName = "Torso_RightLeg")
+        pyrosim.Send_Motor_Neuron( name = 9, jointName = "Torso_BackLeg"
+        pyrosim.Send_Motor_Neuron( name = 10, jointName = "Torso_FrontLeg"
+        pyrosim.Send_Motor_Neuron( name = 11, jointName = "Torso_LeftLeg"
+        pyrosim.Send_Motor_Neuron( name = 12, jointName = "Torso_RightLeg"
 
 # Lower Extremity Motor Neurons
-        pyrosim.Send_Motor_Neuron( name = 13, jointName = "BackLeg_BackLowerLeg")
-        pyrosim.Send_Motor_Neuron( name = 14, jointName = "FrontLeg_FrontLowerLeg")
-        pyrosim.Send_Motor_Neuron( name = 15, jointName = "LeftLeg_LeftLowerLeg")
-        pyrosim.Send_Motor_Neuron( name = 16, jointName = "RightLeg_RightLowerLeg")
+        pyrosim.Send_Motor_Neuron( name = 13, jointName = "BackLeg_BackLowerLeg"
+        pyrosim.Send_Motor_Neuron( name = 14, jointName = "FrontLeg_FrontLowerLeg"
+        pyrosim.Send_Motor_Neuron( name = 15, jointName = "LeftLeg_LeftLowerLeg"
+        pyrosim.Send_Motor_Neuron( name = 16, jointName = "RightLeg_RightLowerLeg"
 
 
    
@@ -165,8 +167,11 @@ class SOLUTION:
 
     def Start_Simulation(self, directOrGUI):
         self.Create_World()
-        self.Generate_Body(3)
-        self.Generate_Brain()
+        self.Generate_Body(0)
+        self.Generate_Body(5)
+        self.Generate_Body(10)
+
+        self.Generate_Brain(0)
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
