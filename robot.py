@@ -49,7 +49,7 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange # multiplied by  c.motorJointRange ... finishing quadruped
-                self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
+                self.motors[jointName].Set_Value(self.robot0, desiredAngle) #step 71 neurons
 
 
 
@@ -64,7 +64,7 @@ class ROBOT:
         self.nn.Print()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robot,0)
+        stateOfLinkZero = p.getLinkState(self.robot0,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
