@@ -21,7 +21,7 @@ class SIMULATION:
         p.setGravity(0,0,c.gravityConstant)
         self.world = WORLD()
 
-        self.stagger = stagger
+        self.stagger = 5 #right now, only works with 5
         #--------------------------------------------------------
         self.robot = ROBOT(self.solutionID,self.stagger)      
         #--------------------------------------------------------
