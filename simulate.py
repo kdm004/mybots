@@ -14,7 +14,13 @@ import os
 directOrGUI = sys.argv[1]
 solutionID = sys.argv[2]
 
-simulation = SIMULATION(directOrGUI, solutionID)
+
+#------------------------------------
+for i in range(0,10,5):
+    stagger = i
+#------------------------------------
+
+simulation = SIMULATION(directOrGUI, solutionID, stagger)
 simulation.Run()
 
 simulation.Get_Fitness()

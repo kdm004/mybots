@@ -7,7 +7,7 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, solutionID):
+    def __init__(self,directOrGUI, solutionID, stagger):
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
         if directOrGUI == "DIRECT":
@@ -20,8 +20,16 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
         self.world = WORLD()
-        self.robot = ROBOT(self.solutionID)
-        
+
+        self.stagger = stagger
+        #--------------------------------------------------------
+        self.robot = ROBOT(self.solutionID,self.stagger)      
+        #--------------------------------------------------------
+
+
+
+
+
     def Run(self):
         for i in range (c.loopLength):
             p.stepSimulation()

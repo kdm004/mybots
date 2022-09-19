@@ -12,8 +12,8 @@ legMaxForce = 120 # change back to 20 #was at 120 at beginning of quadruped
 targetAngles = numpy.linspace(-numpy.pi,numpy.pi, loopLength)
 
 
-numberOfGenerations = 10 # change to 10 to complete quadruped
-populationSize = 10 # change to 10 to complete quadruped
+numberOfGenerations = 3 # change to 10 to complete quadruped
+populationSize = 3 # change to 10 to complete quadruped
 
 motorJointRange = .2 # set to .2 for oscillatory motion ... step 55 quadruped
 
@@ -21,3 +21,5 @@ motorJointRange = .2 # set to .2 for oscillatory motion ... step 55 quadruped
 numSensorNeurons = 9 # Edit these two statements to set the correct number of sensor and motor neurons. Don't forget the 0th sensor neuron!
 numMotorNeurons = 8
 
+#-----------------
+numberOfBots = 3

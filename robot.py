@@ -9,9 +9,18 @@ import os
 
 
 class ROBOT:
-    def __init__(self,solutionID):
+    def __init__(self,solutionID,stagger):
         self.solutionID = solutionID
-        self.robot = p.loadURDF("body.urdf") #changed from robotId to robot
+
+
+
+
+        self.robot = p.loadURDF("body"+str(stagger)+".urdf") #changed from robotId to robot
+
+
+
+
+
         pyrosim.Prepare_To_Simulate(self.robot) #changed from robotId to robot
         self.sensors = {}
         self.motors = {}
