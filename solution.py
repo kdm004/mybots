@@ -169,10 +169,10 @@ class SOLUTION:
 
 #----------------------------------------------------------------------------------------------------
         self.body_list = []
-        for i in range(0, c.numberOfBots-1):
-            self.body_list.append(self.Generate_Body(i*5))
+        for i in range(0, 15, 5):                         # range(0, 15, 5) gets us body0, body5, body10
+            self.body_list.append(self.Generate_Body(i))
         
-        for i in range(0,c.numberOfBots-1):
+        for i in range(2): # this tells us the index of the list. Inside the list, we have self.body_list[1], self.body_list[2], self.body_list[3] which store body0, body5, body10.
             self.body_list[i]
 #----------------------------------------------------------------------------------------------------
 
