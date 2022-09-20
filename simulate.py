@@ -16,11 +16,10 @@ solutionID = sys.argv[2]
 
 
 #------------------------------------
-for i in range(0,15,5):
-    stagger = i
+
 #------------------------------------
 
-simulation = SIMULATION(directOrGUI, solutionID, stagger)
+simulation = SIMULATION(directOrGUI, solutionID)
 simulation.Run()
 
 simulation.Get_Fitness()

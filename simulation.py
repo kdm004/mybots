@@ -7,7 +7,7 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, solutionID, stagger):
+    def __init__(self,directOrGUI, solutionID):
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
         if directOrGUI == "DIRECT":
@@ -27,11 +27,15 @@ class SIMULATION:
 
 
 
-        self.stagger = 5 #right now, only works with 5
+        #self.stagger = 5 #right now, only works with 0, 5,10
         #--------------------------------------------------------
-        self.robot = ROBOT(self.solutionID,self.stagger)      
+        self.robot0 = ROBOT(self.solutionID,0)      
+        self.robot5 = ROBOT(self.solutionID,5)
+        #self.robot10 = ROBOT(self.solutionID,10)          
+
         #--------------------------------------------------------
 
+        
 
 
 
@@ -39,9 +43,13 @@ class SIMULATION:
     def Run(self):
         for i in range (c.loopLength):
             p.stepSimulation()
-            self.robot.Sense(i)
-            self.robot.Think()
-            self.robot.Act(i)   
+            self.robot0.Sense(i)
+            self.robot0.Think()
+            self.robot0.Act(i)  
+
+            self.robot5.Sense(i)
+            self.robot5.Think()
+            self.robot5.Act(i)  
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
@@ -50,7 +58,8 @@ class SIMULATION:
         #    print(frontLegSensorValues) #
 
     def Get_Fitness(self):
-        self.robot.Get_Fitness()
+        self.robot0.Get_Fitness()
+        self.robot5.Get_Fitness()
 
     def __del__(self):
         #self.robot.Save_Values()

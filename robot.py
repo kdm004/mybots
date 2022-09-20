@@ -18,17 +18,16 @@ class ROBOT:
         self.robot = p.loadURDF("body"+str(stagger)+".urdf") #changed from robotId to robot
 
 
-
-
-
         pyrosim.Prepare_To_Simulate(self.robot) #changed from robotId to robot
+
+
         self.sensors = {}
         self.motors = {}
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf")
-        os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
+        self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
+        #os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
 
 
 
