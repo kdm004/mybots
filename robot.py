@@ -27,6 +27,8 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
+        #self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")    Josh said you might need to make multiple instances of NEURAL_NETWORK inside ROBOT
+       # self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
         #os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
 
 
