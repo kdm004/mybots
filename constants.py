@@ -22,4 +22,5 @@ numSensorNeurons = 9 # Edit these two statements to set the correct number of se
 numMotorNeurons = 8
 
 #-----------------
-numberOfBots = 3
+numberOfBots = 3 # not currently used anywhere.
+ 

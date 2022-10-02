@@ -1,7 +1,7 @@
 # This is the new simulation file that was created in the refactoring branch
 import time
 import constants as c
-from world import WORLD
+from world import WORLD 
 from robot import ROBOT
 import pybullet as p
 import pybullet_data
@@ -29,9 +29,9 @@ class SIMULATION:
 
         #self.stagger = 5 #right now, only works with 0, 5,10
         #--------------------------------------------------------
-        self.robot0 = ROBOT(self.solutionID,0)      
-        self.robot5 = ROBOT(self.solutionID,5)
-        self.robot10 = ROBOT(self.solutionID,10)          
+        self.robot0 = ROBOT(0,0)      
+        self.robot5 = ROBOT(1,5)
+        self.robot10 = ROBOT(2,10)          
 
         #--------------------------------------------------------
 

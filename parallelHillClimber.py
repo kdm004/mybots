@@ -1,4 +1,4 @@
-from solution import SOLUTION
+from solution import SOLUTION 
 import constants as c
 import copy
 import os
@@ -10,7 +10,7 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
-        for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
+        for i in range(c.populationSize): 
             self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 
