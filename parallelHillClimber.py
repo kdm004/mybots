@@ -5,12 +5,18 @@ import os
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-        os.system("rm brain*.nndf") # step 82 parallelHC
-        os.system("rm fitness*.txt") # step 83 parallelHC
+       # os.system("rm brain*.nndf") # step 82 parallelHC
+        #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
+
+        # Start with ID of 0, and check if a brain.nndf file has already occurred. Purpose of this code block is to determine the initial ID after possible prev ParallelHC
         self.nextAvailableID = 0
+        for i in range(c.populationSize):
+            if os.path.exists("brain"+ str(self.nextAvailableID) + ".nndf"): 
+                self.nextAvailableID += 1
+
         #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
-        for i in range(c.populationSize): 
+        for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. 
             self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 

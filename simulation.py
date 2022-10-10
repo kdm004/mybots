@@ -17,9 +17,10 @@ class SIMULATION:
 
 
         #self.physicsClient = p.connect(p.DIRECT)   # should this be directorGUI? Maybe delete this line completely?
-        p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        p.setGravity(0,0,c.gravityConstant)
-        self.world = WORLD()
+        
+        #p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        #p.setGravity(0,0,c.gravityConstant)
+        #self.world = WORLD()
 
 
 
@@ -29,9 +30,12 @@ class SIMULATION:
 
         #self.stagger = 5 #right now, only works with 0, 5,10
         #--------------------------------------------------------
-        self.robot0 = ROBOT(0,0)      
-        self.robot5 = ROBOT(1,5)
-        self.robot10 = ROBOT(2,10)          
+
+
+        self.robot0 = ROBOT(self.solutionID,0)      
+        self.robot5 = ROBOT(0,5)
+        self.robot10 = ROBOT(1,10)          
+        self.robot10 = ROBOT(2,15) 
 
         #--------------------------------------------------------
 
@@ -41,6 +45,10 @@ class SIMULATION:
 
 
     def Run(self):
+        p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        p.setGravity(0,0,c.gravityConstant)
+        self.world = WORLD()
+
         for i in range (c.loopLength):
             p.stepSimulation()
             self.robot0.Sense(i)

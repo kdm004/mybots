@@ -118,7 +118,7 @@ class SOLUTION:
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf
 
-    def Generate_Brain(self): 
+    def Generate_Brain(self):  #ADDED TO ROBOT_BRAIN
 
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf") #changed from brain.nndf
 
@@ -156,12 +156,12 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Mutate(self):
+    def Mutate(self): #ADDED TO ROBOT_BRAIN
         randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
         randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
 
-    def Set_ID(self):
+    def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
 
     def Start_Simulation(self, directOrGUI):
@@ -169,15 +169,15 @@ class SOLUTION:
 
 #----------------------------------------------------------------------------------------------------
         self.body_list = []
-        for i in range(0, 15, 5):                         # range(0, 15, 5) gets us body0, body5, body10
+        for i in range(0, 20, 5):                         # range(0, 15, 5) gets us body0, body5, body10
             self.body_list.append(self.Generate_Body(i))
         
-        for i in range(2): # this tells us the index of the list. Inside the list, we have self.body_list[1], self.body_list[2], self.body_list[3] which store body0, body5, body10.
+        for i in range(3): # this tells us the index of the list. Inside the list, we have self.body_list[1], self.body_list[2], self.body_list[3] which store body0, body5, body10.
             self.body_list[i]
 #----------------------------------------------------------------------------------------------------
 
 
-        self.Generate_Brain()
+        self.Generate_Brain() #ADDED TO ROBOT_BRAIN
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
@@ -189,10 +189,7 @@ class SOLUTION:
         #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
         fitnessFile.close()
         os.system("rm fitness"+ str(self.myID) + ".txt")
-        time.sleep(.1)
+   
 
-
-
-       
         while os.path.exists("rm fitness"+ str(self.myID) + ".txt"):
             time.sleep(.01)

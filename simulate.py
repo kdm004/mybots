@@ -12,7 +12,7 @@ import os
 
 
 directOrGUI = sys.argv[1]
-solutionID = sys.argv[2]
+solutionID = sys.argv[2] #Where does this come from? Where is the os.system call? I want this for each instance of PHC.
 
 
 #------------------------------------
