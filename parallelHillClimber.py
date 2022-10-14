@@ -69,6 +69,9 @@ class PARALLEL_HILL_CLIMBER:
         
         bestIDFile = open("bestBrains.txt", "a") # should it be 'w' or 'a'? write or append? 
         bestIDFile.write(str(self.parents[overKey].myID)) #        bestIDFile.write(str(self.parents[overKey].fitness))
+        bestIDFile.write('\n') #       Write delimiter after brain ID
+
+
         bestIDFile.close
         
 
