@@ -7,12 +7,9 @@ import pybullet as p
 import pybullet_data
 
 class MANYBOTS_SIMULATION:
-    def __init__(self,directOrGUI):
-        self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
-        if directOrGUI == "DIRECT":
-            p.connect(p.DIRECT)
-        else:
-            p.connect(p.GUI)
+    def __init__(self):
+
+        self.directOrGUI = p.connect(p.GUI)
 
 
 
@@ -25,8 +22,9 @@ class MANYBOTS_SIMULATION:
 
 
         bestIDFile = open("bestBrains.txt","r")
-        bestBrains = int(bestIDFile.readlines())
+        bestBrains = bestIDFile.readlines()
         bestIDFile.close()
+        bestBrains = list(map(int, bestBrains))
 
     
         self.robot0 = ROBOT(bestBrains[0],0)       # THEORETICALLY, WE COULD USE bestBriansFrom1RobotSims[0] here, and we would get the ID for the best robot brain from 1 run.
