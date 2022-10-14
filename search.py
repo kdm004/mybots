@@ -6,13 +6,17 @@ phc1 = PARALLEL_HILL_CLIMBER()
 phc1.Evolve()
 phc1.Show_Best()
 
-phc2 = PARALLEL_HILL_CLIMBER()
-phc2.Evolve()
-phc2.Show_Best()
+#phc2 = PARALLEL_HILL_CLIMBER()
+#phc2.Evolve()
+#phc2.Show_Best()
 
-phc3 = PARALLEL_HILL_CLIMBER()
-phc3.Evolve()
-phc3.Show_Best()
+#phc3 = PARALLEL_HILL_CLIMBER()
+#phc3.Evolve()
+#phc3.Show_Best()
+
+
+
+#--------------------------
 
 #for i in range(2): #this is number of simulation windows that will pop up. 3 are currently popping
     # up because there's another "simulate.py" call in SOLUTION's Evaluate(self)

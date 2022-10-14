@@ -71,7 +71,7 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height]) 
+        #pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height]) 
         pyrosim.End()
 
     def Generate_Body(self,stagger): 
@@ -168,12 +168,11 @@ class SOLUTION:
         self.Create_World()
 
 #----------------------------------------------------------------------------------------------------
-        self.body_list = []
-        for i in range(0, 20, 5):                         # range(0, 15, 5) gets us body0, body5, body10
-            self.body_list.append(self.Generate_Body(i))
-        
-        for i in range(3): # this tells us the index of the list. Inside the list, we have self.body_list[1], self.body_list[2], self.body_list[3] which store body0, body5, body10.
-            self.body_list[i]
+#        self.body_list = []
+#        for i in range(0, 20, 5):                         # range(0, 15, 5) gets us body0, body5, body10
+#            self.body_list.append(self.Generate_Body(i))
+#        for i in range(3): # this tells us the index of the list. Inside the list, we have self.body_list[1], self.body_list[2], self.body_list[3] which store body0, body5, body10.
+#            self.body_list[i]
 #----------------------------------------------------------------------------------------------------
 
 

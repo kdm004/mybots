@@ -65,7 +65,12 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
-        self.parents[overKey].Start_Simulation("GUI")
+        self.parents[overKey].Start_Simulation("GUI") #Shows best single robot sim in GUI
+        
+        bestIDFile = open("bestBrains.txt", "a") # should it be 'w' or 'a'? write or append? 
+        bestIDFile.write(str(self.parents[overKey].myID)) #        bestIDFile.write(str(self.parents[overKey].fitness))
+        bestIDFile.close
+        
 
 
     def Evaluate(self, solutions):

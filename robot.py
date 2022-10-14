@@ -6,20 +6,19 @@ import constants as c
 import numpy as numpy
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+from solution import SOLUTION
 
 
 class ROBOT:
     def __init__(self,solutionID,stagger):
         self.solutionID = solutionID
+        SOLUTION(solutionID).Generate_Body(stagger) # I think this needs to be before loadURDF
 
-
-
+        #self.solutionID = solutionID
 
         self.robot = p.loadURDF("body"+str(stagger)+".urdf") #changed from robotId to robot
 
-
         pyrosim.Prepare_To_Simulate(self.robot) #changed from robotId to robot
-
 
         self.sensors = {}
         self.motors = {}
@@ -77,3 +76,7 @@ class ROBOT:
         f.write(str(xCoordinateOfLinkZero))
         f.close
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+
+
+
+
