@@ -2,6 +2,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import glob
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
@@ -10,8 +11,9 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
 
         # Start with ID of 0, and check if a brain.nndf file has already occurred. Purpose of this code block is to determine the initial ID after possible prev ParallelHC
-        self.nextAvailableID = 0
-        for i in range(c.populationSize):
+        numberOfBrainFiles = len(glob.glob("brain*.nndf"))
+        self.nextAvailableID = 0 #instead of 0, we want this to start at the ID number of the last brainID.nndf file, or else it will make it 0 every time initially?
+        for i in range(numberOfBrainFiles): # range(number of brain.nndf files)
             if os.path.exists("brain"+ str(self.nextAvailableID) + ".nndf"): 
                 self.nextAvailableID += 1
 
@@ -59,8 +61,8 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
         
     def Show_Best(self):
-        overKey = 0
-        bestFitness = self.parents[0].fitness
+        overKey = 0                             # I think this 0 should actually start with the first of the next group of brain files that is being produced. 
+        bestFitness = self.parents[0].fitness   # So it should be 0 for 012, 3 for 345, and 6 for 678. Will it keep showing 3 as well?
         for i in range(len(self.parents)):
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness

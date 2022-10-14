@@ -31,7 +31,7 @@ import os
 os.system('python3 obstacleWorld.py')
 
 
-#directOrGUI = sys.argv[1] #changed from 1 to 0
+#directOrGUI = sys.argv[1]
 #solutionID = sys.argv[2] #Where does this come from? Where is the os.system call? I want this for each instance of PHC.
 
 
