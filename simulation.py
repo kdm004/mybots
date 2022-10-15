@@ -40,8 +40,8 @@ class SIMULATION:
 
 
         self.robot0 = ROBOT(self.solutionID,0)       # THEORETICALLY, WE COULD USE bestBriansFrom1RobotSims[0] here, and we would get the ID for the best robot brain from 1 run.
-        #self.robot5 = ROBOT(0,5)                    # Now, we should be able to do 1 robot sims, and know what the IDs are of the best robots. 
-        #self.robot10 = ROBOT(1,10)                  # We should make it such that each time we run ROBOT, we run an individual instance of phc. 
+        #self.robot5 = ROBOT(5,5)                    # Now, we should be able to do 1 robot sims, and know what the IDs are of the best robots. 
+        #self.robot10 = ROBOT(8,10)                  # We should make it such that each time we run ROBOT, we run an individual instance of phc. 
         #self.robot10 = ROBOT(2,15)                  # We should be able to 
 
         #--------------------------------------------------------

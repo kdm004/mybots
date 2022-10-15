@@ -1,11 +1,13 @@
 # This is the new simulation file that was created in the refactoring branch
 import time
 import constants as c
-from world import WORLD 
+from obstacleWorld import OBSTACLE_WORLD 
 from robot import ROBOT
 import pybullet as p
 import pybullet_data
 import os
+import pyrosim.pyrosim as pyrosim
+
 
 class MANYBOTS_SIMULATION:
     def __init__(self):
@@ -47,14 +49,18 @@ class MANYBOTS_SIMULATION:
         #--------------------------------------------------------
 
         
+#    def Create_World(self):
+#        pyrosim.Start_SDF("obstacleWorld.sdf")
+#        pyrosim.Send_Cube(name="Box", pos=[-3,3,0.5] , size=[1,1,1]) 
+#        pyrosim.End()
 
 
-
+    #Create_World()
 
     def Run(self):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
-        self.world = WORLD()
+        self.obstacleWorld = OBSTACLE_WORLD()
 
         for i in range (c.loopLength):
             p.stepSimulation()

@@ -28,7 +28,7 @@ import os
 
 
 # Overwrite world.sdf with obstacle world
-os.system('python3 obstacleWorld.py')
+#os.system('python3 obstacleWorld.py')
 
 
 #directOrGUI = sys.argv[1]
@@ -38,8 +38,15 @@ os.system('python3 obstacleWorld.py')
 #------------------------------------
 
 #------------------------------------
+pyrosim.Start_SDF("obstacleWorld.sdf")
+pyrosim.Send_Cube(name="Box", pos=[-3,3,0.5] , size=[1,1,1]) 
+pyrosim.End()
 
 manyBots_simulation = MB_SIMULATION()
+
+#manyBots_simulation.Create_World()
+while not os.path.exists("obstacleWorld.sdf"):
+        time.sleep(0.01)
 manyBots_simulation.Run()
 
 #simulation.Get_Fitness()
