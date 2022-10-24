@@ -53,7 +53,9 @@ class MANYBOTS_SIMULATION:
 
 
     def Get_Fitness(self):
-        self.robot0.Get_Fitness()
+        self.robot0.Get_Obstacle_Fitness()
+        #self.robot0.Get_Fitness()
+
         #self.robot5.Get_Fitness()
         #self.robot10.Get_Fitness()
 
@@ -64,7 +66,6 @@ class MANYBOTS_SIMULATION:
 
     
     def Shift_Lines(self):
-        pass
         #bestIDFile = open("bestBrains.txt","w")
         #bestBrains = bestIDFile.readlines()
         #bestIDFile.close()

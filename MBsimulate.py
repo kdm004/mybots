@@ -15,9 +15,9 @@ import os
 
 
 pyrosim.Start_SDF("obstacleWorld.sdf")
-for x in range(-5, -15-5,-5):
-        for y in range(0, 15, 5):
-            pyrosim.Send_Cube(name="Box", pos=[x,y,.5] , size=[1/3,1/3,1/3]) 
+#for x in range(-5, -15-5,-5):
+#        for y in range(0, 15, 5):
+#            pyrosim.Send_Cube(name="Box", pos=[x,y,.5] , size=[1/3,1/3,1/3]) 
 pyrosim.End()
 
 manyBots_simulation = MB_SIMULATION()
@@ -28,3 +28,9 @@ while not os.path.exists("obstacleWorld.sdf"):
 manyBots_simulation.Run()
 
 manyBots_simulation.Shift_Lines()
+
+f = open('testfile.txt','a')
+f.write('testing hello hello')
+f.close()
+
+manyBots_simulation.Get_Fitness()

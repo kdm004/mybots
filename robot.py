@@ -76,6 +76,20 @@ class ROBOT:
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
 
 
+    def Get_Obstacle_Fitness(self):                    
+        stateOfLinkZero = p.getLinkState(self.robot,0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        
+        # Write fitness to txt file
+        f = open('obstacleEnv_fitnesses.txt','a')
+        f.write(str(xCoordinateOfLinkZero))
+        f.close
+
+ # This function is to return the fitness of an obstacle sim fitness. The func for empty env sim fitness is in parallelHC under show_best. 
+ # The reason it is there is because it needs to distinguish between all robots to see which is the best, whereas for the MB sims, there's 
+ # only 1 robotBrian controller, which is already the best.
+
 
 
  
