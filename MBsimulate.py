@@ -1,20 +1,3 @@
-
-# In this file, we want to run the simulation by generating several robot instances
-#------------------------
-
-#STEP 1
-        # Run search.py in a loop for the number of evolved brains you want 
-
-
-#STEP 2
-        # Start Simulation for manyBots
-
-        # Read bestBrains.txt and write the contents to a list
-
-        # Use 3 Robot Instances with the format self.robot0 = ROBOT(self.bestBrainsList[i],0)
-
-
-
 import constants as c
 import random as random
 import numpy as numpy
@@ -31,13 +14,6 @@ import os
 #os.system('python3 obstacleWorld.py')
 
 
-#directOrGUI = sys.argv[1]
-#solutionID = sys.argv[2] #Where does this come from? Where is the os.system call? I want this for each instance of PHC.
-
-
-#------------------------------------
-
-#------------------------------------
 pyrosim.Start_SDF("obstacleWorld.sdf")
 for x in range(-5, -15-5,-5):
         for y in range(0, 15, 5):
@@ -51,7 +27,4 @@ while not os.path.exists("obstacleWorld.sdf"):
         time.sleep(0.01)
 manyBots_simulation.Run()
 
-#simulation.Get_Fitness()
-
-#while os.path.exists('fitness*.txt'):
-#    time.sleep(100)
+manyBots_simulation.Shift_Lines()

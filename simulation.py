@@ -16,39 +16,9 @@ class SIMULATION:
             p.connect(p.GUI)
 
 
-        #self.physicsClient = p.connect(p.DIRECT)   # should this be directorGUI? Maybe delete this line completely?
-        
-        #p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        #p.setGravity(0,0,c.gravityConstant)
-        #self.world = WORLD()
-
-
-
-
-
-
-
-        #self.stagger = 5 #right now, only works with 0, 5,10
-        #--------------------------------------------------------
-
-        # Writing self.solutionID to a file, which can be read to retrieve the best evolved brain from the sims with only 1 robot
-
-
-        #bestIDFile = open("bestBrains.txt", "a") # should it be 'w' or 'a'? write or append? 
-        #bestIDFile.write(str(self.solutionID))
-        #bestIDFile.close
-
-
-        self.robot0 = ROBOT(self.solutionID,0)       # THEORETICALLY, WE COULD USE bestBriansFrom1RobotSims[0] here, and we would get the ID for the best robot brain from 1 run.
-        #self.robot5 = ROBOT(5,5)                    # Now, we should be able to do 1 robot sims, and know what the IDs are of the best robots. 
-        #self.robot10 = ROBOT(8,10)                  # We should make it such that each time we run ROBOT, we run an individual instance of phc. 
-        #self.robot10 = ROBOT(2,15)                  # We should be able to 
-
-        #--------------------------------------------------------
-
-        
-
-
+        self.robot0 = ROBOT(self.solutionID,0)       
+        #self.robot5 = ROBOT(5,5)                    
+        #self.robot10 = ROBOT(8,10)                  
 
 
     def Run(self):
