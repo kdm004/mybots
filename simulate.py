@@ -21,5 +21,6 @@ simulation.Run()
 
 simulation.Get_Fitness()
 
+#os.system('rm fitness*.txt')
 while os.path.exists('fitness*.txt'):
-    time.sleep(100)
+    time.sleep(.1)
