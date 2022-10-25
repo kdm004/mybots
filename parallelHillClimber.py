@@ -77,7 +77,7 @@ class PARALLEL_HILL_CLIMBER:
 #--------------------------------------------------------------------------------------------------------------
         # write bestFitness to a file....... only use one of the following blocks at a time
 
-        noObstacleFile = open("emptyEnv_fitnesses", "a")      # Use this one if empty environment.
+        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
         noObstacleFile.write(str(bestFitness))
         noObstacleFile.write('\n')
         noObstacleFile.close
