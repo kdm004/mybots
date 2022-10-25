@@ -22,5 +22,5 @@ simulation.Run()
 simulation.Get_Fitness()
 
 #os.system('rm fitness*.txt')
-while os.path.exists('fitness*.txt'):
-    time.sleep(.1)
+#while os.path.exists('fitness*.txt'):
+#    time.sleep(.1)      I think this was causing the simulation to sleep endlessly

@@ -12,7 +12,7 @@ import pyrosim.pyrosim as pyrosim
 class MANYBOTS_SIMULATION:
     def __init__(self):
 
-        self.directOrGUI = p.connect(p.GUI)
+        self.directOrGUI = p.connect(p.DIRECT)
 
         bestIDFile = open("bestBrains.txt","r")
         bestBrains = bestIDFile.readlines()

@@ -184,7 +184,11 @@ class SOLUTION:
             time.sleep(0.01)
 
         fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
-        self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
+        time.sleep(0.1)
+        lines = fitnessFile.read()
+        time.sleep(0.1)
+        self.fitness = float(lines)
+        #self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
         #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
         fitnessFile.close()
         os.system("rm fitness"+ str(self.myID) + ".txt")

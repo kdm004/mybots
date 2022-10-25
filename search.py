@@ -1,9 +1,12 @@
 import os
+import time
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 #------------------------- 
 
 phc1 = PARALLEL_HILL_CLIMBER()
+time.sleep(1)
 phc1.Evolve()
+time.sleep(1)
 phc1.Show_Best()
 
 #phc2 = PARALLEL_HILL_CLIMBER()
