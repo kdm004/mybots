@@ -14,7 +14,7 @@ class PARALLEL_HILL_CLIMBER:
         # This block is for manyBots
         # Start with ID of 0, and check if a brain.nndf file has already occurred. Purpose of this code block is to determine the initial ID after possible prev ParallelHC
         numberOfBrainFiles = len(glob.glob("brain*.nndf"))
-        self.nextAvailableID = 0 
+        self.nextAvailableID = 0      # we should make it start at something that already exists so the code can iterate to an ID that doesn't exist yet.
         for i in range(numberOfBrainFiles): 
             if os.path.exists("brain"+ str(self.nextAvailableID) + ".nndf"): 
                 self.nextAvailableID += 1
@@ -87,6 +87,7 @@ class PARALLEL_HILL_CLIMBER:
         #obstacleFile.write('\n')
         #obstacleFile.close
         
+
     #----------------------------------------------------------------------------------------------------------
 
     def Evaluate(self, solutions):

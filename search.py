@@ -1,5 +1,6 @@
 import os
 import time
+import glob
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 #------------------------- 
 
@@ -8,6 +9,29 @@ time.sleep(1)
 phc1.Evolve()
 time.sleep(1)
 phc1.Show_Best()
+
+
+fp = open('bestBrains.txt', 'r') 
+lines = fp.readlines()
+cleanLines = []
+for entry in lines:
+    cleanLines.append(entry.replace('\n',''))
+cleanLines = list(map(int, cleanLines))
+print('Here are bestBrains entries:',cleanLines)
+fp.close()
+
+numberOfBrainFiles = len(glob.glob("brain*.nndf"))
+for i in range(numberOfBrainFiles):
+    if i not in cleanLines:
+        #print("Here is i:",i)
+        os.system('rm brain'+str(i)+'.nndf')
+
+
+
+
+
+
+
 
 #phc2 = PARALLEL_HILL_CLIMBER()
 #phc2.Evolve()
