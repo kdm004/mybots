@@ -12,21 +12,18 @@ import pyrosim.pyrosim as pyrosim
 class MANYBOTS_SIMULATION:
     def __init__(self):
 
-        self.directOrGUI = p.connect(p.DIRECT)
+        self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
         bestIDFile = open("bestBrains.txt","r")
         bestBrains = bestIDFile.readlines()
         bestIDFile.close()
         bestBrains = list(map(int, bestBrains))
 
-        #bestIDFile = open("bestBrains.txt","w")   # We should be deleting the first line from bestBrains after the simulation completes. Use the Shift_Lines function at end of this file.
-        #bestBrains = bestIDFile.readlines()
-        #bestIDFile.close()
-        #bestBrains = list(map(int, bestBrains))
 
         self.robot0 = ROBOT(bestBrains[0],0)       
         #self.robot5 = ROBOT(bestBrains[1],5)                   
         #self.robot10 = ROBOT(bestBrains[2],10)                 
+
 
 
     def Run(self):
@@ -85,3 +82,8 @@ class MANYBOTS_SIMULATION:
                 # note list index starts from 0
                 if number not in [0]:
                     fp.write(line)
+
+
+
+
+
