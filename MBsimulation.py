@@ -11,16 +11,25 @@ import pyrosim.pyrosim as pyrosim
 
 class MANYBOTS_SIMULATION:
     def __init__(self):
-
         self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
-        bestIDFile = open("bestBrains.txt","r")
+        fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
+        fitnessList = fitnessFile.readlines()
+        fitnessFile.close()
+        cleanFitnessList = []
+        for entry in fitnessList:
+            cleanFitnessList.append(entry.replace('\n',''))
+        cleanFitnessList = list(map(float,cleanFitnessList))
+
+        bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
         bestBrains = bestIDFile.readlines()
         bestIDFile.close()
         bestBrains = list(map(int, bestBrains))
 
 
-        self.robot0 = ROBOT(bestBrains[0],0)       
+        overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
+
+        self.robot0 = ROBOT(bestBrains[overallChampionIndex],0)       # Use the 
         #self.robot5 = ROBOT(bestBrains[1],5)                   
         #self.robot10 = ROBOT(bestBrains[2],10)                 
 
