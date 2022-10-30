@@ -1,8 +1,29 @@
 import os
 import time
 import glob
+import constants as c
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 #------------------------- 
+
+if os.path.exists('bestBrains.txt'):
+    # Delete Non-Champion brain.nndf files
+    fp = open('bestBrains.txt', 'r') 
+    lines = fp.readlines()
+    cleanLines = []
+    for entry in lines:
+        cleanLines.append(entry.replace('\n',''))
+    cleanLines = list(map(int, cleanLines))
+    print('Here are bestBrains entries:',cleanLines)
+    fp.close()
+
+    numberOfBrainFiles = len(glob.glob("brain*.nndf"))
+    for i in range(c.populationSize*35):
+        if i not in cleanLines:
+            #print("Here is i:",i)
+            os.system('rm brain'+str(i)+'.nndf')
+
+
+
 
 phc1 = PARALLEL_HILL_CLIMBER()
 time.sleep(1)
@@ -22,10 +43,13 @@ print('Here are bestBrains entries:',cleanLines)
 fp.close()
 
 numberOfBrainFiles = len(glob.glob("brain*.nndf"))
-for i in range(numberOfBrainFiles):
+for i in range(c.populationSize*35): # changed from numberOfBrainFiles since some brains are out of that range. max(cleanLines) could be the first of a batch of populationSize.
     if i not in cleanLines:
         #print("Here is i:",i)
         os.system('rm brain'+str(i)+'.nndf')
+        while os.path.exists('brain'+str(i)+'.nndf'):
+            os.system('rm brain' + str(i)+'.nndf')
+            time.sleep(0.1)
 
 
 
