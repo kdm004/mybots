@@ -11,6 +11,7 @@ time.sleep(1)
 phc1.Show_Best()
 
 
+# Delete Non-Champion brain.nndf files
 fp = open('bestBrains.txt', 'r') 
 lines = fp.readlines()
 cleanLines = []
