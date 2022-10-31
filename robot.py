@@ -10,12 +10,12 @@ from solution import SOLUTION
 
 
 class ROBOT:
-    def __init__(self,solutionID,stagger):
+    def __init__(self,solutionID,xi,yi):
         self.solutionID = solutionID
-        SOLUTION(solutionID).Generate_Body(stagger) # I think this needs to be before loadURDF
+        SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
         #self.solutionID = solutionID
-        self.robot = p.loadURDF("body"+str(stagger)+".urdf") 
+        self.robot = p.loadURDF("body"+str(xi)+str(yi)+".urdf") 
         pyrosim.Prepare_To_Simulate(self.robot) 
 
         self.sensors = {}

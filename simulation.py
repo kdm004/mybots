@@ -16,7 +16,7 @@ class SIMULATION:
             p.connect(p.GUI)
 
 
-        self.robot0 = ROBOT(self.solutionID,0)       
+        self.robot0 = ROBOT(self.solutionID,0,0)       # ROBOT(self.solutionID, xi, yi) where xi = 0, yi = 0
         #self.robot5 = ROBOT(5,5)                    
         #self.robot10 = ROBOT(8,10)                  
 

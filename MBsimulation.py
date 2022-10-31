@@ -11,7 +11,7 @@ import pyrosim.pyrosim as pyrosim
 
 class MANYBOTS_SIMULATION:
     def __init__(self):
-        self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
+        self.directOrGUI = p.connect(p.GUI) #DIRECT or GUI
 
         fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
         fitnessList = fitnessFile.readlines()
@@ -29,7 +29,7 @@ class MANYBOTS_SIMULATION:
 
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
 
-        self.robot0 = ROBOT(bestBrains[overallChampionIndex],0)       # Use the 
+        self.robot0 = ROBOT(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
         #self.robot5 = ROBOT(bestBrains[1],5)                   
         #self.robot10 = ROBOT(bestBrains[2],10)                 
 
