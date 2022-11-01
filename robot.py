@@ -12,6 +12,8 @@ from solution import SOLUTION
 class ROBOT:
     def __init__(self,solutionID,xi,yi):
         self.solutionID = solutionID
+        self.xi = xi
+        self.yi = yi
         SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
         #self.solutionID = solutionID
@@ -76,14 +78,14 @@ class ROBOT:
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
 
 
-    def Get_Obstacle_Fitness(self):                    
+    def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.robot.xi?
         stateOfLinkZero = p.getLinkState(self.robot,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         
         # Write fitness to txt file
         f = open('obstacleEnv_fitnesses.txt','a')
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str(xCoordinateOfLinkZero-self.xi)) # we want str(xCoordinateOfLinkZero - initialxcoord)
         f.write('\n')
         f.close
 

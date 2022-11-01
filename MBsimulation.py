@@ -11,7 +11,7 @@ import pyrosim.pyrosim as pyrosim
 
 class MANYBOTS_SIMULATION:
     def __init__(self):
-        self.directOrGUI = p.connect(p.GUI) #DIRECT or GUI
+        self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
         fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
         fitnessList = fitnessFile.readlines()
@@ -29,7 +29,17 @@ class MANYBOTS_SIMULATION:
 
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
 
-        self.robot0 = ROBOT(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
+        self.robot0 = ROBOT(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
+        self.robot1 = ROBOT(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
+        # self.robot2 = ROBOT(bestBrains[overallChampionIndex],-4,4)       # xi = 0, yi = 0
+        # self.robot3 = ROBOT(bestBrains[overallChampionIndex],0,-8)       # xi = 0, yi = 0
+        # self.robot4 = ROBOT(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
+        # self.robot5 = ROBOT(bestBrains[overallChampionIndex],0,8)       # xi = 0, yi = 0
+        # self.robot6 = ROBOT(bestBrains[overallChampionIndex],4,-4)       # xi = 0, yi = 0
+        # self.robot7 = ROBOT(bestBrains[overallChampionIndex],4,0)       # xi = 0, yi = 0
+        # self.robot8 = ROBOT(bestBrains[overallChampionIndex],4,4)       # xi = 0, yi = 0
+        # self.robot9 = ROBOT(bestBrains[overallChampionIndex],8,0)       # xi = 0, yi = 0
+
         #self.robot5 = ROBOT(bestBrains[1],5)                   
         #self.robot10 = ROBOT(bestBrains[2],10)                 
 
@@ -46,13 +56,41 @@ class MANYBOTS_SIMULATION:
             self.robot0.Think()
             self.robot0.Act(i)  
 
-            #self.robot5.Sense(i)
-            #self.robot5.Think()
-            #self.robot5.Act(i)  
+            self.robot1.Sense(i)
+            self.robot1.Think()
+            self.robot1.Act(i)  
+            
+            # self.robot2.Sense(i)
+            # self.robot2.Think()
+            # self.robot2.Act(i)  
 
-            #self.robot10.Sense(i)
-            #self.robot10.Think()
-           # self.robot10.Act(i)  
+            # self.robot3.Sense(i)
+            # self.robot3.Think()
+            # self.robot3.Act(i)  
+
+            # self.robot4.Sense(i)
+            # self.robot4.Think()
+            # self.robot4.Act(i)  
+
+            # self.robot5.Sense(i)
+            # self.robot5.Think()
+            # self.robot5.Act(i)  
+
+            # self.robot6.Sense(i)
+            # self.robot6.Think()
+            # self.robot6.Act(i)  
+
+            # self.robot7.Sense(i)
+            # self.robot7.Think()
+            # self.robot7.Act(i)  
+        
+            # self.robot8.Sense(i)
+            # self.robot8.Think()
+            # self.robot8.Act(i)  
+
+            # self.robot9.Sense(i)
+            # self.robot9.Think()
+            # self.robot9.Act(i)  
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
@@ -60,7 +98,15 @@ class MANYBOTS_SIMULATION:
 
     def Get_Fitness(self):
         self.robot0.Get_Obstacle_Fitness()
-        #self.robot0.Get_Fitness()
+        self.robot1.Get_Obstacle_Fitness()
+        # self.robot2.Get_Obstacle_Fitness()
+        # self.robot3.Get_Obstacle_Fitness()
+        # self.robot4.Get_Obstacle_Fitness()
+        # self.robot5.Get_Obstacle_Fitness()
+        # self.robot6.Get_Obstacle_Fitness()
+        # self.robot7.Get_Obstacle_Fitness()
+        # self.robot8.Get_Obstacle_Fitness()
+        # self.robot9.Get_Obstacle_Fitness()
 
         #self.robot5.Get_Fitness()
         #self.robot10.Get_Fitness()
