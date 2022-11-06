@@ -10,27 +10,31 @@ import pyrosim.pyrosim as pyrosim
 
 
 class MANYBOTS_SIMULATION:
-    def __init__(self):
+    def __init__(self,botIndex):
+        self.botIndex = botIndex
         self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
-        fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
-        fitnessList = fitnessFile.readlines()
-        fitnessFile.close()
-        cleanFitnessList = []
-        for entry in fitnessList:
-            cleanFitnessList.append(entry.replace('\n',''))
-        cleanFitnessList = list(map(float,cleanFitnessList))
+        bestBrains, overallChampionIndex = self.Get_Champ()
 
-        bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
-        bestBrains = bestIDFile.readlines()
-        bestIDFile.close()
-        bestBrains = list(map(int, bestBrains))
+        self.positions = [
+            (bestBrains[overallChampionIndex],-8,0),
+            (bestBrains[overallChampionIndex],-4,-4),
+            (bestBrains[overallChampionIndex],-4,4),
+            (bestBrains[overallChampionIndex],0,-8),
+            (bestBrains[overallChampionIndex],0,0),
+            (bestBrains[overallChampionIndex],0,8),
+            (bestBrains[overallChampionIndex],4,-4),
+            (bestBrains[overallChampionIndex],4,0),
+            (bestBrains[overallChampionIndex],4,4),
+            (bestBrains[overallChampionIndex],8,0)
+        ]
+
+        self.robots = ROBOT(*self.positions[self.botIndex])
+        #self.robots(*self.positions[self.botIndex])
 
 
-        overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
-
-        self.robot0 = ROBOT(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
-        self.robot1 = ROBOT(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
+        # self.robot0 = ROBOT(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
+        # self.robot1 = ROBOT(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
         # self.robot2 = ROBOT(bestBrains[overallChampionIndex],-4,4)       # xi = 0, yi = 0
         # self.robot3 = ROBOT(bestBrains[overallChampionIndex],0,-8)       # xi = 0, yi = 0
         # self.robot4 = ROBOT(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
@@ -50,15 +54,15 @@ class MANYBOTS_SIMULATION:
         p.setGravity(0,0,c.gravityConstant)
         self.obstacleWorld = OBSTACLE_WORLD()
 
-        for i in range (c.loopLength):
+        for timeStep in range (c.loopLength):
             p.stepSimulation()
-            self.robot0.Sense(i)
-            self.robot0.Think()
-            self.robot0.Act(i)  
+            self.robots.Sense(timeStep)
+            self.robots.Think()
+            self.robots.Act(timeStep)  
 
-            self.robot1.Sense(i)
-            self.robot1.Think()
-            self.robot1.Act(i)  
+            # self.robot1.Sense(i)
+            # self.robot1.Think()
+            # self.robot1.Act(i)  
             
             # self.robot2.Sense(i)
             # self.robot2.Think()
@@ -97,24 +101,15 @@ class MANYBOTS_SIMULATION:
 
 
     def Get_Fitness(self):
-        self.robot0.Get_Obstacle_Fitness()
-        self.robot1.Get_Obstacle_Fitness()
-        # self.robot2.Get_Obstacle_Fitness()
-        # self.robot3.Get_Obstacle_Fitness()
-        # self.robot4.Get_Obstacle_Fitness()
-        # self.robot5.Get_Obstacle_Fitness()
-        # self.robot6.Get_Obstacle_Fitness()
-        # self.robot7.Get_Obstacle_Fitness()
-        # self.robot8.Get_Obstacle_Fitness()
-        # self.robot9.Get_Obstacle_Fitness()
+        self.robots.Get_Obstacle_Fitness()
+        #self.robot0.Get_Fitness()
 
-        #self.robot5.Get_Fitness()
-        #self.robot10.Get_Fitness()
-
-
-    def __del__(self):
-        #self.robot.Save_Values()
         p.disconnect()
+
+
+    # def __del__(self):
+    #     #self.robot.Save_Values()
+    #     p.disconnect()
 
     
     def Shift_Lines(self):
@@ -139,6 +134,22 @@ class MANYBOTS_SIMULATION:
                     fp.write(line)
 
 
+    def Get_Champ(self):
+        fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
+        fitnessList = fitnessFile.readlines()
+        fitnessFile.close()
+        cleanFitnessList = []
+        for entry in fitnessList:
+            cleanFitnessList.append(entry.replace('\n',''))
+        cleanFitnessList = list(map(float,cleanFitnessList))
 
+        bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
+        bestBrains = bestIDFile.readlines()
+        bestIDFile.close()
+        bestBrains = list(map(int, bestBrains))
+
+        overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
+
+        return bestBrains, overallChampionIndex
 
 

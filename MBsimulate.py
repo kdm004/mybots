@@ -17,16 +17,29 @@ pyrosim.Start_SDF("obstacleWorld.sdf")
 #        for y in range(-34, 34+2, 2): #-4
 #            pyrosim.Send_Cube(name="Box", pos=[x,y,.5] , size=[1/3,1/3,1/3]) 
 pyrosim.End()
-
-manyBots_simulation = MB_SIMULATION()
-
-
-while not os.path.exists("obstacleWorld.sdf"):
-        time.sleep(0.01)
-manyBots_simulation.Run()
-
-#manyBots_simulation.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
+#---------------------------------------------------------------------------------------------------------------------
 
 
+# MBSIM = MB_SIMULATION(1)
+# while not os.path.exists("obstacleWorld.sdf"):
+#         time.sleep(0.01)
+# MBSIM.Run()
+# #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
+# MBSIM.Get_Fitness()
 
-manyBots_simulation.Get_Fitness()
+
+
+
+
+# MBSIM2 = MB_SIMULATION(2)
+# while not os.path.exists("obstacleWorld.sdf"):
+#         time.sleep(0.01)
+# MBSIM2.Run()
+# #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
+# MBSIM2.Get_Fitness()
+
+
+for i in range(10):
+        MBSIM = MB_SIMULATION(i)
+        MBSIM.Run()
+        MBSIM.Get_Fitness()

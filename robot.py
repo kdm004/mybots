@@ -79,13 +79,13 @@ class ROBOT:
 
 
     def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.robot.xi?
-        stateOfLinkZero = p.getLinkState(self.robot,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        self.stateOfLinkZero = p.getLinkState(self.robot,0)
+        self.positionOfLinkZero = self.stateOfLinkZero[0]
+        self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
         
         # Write fitness to txt file
         f = open('obstacleEnv_fitnesses.txt','a')
-        f.write(str(xCoordinateOfLinkZero-self.xi)) # we want str(xCoordinateOfLinkZero - initialxcoord)
+        f.write(str(self.xCoordinateOfLinkZero-self.xi)) # we want str(xCoordinateOfLinkZero - initialxcoord)
         f.write('\n')
         f.close
 

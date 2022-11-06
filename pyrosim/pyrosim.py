@@ -42,7 +42,7 @@ def End_Model():
 
     model.Save_End_Tag(f)
 
-def Get_Touch_Sensor_Value_For_Link(linkName):
+def Get_Touch_Sensor_Value_For_Link(linkName): # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
 
     touchValue = -1.0
 
@@ -60,7 +60,7 @@ def Get_Touch_Sensor_Value_For_Link(linkName):
 
     return touchValue
 
-def Prepare_Link_Dictionary(bodyID):
+def Prepare_Link_Dictionary(bodyID):  # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
 
     global linkNamesToIndices
 
@@ -86,7 +86,7 @@ def Prepare_Link_Dictionary(bodyID):
 
            linkNamesToIndices[rootLinkName] = -1 
 
-def Prepare_Joint_Dictionary(bodyID):
+def Prepare_Joint_Dictionary(bodyID):  # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
 
     global jointNamesToIndices
 
@@ -100,7 +100,7 @@ def Prepare_Joint_Dictionary(bodyID):
 
         jointNamesToIndices[jointName] = jointIndex
 
-def Prepare_To_Simulate(bodyID):
+def Prepare_To_Simulate(bodyID):  # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
 
     Prepare_Link_Dictionary(bodyID)
 
