@@ -13,8 +13,8 @@ import os
 
 
 pyrosim.Start_SDF("obstacleWorld.sdf")
-#for x in range(34, -34-2,-2): # -4
-#        for y in range(-34, 34+2, 2): #-4
+# for x in range(12, -34-2,-2): # -4
+#        for y in range(-60, 60+2, 2): #-4
 #            pyrosim.Send_Cube(name="Box", pos=[x,y,.5] , size=[1/3,1/3,1/3]) 
 pyrosim.End()
 #---------------------------------------------------------------------------------------------------------------------
