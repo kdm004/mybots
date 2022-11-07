@@ -17,16 +17,16 @@ class MANYBOTS_SIMULATION:
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[overallChampionIndex],0,-36),
-            (bestBrains[overallChampionIndex],0,-28),
-            (bestBrains[overallChampionIndex],0,-20),
-            (bestBrains[overallChampionIndex],0,-12),
-            (bestBrains[overallChampionIndex],0,-4),
-            (bestBrains[overallChampionIndex],0,4),
-            (bestBrains[overallChampionIndex],0,12),
-            (bestBrains[overallChampionIndex],0,20),
-            (bestBrains[overallChampionIndex],0,28),
-            (bestBrains[overallChampionIndex],0,36)
+            (bestBrains[overallChampionIndex],0,-18),
+            (bestBrains[overallChampionIndex],0,-14),
+            (bestBrains[overallChampionIndex],0,-10),
+            (bestBrains[overallChampionIndex],0,-6),
+            (bestBrains[overallChampionIndex],0,-2),
+            (bestBrains[overallChampionIndex],0,2),
+            (bestBrains[overallChampionIndex],0,6),
+            (bestBrains[overallChampionIndex],0,10),
+            (bestBrains[overallChampionIndex],0,14),
+            (bestBrains[overallChampionIndex],0,18)
         ]
 
         self.robots = ROBOT(*self.positions[self.botIndex])
