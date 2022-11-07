@@ -10,8 +10,9 @@ import pyrosim.pyrosim as pyrosim
 
 
 class MANYBOTS_SIMULATION:
-    def __init__(self,botIndex):
+    def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 robots. 
         self.botIndex = botIndex
+        self.swarmIndex = swarmIndex
         self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
         bestBrains, overallChampionIndex = self.Get_Champ()
@@ -138,6 +139,7 @@ class MANYBOTS_SIMULATION:
         fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
         fitnessList = fitnessFile.readlines()
         fitnessFile.close()
+        fitnessList = fitnessList[self.swarmIndex*10:(self.swarmIndex*10)+10]
         cleanFitnessList = []
         for entry in fitnessList:
             cleanFitnessList.append(entry.replace('\n',''))
@@ -146,6 +148,7 @@ class MANYBOTS_SIMULATION:
         bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
         bestBrains = bestIDFile.readlines()
         bestIDFile.close()
+        bestBrains = bestBrains[self.swarmIndex*10:(self.swarmIndex*10)+10]
         bestBrains = list(map(int, bestBrains))
 
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
