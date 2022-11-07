@@ -16,7 +16,7 @@ class PARALLEL_HILL_CLIMBER:
     
 
 
-        numberOfBrainFiles = len(glob.glob("brain*.nndf"))
+        numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf"))
 
         if os.path.exists('bestBrains.txt'):
             fp = open('bestBrains.txt', 'r') 
@@ -31,14 +31,14 @@ class PARALLEL_HILL_CLIMBER:
 
             self.nextAvailableID = max(cleanLines) + 1
             for i in range(numberOfBrainFiles):
-                if os.path.exists('brain'+str(self.nextAvailableID)+'.nndf'):
+                if os.path.exists('brainFiles/brain'+str(self.nextAvailableID)+'.nndf'):
                     self.nextAvailableID += 1
 
 
         else:
             self.nextAvailableID = 0      # we should make it start at something that already exists so the code can iterate to an ID that doesn't exist yet.
             for i in range(numberOfBrainFiles): 
-                if os.path.exists("brain"+ str(self.nextAvailableID) + ".nndf"):  
+                if os.path.exists("brainFiles/brain"+ str(self.nextAvailableID) + ".nndf"):  
                     self.nextAvailableID += 1
 
         for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. 

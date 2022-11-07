@@ -120,7 +120,7 @@ class SOLUTION:
 
     def Generate_Brain(self):  #ADDED TO ROBOT_BRAIN
 
-        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf") #changed from brain.nndf
+        pyrosim.Start_NeuralNetwork("brainFiles/brain" + str(self.myID) + ".nndf") #changed from brain.nndf
 
 
 # Upper Extremity Sensor Neurons

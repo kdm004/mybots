@@ -7,6 +7,7 @@ import numpy as numpy
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 from solution import SOLUTION
+import time
 
 
 class ROBOT:
@@ -16,7 +17,6 @@ class ROBOT:
         self.yi = yi
         SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
-        #self.solutionID = solutionID
         self.robot = p.loadURDF("body"+str(xi)+str(yi)+".urdf") 
         pyrosim.Prepare_To_Simulate(self.robot) 
 
@@ -25,7 +25,7 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
+        self.nn = NEURAL_NETWORK("brainFiles/brain" + str(solutionID)+ ".nndf")
         #self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")    Josh said you might need to make multiple instances of NEURAL_NETWORK inside ROBOT?
        # self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
         #os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
