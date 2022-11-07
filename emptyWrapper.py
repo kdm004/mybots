@@ -36,8 +36,7 @@ for i in range(c.populationSize*350): # changed from numberOfBrainFiles since so
 
 for i in range(350):
     os.system('python3 search.py')
-    time.sleep(zzz*2)
-
+    #time.sleep(zzz*2)
 
 
 
