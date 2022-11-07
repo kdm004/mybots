@@ -17,7 +17,7 @@ if os.path.exists('bestBrains.txt'):
     fp.close()
 
     numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf"))
-    for i in range(c.populationSize*35):
+    for i in range(c.populationSize*350):
         if i not in cleanLines:
             #print("Here is i:",i)
             os.system('rm brainFiles/brain'+str(i)+'.nndf')
@@ -43,7 +43,7 @@ print('Here are bestBrains entries:',cleanLines)
 fp.close()
 
 numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf")) 
-for i in range(c.populationSize*35): # changed from numberOfBrainFiles since some brains are out of that range. max(cleanLines) could be the first of a batch of populationSize.
+for i in range(c.populationSize*350): # changed from numberOfBrainFiles since some brains are out of that range. max(cleanLines) could be the first of a batch of populationSize.
     if i not in cleanLines:
         #print("Here is i:",i)
         os.system('rm brainFiles/brain'+str(i)+'.nndf')

@@ -17,6 +17,7 @@ class ROBOT:
         self.yi = yi
         SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
+        time.sleep(2)
         self.robot = p.loadURDF("body"+str(xi)+str(yi)+".urdf") 
         pyrosim.Prepare_To_Simulate(self.robot) 
 
