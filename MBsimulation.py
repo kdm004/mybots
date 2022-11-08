@@ -18,16 +18,16 @@ class MANYBOTS_SIMULATION:
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[overallChampionIndex],0,-18),
-            (bestBrains[overallChampionIndex],0,-14),
-            (bestBrains[overallChampionIndex],0,-10),
-            (bestBrains[overallChampionIndex],0,-6),
-            (bestBrains[overallChampionIndex],0,-2),
-            (bestBrains[overallChampionIndex],0,2),
-            (bestBrains[overallChampionIndex],0,6),
-            (bestBrains[overallChampionIndex],0,10),
-            (bestBrains[overallChampionIndex],0,14),
-            (bestBrains[overallChampionIndex],0,18)
+            (bestBrains[0+self.swarmIndex*10],0,-18),
+            (bestBrains[1+self.swarmIndex*10],0,-14),
+            (bestBrains[2+self.swarmIndex*10],0,-10),
+            (bestBrains[3+self.swarmIndex*10],0,-6),
+            (bestBrains[4+self.swarmIndex*10],0,-2),
+            (bestBrains[5+self.swarmIndex*10],0,2),
+            (bestBrains[6+self.swarmIndex*10],0,6),
+            (bestBrains[7+self.swarmIndex*10],0,10),
+            (bestBrains[8+self.swarmIndex*10],0,14),
+            (bestBrains[9+self.swarmIndex*10],0,18)
         ]
 
         self.robots = ROBOT(*self.positions[self.botIndex])
@@ -139,7 +139,7 @@ class MANYBOTS_SIMULATION:
         fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
         fitnessList = fitnessFile.readlines()
         fitnessFile.close()
-        fitnessList = fitnessList[self.swarmIndex*10:(self.swarmIndex*10)+10]
+        # fitnessList = fitnessList[self.swarmIndex*10:(self.swarmIndex*10)+10] LOOK : only required for case1
         cleanFitnessList = []
         for entry in fitnessList:
             cleanFitnessList.append(entry.replace('\n',''))
@@ -148,7 +148,7 @@ class MANYBOTS_SIMULATION:
         bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
         bestBrains = bestIDFile.readlines()
         bestIDFile.close()
-        bestBrains = bestBrains[self.swarmIndex*10:(self.swarmIndex*10)+10]
+        # bestBrains = bestBrains[self.swarmIndex*10:(self.swarmIndex*10)+10] LOOK : only required for case1
         bestBrains = list(map(int, bestBrains))
 
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
