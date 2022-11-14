@@ -18,16 +18,16 @@ class MANYBOTS_SIMULATION:
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[overallChampionIndex],0,-18),
-            (bestBrains[overallChampionIndex],0,-14),
-            (bestBrains[overallChampionIndex],0,-10),
-            (bestBrains[overallChampionIndex],0,-6),
-            (bestBrains[overallChampionIndex],0,-2),
-            (bestBrains[overallChampionIndex],0,2),
-            (bestBrains[overallChampionIndex],0,6),
-            (bestBrains[overallChampionIndex],0,10),
-            (bestBrains[overallChampionIndex],0,14),
-            (bestBrains[overallChampionIndex],0,18)
+            (bestBrains[self.swarmIndex],0,-18),   # changed all elements from overallChampionIndex to self.swarmIndex after meeting with Josh.
+            (bestBrains[self.swarmIndex],0,-14),   # Now, this will be the bestBrains line 0, line1, line2, and so on for every iteration of the 
+            (bestBrains[self.swarmIndex],0,-10),   # swarmIndex loop in MBsimulate.py
+            (bestBrains[self.swarmIndex],0,-6),
+            (bestBrains[self.swarmIndex],0,-2),
+            (bestBrains[self.swarmIndex],0,2),
+            (bestBrains[self.swarmIndex],0,6),
+            (bestBrains[self.swarmIndex],0,10),
+            (bestBrains[self.swarmIndex],0,14),
+            (bestBrains[self.swarmIndex],0,18)
         ]
 
         self.robots = ROBOT(*self.positions[self.botIndex])
@@ -148,7 +148,7 @@ class MANYBOTS_SIMULATION:
         bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
         bestBrains = bestIDFile.readlines()
         bestIDFile.close()
-        bestBrains = bestBrains[self.swarmIndex*10:(self.swarmIndex*10)+10]
+        #bestBrains = bestBrains[self.swarmIndex*10:(self.swarmIndex*10)+10] # Took this out. This line puts the bestBrains in groups of 10. Took this out so that bestBrains is in order as seen in bestBrains.txt file
         bestBrains = list(map(int, bestBrains))
 
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
