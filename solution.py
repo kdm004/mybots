@@ -1,69 +1,48 @@
-import numpy
+
+import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
 import random
 import time
 import constants as c
 #--------------------------------------------
-#Cube size (length, width, height) and position (x,y,z)
-length = 1
-width = 1
-height = 1
 
-#we want the world block to be at (-3, 3, .5)
-# Torso_FrontLeg joint has no upstream joint because we want Torso to be the parent link again. So we use abs coords for Torso_FrontLeg.
-x = -3
-y = 3
-z = 0.5
 
-#Torso position
-x0 = 0 #x0 = 1.5 
-y0 = 0 #y0 = 0
-z0 = 1 #z0 = 1.5
 
-#BackLeg Position
-x1 = 0
-y1 = -0.5
-z1 = 0
-#BackLeg Size (Dimensions)
-l1 = 0.2
-w1 = 1
-h1 = 0.2
 
-#FrontLeg Position
-x2 = 0
-y2 = 0.5
-z2 = 0
-#FrontLeg Size (Dimensions)
-l2 = 0.2
-w2 = 1
-h2 = 0.2
-
-#LeftLeg Position
-x3 = -0.5
-y3 = 0
-z3 = 0
-#LeftLeg Size (Dimensions)
-l3 = 1
-w3 = 0.2
-h3 = 0.2
-
-#RightLeg Position
-x4 = 0.5
-y4 = 0
-z4 = 0
-#RightLeg Size (Dimensions)
-l4 = 1
-w4 = 0.2
-h4 = 0.2
-#--------------------------------------------
 
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
         
-        self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
-        self.weights = self.weights * 2 - 1
+
+        
+        
+        self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)   
+        self.weights = self.weights * 2 - 1                 
+                                                       
+        legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
+        self.randomIndex = random.choice([0,1,2,3,4,5,6,7])
+        self.legParts = [1,1,1,1,1,1,1,1]
+
+        if legPartList[self.randomIndex] == 'l1':
+            self.legParts[0] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l2':
+            self.legParts[1] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l3':
+            self.legParts[2] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l4':
+            self.legParts[3] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l5':
+            self.legParts[4] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l6':
+            self.legParts[5] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l7':
+            self.legParts[6] = np.random.uniform(0,2)
+        if legPartList[self.randomIndex] == 'l8':
+            self.legParts[7] = np.random.uniform(0,2)
+
+        
 
     def Evaluate(self,directOrGUI):
         pass
@@ -71,49 +50,48 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        #pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height]) 
+        #pyrosim.Send_Cube(name="Box", pos=[-3,3,0.5] , size=[1,1,1]) 
         pyrosim.End()
 
     def Generate_Body(self,xi,yi): 
-
-        pyrosim.Start_URDF("body"+str(xi)+str(yi)+".urdf")
+        pyrosim.Start_URDF("body"+str(xi)+str(yi)+str(self.myID)+".urdf")
         
         #Torso
-        pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,1] , size=[length,width,height])
+        pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,max(self.legParts)] , size=[1,1,1])
             
     # Upper Extremities
         #Back Leg
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0+xi,-0.5+yi,1], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name="BackLeg", pos=[0,-0.5,0] , size=[l1,w1,h1])
+        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0+xi,-0.5+yi,max(self.legParts)], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="BackLeg", pos=[0,-(self.legParts[0]/2),0] , size=[0.2,self.legParts[0],0.2])
 
         #Front Leg
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,1], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name="FrontLeg", pos=[0,0.5,0] , size=[l2,w2,h2])
+        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,max(self.legParts)], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="FrontLeg", pos=[0,(self.legParts[1]/2),0] , size=[0.2,self.legParts[1],0.2])
 
             #Left Leg
-        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name="LeftLeg", pos=[-0.5,0,0] , size=[l3,w3,h3])        
+        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,max(self.legParts)], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="LeftLeg", pos=[-(self.legParts[2]/2),0,0] , size=[self.legParts[2],0.2,0.2])        
 
             #Right Leg
-        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name="RightLeg", pos=[0.5,0,0] , size=[l4,w4,h4])   
+        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,max(self.legParts)], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="RightLeg", pos=[(self.legParts[3]/2),0,0] , size=[self.legParts[3],0.2,0.2])   
 
     # Lower Extremities
         #Back Lower Leg
-        pyrosim.Send_Joint( name = "BackLeg_BackLowerLeg" , parent= "BackLeg", child = "BackLowerLeg", type = "revolute", position = [0, -1, 0], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name="BackLowerLeg", pos=[0, 0, -0.5] , size=[0.2, 0.2, 1])
+        pyrosim.Send_Joint( name = "BackLeg_BackLowerLeg" , parent= "BackLeg", child = "BackLowerLeg", type = "revolute", position = [0, -self.legParts[0], 0], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="BackLowerLeg", pos=[0, 0, -(self.legParts[4]/2)] , size=[0.2, 0.2, self.legParts[4]])
             
         #Front Lower Leg
-        pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg", child = "FrontLowerLeg", type = "revolute", position = [0, 1, 0], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -0.5] , size=[0.2, 0.2, 1])
+        pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg", child = "FrontLowerLeg", type = "revolute", position = [0, self.legParts[1], 0], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -(self.legParts[5]/2)] , size=[0.2, 0.2, self.legParts[5]])
 
         #Left Lower Leg
-        pyrosim.Send_Joint( name = "LeftLeg_LeftLowerLeg" , parent= "LeftLeg", child = "LeftLowerLeg", type = "revolute", position = [-1, 0, 0], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0, 0, -0.5] , size=[0.2, 0.2, 1])
+        pyrosim.Send_Joint( name = "LeftLeg_LeftLowerLeg" , parent= "LeftLeg", child = "LeftLowerLeg", type = "revolute", position = [-self.legParts[2], 0, 0], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0, 0, -(self.legParts[6]/2)] , size=[0.2, 0.2, self.legParts[6]])
 
         #Right Lower Leg
-        pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg", parent= "RightLeg", child = "RightLowerLeg", type = "revolute", position = [1, 0, 0], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -0.5] , size=[0.2, 0.2, 1])
+        pyrosim.Send_Joint( name = "RightLeg_RightLowerLeg", parent= "RightLeg", child = "RightLowerLeg", type = "revolute", position = [self.legParts[3], 0, 0], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -(self.legParts[7]/2)] , size=[0.2, 0.2, self.legParts[7]])
 
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf
@@ -147,8 +125,6 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron( name = 14, jointName = "FrontLeg_FrontLowerLeg")
         pyrosim.Send_Motor_Neuron( name = 15, jointName = "LeftLeg_LeftLowerLeg")
         pyrosim.Send_Motor_Neuron( name = 16, jointName = "RightLeg_RightLowerLeg")
-
-
    
         for currentRow in range(c.numSensorNeurons):
             for currentColumn in range(c.numMotorNeurons):
@@ -157,26 +133,44 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self): #ADDED TO ROBOT_BRAIN
-        randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
-        randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
-        self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+        headsOrTails = random.choice([0,1])
+
+        # # if heads, mutate brain
+        # if headsOrTails ==1:  
+        #     randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
+        #     randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
+        #     self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+             
+        # # if tails, mutate body
+        # else:                  
+        legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
+        self.randomIndex2 = random.choice([0,1,2,3,4,5,6,7])
+        if legPartList[self.randomIndex2] == 'l1':
+            self.legParts[0] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l2':
+            self.legParts[1] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l3':
+            self.legParts[2] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l4':
+            self.legParts[3] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l5':
+            self.legParts[4] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l6':
+            self.legParts[5] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l7':
+            self.legParts[6] =  np.random.uniform(0,2)
+        if legPartList[self.randomIndex2] == 'l8':
+            self.legParts[7] =  np.random.uniform(0,2)
+
+        
 
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
 
     def Start_Simulation(self, directOrGUI):
         self.Create_World()
-
-#----------------------------------------------------------------------------------------------------
-#        self.body_list = []
-#        for i in range(0, 20, 5):                         # range(0, 15, 5) gets us body0, body5, body10
-#            self.body_list.append(self.Generate_Body(i))
-#        for i in range(3): # this tells us the index of the list. Inside the list, we have self.body_list[1], self.body_list[2], self.body_list[3] which store body0, body5, body10.
-#            self.body_list[i]
-#----------------------------------------------------------------------------------------------------
-
-
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
+        #self.Generate_Body(0,0) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
@@ -194,5 +188,3 @@ class SOLUTION:
         os.system("rm fitness"+ str(self.myID) + ".txt")
         while os.path.exists("fitness"+str(self.myID)+".txt"):
             os.system("rm fitness"+ str(self.myID) + ".txt")
-   
-

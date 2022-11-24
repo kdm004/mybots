@@ -1,3 +1,4 @@
+
 from solution import SOLUTION 
 import constants as c
 import copy
@@ -41,7 +42,7 @@ class PARALLEL_HILL_CLIMBER:
                 if os.path.exists("brainFiles/brain"+ str(self.nextAvailableID) + ".nndf"):  
                     self.nextAvailableID += 1
 
-        for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. 
+        for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. This is the original for loop from parallelHC step #17
             self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 
@@ -87,7 +88,7 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
-        self.parents[overKey].Start_Simulation("DIRECT") #Shows best single robot sim in GUI
+        self.parents[overKey].Start_Simulation("GUI") #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
         
 
         # Write best brain file ID to bestBrains.txt

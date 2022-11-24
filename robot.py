@@ -1,3 +1,4 @@
+
 import pyrosim.pyrosim as pyrosim 
 import pybullet as p
 from sensor import SENSOR
@@ -18,7 +19,7 @@ class ROBOT:
         SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
         time.sleep(2)
-        self.robot = p.loadURDF("body"+str(xi)+str(yi)+".urdf") 
+        self.robot = p.loadURDF("body"+str(xi)+str(yi)+str(solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
         pyrosim.Prepare_To_Simulate(self.robot) 
 
         self.sensors = {}
@@ -93,6 +94,10 @@ class ROBOT:
  # This function is to return the fitness of an obstacle sim fitness. The func for empty env sim fitness is in parallelHC under show_best. 
  # The reason it is there is because it needs to distinguish between all robots to see which is the best, whereas for the MB sims, there's 
  # only 1 robotBrian controller, which is already the best.
+
+
+
+ 
 
 
 
