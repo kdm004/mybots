@@ -7,7 +7,8 @@ import glob
 import pybullet as p
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, botIndex):
+        self.botIndex = botIndex
        # os.system("rm brain*.nndf") # step 82 parallelHC
         #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
@@ -88,7 +89,7 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
-        self.parents[overKey].Start_Simulation("DIRECT") #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
+        self.parents[overKey].Start_Simulation("DIRECT", self.botIndex) #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
         
 
         # Write best brain file ID to bestBrains.txt
@@ -115,6 +116,6 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
-            solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
+            solutions[i].Start_Simulation("DIRECT", self.botIndex) #step 69 parallelHC -- GUI -> DIRECT
         for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()

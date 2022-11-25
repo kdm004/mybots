@@ -6,34 +6,17 @@ from parallelHillClimber import PARALLEL_HILL_CLIMBER
 import nonChampDeleter as NDC
 #------------------------- 
 
-NDC.NonChampDeleter()
-# if os.path.exists('bestBrains.txt'):
-#     # Delete Non-Champion brain.nndf files
-#     fp = open('bestBrains.txt', 'r') 
-#     lines = fp.readlines()
-#     cleanLines = []
-#     for entry in lines:
-#         cleanLines.append(entry.replace('\n',''))
-#     cleanLines = list(map(int, cleanLines))
-#     print('Here are bestBrains entries:',cleanLines)
-#     fp.close()
 
-#     numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf"))
-#     for i in range(c.populationSize*350):
-#         if i not in cleanLines:
-#             #print("Here is i:",i)
-#             os.system('rm brainFiles/brain'+str(i)+'.nndf')
+for botIndex in range(10):
+    NDC.NonChampDeleter()
 
+    phc1 = PARALLEL_HILL_CLIMBER(botIndex)
+    time.sleep(1)
+    phc1.Evolve()
+    time.sleep(1)
+    phc1.Show_Best()
 
-
-
-phc1 = PARALLEL_HILL_CLIMBER()
-time.sleep(1)
-phc1.Evolve()
-time.sleep(1)
-phc1.Show_Best()
-
-NDC.NonChampDeleter()
+    NDC.NonChampDeleter()
 
 
 # # Delete Non-Champion brain.nndf files

@@ -167,11 +167,11 @@ class SOLUTION:
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
 
-    def Start_Simulation(self, directOrGUI):
+    def Start_Simulation(self, directOrGUI, botIndex):
         self.Create_World()
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
         #self.Generate_Body(0,0) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ " " + str(botIndex)+ " &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
