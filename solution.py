@@ -54,7 +54,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Body(self,xi,yi): 
-        pyrosim.Start_URDF("body"+str(xi)+str(yi)+str(self.myID)+".urdf")
+        pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf")
         
         #Torso
         pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,max(self.legParts)] , size=[1,1,1])

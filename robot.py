@@ -19,7 +19,7 @@ class ROBOT:
         SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
         time.sleep(2)
-        self.robot = p.loadURDF("body"+str(xi)+str(yi)+str(solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
+        self.robot = p.loadURDF("bodyFiles/body"+str(xi)+str(yi)+str(solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
         pyrosim.Prepare_To_Simulate(self.robot) 
 
         self.sensors = {}

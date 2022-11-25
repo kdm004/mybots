@@ -4,7 +4,7 @@ import os
 
 
 os.system("rm brainFiles/brain*.nndf")
-os.system("rm body*.urdf")
+os.system("rm bodyFiles/body*.urdf")
 os.system("rm bestBrains.txt")
 
 os.system("rm emptyEnv_fitnesses.txt")
