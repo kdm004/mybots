@@ -7,18 +7,30 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, solutionID):
+    def __init__(self,directOrGUI, botIndex, solutionID):
+        self.botIndex = botIndex
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
+              
 
+        self.positions = [
+            (self.solutionID,0,-18),
+            (self.solutionID,0,-14),
+            (self.solutionID,0,-10),
+            (self.solutionID,0,-6),
+            (self.solutionID,0,-2),
+            (self.solutionID,0,2),
+            (self.solutionID,0,6),
+            (self.solutionID,0,10),
+            (self.solutionID,0,14),
+            (self.solutionID,0,18)
+        ]
 
-        self.robot0 = ROBOT(self.solutionID,0,0)       # ROBOT(self.solutionID, xi, yi) where xi = 0, yi = 0
-        #self.robot5 = ROBOT(5,5)                    
-        #self.robot10 = ROBOT(8,10)                  
+        self.robots = ROBOT(*self.positions[self.botIndex])
 
 
     def Run(self):
@@ -28,17 +40,10 @@ class SIMULATION:
 
         for i in range (c.loopLength):
             p.stepSimulation()
-            self.robot0.Sense(i)
-            self.robot0.Think()
-            self.robot0.Act(i)  
+            self.robots.Sense(i)
+            self.robots.Think()
+            self.robots.Act(i)  
 
-            #self.robot5.Sense(i)
-            #self.robot5.Think()
-            #self.robot5.Act(i)  
-
-            #self.robot10.Sense(i)
-            #self.robot10.Think()
-            #self.robot10.Act(i)  
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
@@ -47,14 +52,12 @@ class SIMULATION:
         #    print(frontLegSensorValues) #
 
     def Get_Fitness(self):
-        self.robot0.Get_Fitness()
-        #self.robot5.Get_Fitness()
-        #self.robot10.Get_Fitness()
-
-
-    def __del__(self):
-        #self.robot.Save_Values()
+        self.robots.Get_Fitness()
         p.disconnect()
+
+
+    # def __del__(self):
+    #     p.disconnect()
 
  
     

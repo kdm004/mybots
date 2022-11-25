@@ -88,7 +88,7 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
-        self.parents[overKey].Start_Simulation("GUI") #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
+        self.parents[overKey].Start_Simulation("DIRECT") #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
         
 
         # Write best brain file ID to bestBrains.txt
