@@ -188,3 +188,9 @@ class SOLUTION:
         os.system("rm fitness"+ str(self.myID) + ".txt")
         while os.path.exists("fitness"+str(self.myID)+".txt"):
             os.system("rm fitness"+ str(self.myID) + ".txt")
+       
+        # allIDFile = open("allIDs.txt", "a") 
+        # allIDFile.write(str(self.myID))  
+        # allIDFile.write('\n')                              #Write delimiter after brain ID
+        # allIDFile.close
+

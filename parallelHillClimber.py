@@ -119,3 +119,4 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Start_Simulation("DIRECT", self.botIndex) #step 69 parallelHC -- GUI -> DIRECT
         for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()
+            

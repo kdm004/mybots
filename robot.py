@@ -16,7 +16,7 @@ class ROBOT:
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-        SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
+        SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
         self.robot = p.loadURDF("bodyFiles/body"+str(xi)+str(yi)+str(solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
@@ -28,9 +28,7 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK("brainFiles/brain" + str(solutionID)+ ".nndf")
-        #self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")    Josh said you might need to make multiple instances of NEURAL_NETWORK inside ROBOT?
-       # self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
-        #os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
+
 
 
 

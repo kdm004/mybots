@@ -7,8 +7,16 @@
 #     def Add_Numbers(self):
 #         self.sumNum = self.num1 + self.num2 + self.num3
 #         return self.sumNum
+import numpy as numpy
 
-myString = '3'
-myInt = int(myString)
-print(myInt)
-print(type(myInt))
+bestBrains = [1,3,5,7]
+lastBrain = bestBrains[-1:][0]
+allIDs = list(range(lastBrain+4))
+
+diffs = list(set(allIDs).difference(set(bestBrains)))
+
+print(diffs)
+
+
+
+
