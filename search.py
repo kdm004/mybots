@@ -7,7 +7,7 @@ import nonChampDeleter as NDC
 #------------------------- 
 
 
-for botIndex in range(10):
+for botIndex in range(1):
     NDC.NonChampDeleter()
 
     phc1 = PARALLEL_HILL_CLIMBER(botIndex)

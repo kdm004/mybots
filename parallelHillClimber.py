@@ -5,6 +5,7 @@ import copy
 import os
 import glob
 import pybullet as p
+import random 
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self, botIndex):
@@ -54,7 +55,12 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        self.Mutate()
+        headsOrTails = random.choice([0,1])
+        if headsOrTails == 1:
+            self.Mutate()
+        else:
+            self.Mutate_Body()
+
         self.Evaluate(self.children)
         self.Print() # uncommented call to parallelHC print method ... step 107 parallelHC
         self.Select()
@@ -70,6 +76,11 @@ class PARALLEL_HILL_CLIMBER:
     def Mutate(self):
         for i in range(len(self.children)): # len(self.children) iterates through empty keys too?
             self.children[i].Mutate()
+        
+    def Mutate_Body(self):
+        for i in range(len(self.children)): # len(self.children) iterates through empty keys too?
+            self.children[i].Mutate_Body()
+
 
     def Print(self): 
         print('\n')
@@ -89,7 +100,7 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
-        self.parents[overKey].Start_Simulation("DIRECT", self.botIndex) #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
+        self.parents[overKey].Start_Simulation("GUI", self.botIndex) #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
         
 
         # Write best brain file ID to bestBrains.txt
