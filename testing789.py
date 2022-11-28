@@ -13,10 +13,10 @@ import constants as c
 
 weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)    # +1 row for the extra vector of leg parts                                                  
 
-weights[0][1] = 1
+#weights[0][1] = 1
 #print(weights)
 for i in range(7):
     weights[9][i] = random.uniform(.5,1.5)
 
 
-print(weights[9])
+print(weights)

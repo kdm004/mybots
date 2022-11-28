@@ -11,7 +11,7 @@ from solution import SOLUTION
 import time
 
 
-class ROBOT:
+class SWARMBOT:
     def __init__(self,solutionID,xi,yi):
         self.solutionID = solutionID
         self.xi = xi
@@ -19,8 +19,8 @@ class ROBOT:
         #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
-        self.robot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
-        pyrosim.Prepare_To_Simulate(self.robot) 
+        self.swarmBot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
+        pyrosim.Prepare_To_Simulate(self.swarmBot) 
 
         self.sensors = {}
         self.motors = {}
@@ -54,7 +54,7 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange 
-                self.motors[jointName].Set_Value(self.robot, desiredAngle) 
+                self.motors[jointName].Set_Value(self.swarmBot, desiredAngle) 
 
 
 
@@ -69,7 +69,7 @@ class ROBOT:
         self.nn.Print()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robot,0)
+        stateOfLinkZero = p.getLinkState(self.swarmBot,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
@@ -78,8 +78,8 @@ class ROBOT:
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
 
 
-    def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.robot.xi?
-        self.stateOfLinkZero = p.getLinkState(self.robot,0)
+    def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.swarmBot.xi?
+        self.stateOfLinkZero = p.getLinkState(self.swarmBot,0)
         self.positionOfLinkZero = self.stateOfLinkZero[0]
         self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
         
@@ -90,8 +90,8 @@ class ROBOT:
         f.close
 
  # This function is to return the fitness of an obstacle sim fitness. The func for empty env sim fitness is in parallelHC under show_best. 
- # The reason it is there is because it needs to distinguish between all robots to see which is the best, whereas for the MB sims, there's 
- # only 1 robotBrian controller, which is already the best.
+ # The reason it is there is because it needs to distinguish between all swarmBots to see which is the best, whereas for the MB sims, there's 
+ # only 1 swarmBotBrian controller, which is already the best.
 
 
 

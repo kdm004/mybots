@@ -18,7 +18,7 @@ NCD.NonChampDeleter()
 #     time.sleep(zzz)
 
 
-for i in range(350):
+for i in range(35):
     os.system('python3 search.py')
     #time.sleep(zzz*2)
 

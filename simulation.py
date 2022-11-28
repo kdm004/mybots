@@ -18,16 +18,16 @@ class SIMULATION:
               
 
         self.positions = [
-            (self.solutionID,0,-18),
-            (self.solutionID,0,-14),
-            (self.solutionID,0,-10),
-            (self.solutionID,0,-6),
-            (self.solutionID,0,-2),
-            (self.solutionID,0,2),
-            (self.solutionID,0,6),
-            (self.solutionID,0,10),
-            (self.solutionID,0,14),
-            (self.solutionID,0,18)
+            (self.solutionID,0,0),
+            # (self.solutionID,0,-14),
+            # (self.solutionID,0,-10),
+            # (self.solutionID,0,-6),
+            # (self.solutionID,0,-2),
+            # (self.solutionID,0,2),
+            # (self.solutionID,0,6),
+            # (self.solutionID,0,10),
+            # (self.solutionID,0,14),
+            # (self.solutionID,0,18)
         ]
 
         self.robots = ROBOT(*self.positions[self.botIndex])

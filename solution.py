@@ -56,8 +56,19 @@ class SOLUTION:
         #pyrosim.Send_Cube(name="Box", pos=[-3,3,0.5] , size=[1,1,1]) 
         pyrosim.End()
 
-    def Generate_Body(self,xi,yi): 
-        pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf")
+    def Generate_Body(self, xi,yi): 
+        tempfile1 = open('WeightsTemp.txt','a')
+        tempfile1.write(str(self.weights))
+        tempfile1.write('\n')
+        tempfile1.write('\n')
+        tempfile1.close  
+
+        tempfile2 = open('LegSizesTemp.txt','a')
+        tempfile2.write(str(self.weights[9]))
+        tempfile2.write('\n')
+        tempfile2.write('\n')
+        tempfile2.close   
+        pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") # LOOK here, we create the body with position and ID
         
         #Torso
         pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,max(self.weights[9])] , size=[1,1,1])
@@ -139,19 +150,20 @@ class SOLUTION:
         randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
         randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
-        tempfile = open('WeightsTemp.txt','a')
-        tempfile.write(str(self.weights))
-        tempfile.write('\n')
-        tempfile.close  
+
+        # tempfile = open('WeightsTemp.txt','a')
+        # tempfile.write(str(self.weights[0:8]))
+        # tempfile.write('\n')
+        # tempfile.close  
 
     def Mutate_Body(self): #ADDED TO ROBOT_BRAIN
         randomLegPart = random.randint(0,7)
         self.weights[9][randomLegPart] = random.uniform(0.5,1.5)
 
-        tempfile = open('WeightsTemp.txt','a')
-        tempfile.write(str(self.weights))
-        tempfile.write('\n')
-        tempfile.close   
+        # tempfile = open('LegSizesTemp.txt','a')
+        # tempfile.write(str(self.weights[9]))
+        # tempfile.write('\n')
+        # tempfile.close   
 
 
         # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
@@ -181,8 +193,22 @@ class SOLUTION:
     def Start_Simulation(self, directOrGUI, botIndex):
         self.Create_World()
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
-        #self.Generate_Body(0,0) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ " " + str(botIndex)+ " &") # changed from "DIRECT" to directOrGUI... added " &"
+
+        positions = [
+            (0,0),
+            # (self.myID,0,-14),
+            # (self.myID,0,-10),
+            # (self.myID,0,-6),
+            # (self.myID,0,-2),
+            # (self.myID,0,2),
+            # (self.myID,0,6),
+            # (self.myID,0,10),
+            # (self.myID,0,14),
+            # (self.myID,0,18)
+        ]
+
+        self.Generate_Body(*positions[botIndex]) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):

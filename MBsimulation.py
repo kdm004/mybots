@@ -2,7 +2,7 @@
 import time
 import constants as c
 from obstacleWorld import OBSTACLE_WORLD 
-from robot import ROBOT
+from swarmBot import SWARMBOT
 import pybullet as p
 import pybullet_data
 import os
@@ -10,7 +10,7 @@ import pyrosim.pyrosim as pyrosim
 
 
 class MANYBOTS_SIMULATION:
-    def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 robots. 
+    def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 swarmBots. 
         self.botIndex = botIndex
         self.swarmIndex = swarmIndex
         self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
@@ -18,35 +18,35 @@ class MANYBOTS_SIMULATION:
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[0+self.swarmIndex*10],0,-18),
-            (bestBrains[1+self.swarmIndex*10],0,-14),
-            (bestBrains[2+self.swarmIndex*10],0,-10),
-            (bestBrains[3+self.swarmIndex*10],0,-6),
-            (bestBrains[4+self.swarmIndex*10],0,-2),
-            (bestBrains[5+self.swarmIndex*10],0,2),
-            (bestBrains[6+self.swarmIndex*10],0,6),
-            (bestBrains[7+self.swarmIndex*10],0,10),
-            (bestBrains[8+self.swarmIndex*10],0,14),
-            (bestBrains[9+self.swarmIndex*10],0,18)
+            (bestBrains[0+self.swarmIndex*10],0,0),
+            # (bestBrains[1+self.swarmIndex*10],0,-14),
+            # (bestBrains[2+self.swarmIndex*10],0,-10),
+            # (bestBrains[3+self.swarmIndex*10],0,-6),
+            # (bestBrains[4+self.swarmIndex*10],0,-2),
+            # (bestBrains[5+self.swarmIndex*10],0,2),
+            # (bestBrains[6+self.swarmIndex*10],0,6),
+            # (bestBrains[7+self.swarmIndex*10],0,10),
+            # (bestBrains[8+self.swarmIndex*10],0,14),
+            # (bestBrains[9+self.swarmIndex*10],0,18)
         ]
 
-        self.robots = ROBOT(*self.positions[self.botIndex])
-        #self.robots(*self.positions[self.botIndex])
+        self.swarmBots = SWARMBOT(*self.positions[self.botIndex])
+        #self.swarmBots(*self.positions[self.botIndex])
 
 
-        # self.robot0 = ROBOT(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
-        # self.robot1 = ROBOT(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
-        # self.robot2 = ROBOT(bestBrains[overallChampionIndex],-4,4)       # xi = 0, yi = 0
-        # self.robot3 = ROBOT(bestBrains[overallChampionIndex],0,-8)       # xi = 0, yi = 0
-        # self.robot4 = ROBOT(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
-        # self.robot5 = ROBOT(bestBrains[overallChampionIndex],0,8)       # xi = 0, yi = 0
-        # self.robot6 = ROBOT(bestBrains[overallChampionIndex],4,-4)       # xi = 0, yi = 0
-        # self.robot7 = ROBOT(bestBrains[overallChampionIndex],4,0)       # xi = 0, yi = 0
-        # self.robot8 = ROBOT(bestBrains[overallChampionIndex],4,4)       # xi = 0, yi = 0
-        # self.robot9 = ROBOT(bestBrains[overallChampionIndex],8,0)       # xi = 0, yi = 0
+        # self.swarmBot0 = swarmBot(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
+        # self.swarmBot1 = swarmBot(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
+        # self.swarmBot2 = swarmBot(bestBrains[overallChampionIndex],-4,4)       # xi = 0, yi = 0
+        # self.swarmBot3 = swarmBot(bestBrains[overallChampionIndex],0,-8)       # xi = 0, yi = 0
+        # self.swarmBot4 = swarmBot(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
+        # self.swarmBot5 = swarmBot(bestBrains[overallChampionIndex],0,8)       # xi = 0, yi = 0
+        # self.swarmBot6 = swarmBot(bestBrains[overallChampionIndex],4,-4)       # xi = 0, yi = 0
+        # self.swarmBot7 = swarmBot(bestBrains[overallChampionIndex],4,0)       # xi = 0, yi = 0
+        # self.swarmBot8 = swarmBot(bestBrains[overallChampionIndex],4,4)       # xi = 0, yi = 0
+        # self.swarmBot9 = swarmBot(bestBrains[overallChampionIndex],8,0)       # xi = 0, yi = 0
 
-        #self.robot5 = ROBOT(bestBrains[1],5)                   
-        #self.robot10 = ROBOT(bestBrains[2],10)                 
+        #self.swarmBot5 = swarmBot(bestBrains[1],5)                   
+        #self.swarmBot10 = swarmBot(bestBrains[2],10)                 
 
 
 
@@ -57,59 +57,59 @@ class MANYBOTS_SIMULATION:
 
         for timeStep in range (c.loopLength):
             p.stepSimulation()
-            self.robots.Sense(timeStep)
-            self.robots.Think()
-            self.robots.Act(timeStep)  
+            self.swarmBots.Sense(timeStep)
+            self.swarmBots.Think()
+            self.swarmBots.Act(timeStep)  
 
-            # self.robot1.Sense(i)
-            # self.robot1.Think()
-            # self.robot1.Act(i)  
+            # self.swarmBot1.Sense(i)
+            # self.swarmBot1.Think()
+            # self.swarmBot1.Act(i)  
             
-            # self.robot2.Sense(i)
-            # self.robot2.Think()
-            # self.robot2.Act(i)  
+            # self.swarmBot2.Sense(i)
+            # self.swarmBot2.Think()
+            # self.swarmBot2.Act(i)  
 
-            # self.robot3.Sense(i)
-            # self.robot3.Think()
-            # self.robot3.Act(i)  
+            # self.swarmBot3.Sense(i)
+            # self.swarmBot3.Think()
+            # self.swarmBot3.Act(i)  
 
-            # self.robot4.Sense(i)
-            # self.robot4.Think()
-            # self.robot4.Act(i)  
+            # self.swarmBot4.Sense(i)
+            # self.swarmBot4.Think()
+            # self.swarmBot4.Act(i)  
 
-            # self.robot5.Sense(i)
-            # self.robot5.Think()
-            # self.robot5.Act(i)  
+            # self.swarmBot5.Sense(i)
+            # self.swarmBot5.Think()
+            # self.swarmBot5.Act(i)  
 
-            # self.robot6.Sense(i)
-            # self.robot6.Think()
-            # self.robot6.Act(i)  
+            # self.swarmBot6.Sense(i)
+            # self.swarmBot6.Think()
+            # self.swarmBot6.Act(i)  
 
-            # self.robot7.Sense(i)
-            # self.robot7.Think()
-            # self.robot7.Act(i)  
+            # self.swarmBot7.Sense(i)
+            # self.swarmBot7.Think()
+            # self.swarmBot7.Act(i)  
         
-            # self.robot8.Sense(i)
-            # self.robot8.Think()
-            # self.robot8.Act(i)  
+            # self.swarmBot8.Sense(i)
+            # self.swarmBot8.Think()
+            # self.swarmBot8.Act(i)  
 
-            # self.robot9.Sense(i)
-            # self.robot9.Think()
-            # self.robot9.Act(i)  
+            # self.swarmBot9.Sense(i)
+            # self.swarmBot9.Think()
+            # self.swarmBot9.Act(i)  
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
 
 
     def Get_Fitness(self):
-        self.robots.Get_Obstacle_Fitness()
-        #self.robot0.Get_Fitness()
+        self.swarmBots.Get_Obstacle_Fitness()
+        #self.swarmBot0.Get_Fitness()
 
         p.disconnect()
 
 
     # def __del__(self):
-    #     #self.robot.Save_Values()
+    #     #self.swarmBot.Save_Values()
     #     p.disconnect()
 
     
