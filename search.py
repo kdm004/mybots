@@ -7,8 +7,8 @@ import nonChampDeleter as NDC
 #------------------------- 
 
 
-for botIndex in range(1):
-    #NDC.NonChampDeleter()
+for botIndex in range(10):
+    NDC.NonChampDeleter()
 
     phc1 = PARALLEL_HILL_CLIMBER(botIndex)
     time.sleep(1)
@@ -16,7 +16,7 @@ for botIndex in range(1):
     time.sleep(1)
     phc1.Show_Best()
 
-    #NDC.NonChampDeleter()
+    NDC.NonChampDeleter()
 
 
 # # Delete Non-Champion brain.nndf files
