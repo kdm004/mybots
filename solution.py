@@ -7,20 +7,26 @@ import time
 import constants as c
 import sys
 import search as SEARCH # Only being used to import commandLineVar<some value>
+# we should be using emptyWrapper, not SEARCH, since the -continue is going to be given along with emptyWrapper.py like so: python3 emptyWrapper.py -continue
+import emptyWrapper as EMPTY_WRAPPER
+
+
 import pickle
 #--------------------------------------------
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, botIndex, swarmIndex):
         self.myID = nextAvailableID
+        self.swarmIndex = swarmIndex
+        self.botIndex = botIndex
         
-
-        if SEARCH.commandLineLength > 1:
-            if SEARCH.commandLineVar1 == '-continue':
+        
+        if len(EMPTY_WRAPPER.commandLineVar) > 1:
+            if EMPTY_WRAPPER.commandLineVar[1] == '-continue':
                 with open('weightsAndLegs.txt', 'rb') as pickledFile:
                     loadedMatrixList = pickle.load(pickledFile)
-                    print(loadedMatrixList[1])             # we want to use an appropriateMatrix that corresponds to the bot we are currently evolving.
+                    print(loadedMatrixList[swarmIndex*10+botIndex])             # we want to use an appropriateMatrix that corresponds to the bot we are currently evolving.
                                                            # so the index here should correspond to the bot we want to evolve further
 
         else:

@@ -18,7 +18,7 @@ os.system("rm LegSizesTemp.txt")
 os.system("rm WeightsTemp.txt")
 
 
-
+# should this also refresh the pickled file?
 
 
 

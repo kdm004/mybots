@@ -7,17 +7,19 @@ import nonChampDeleter as NDC
 import sys
 #------------------------- 
 
-commandLineVar0 = sys.argv[0] # this is passed to swarmBot. This is required. This tells swarmBot to execute an if statement if 'search.py' is commandLineVar0
-commandLineLength = len(sys.argv)
-if len(sys.argv) > 1:
-    commandLineVar1 = sys.argv[1] # this will be the -continue flag
+commandLineVar = sys.argv # this is passed to swarmBot. This is required. This tells swarmBot to execute an if statement if 'search.py' is commandLineVar0
+swarmIndex = sys.argv[1]
+
+# commandLineLength = len(sys.argv)
+# if len(sys.argv) > 2:
+#     commandLineVar1 = sys.argv[1] # this will be the -continue flag
 
 
 
 for botIndex in range(10):
     NDC.NonChampDeleter()
 
-    phc1 = PARALLEL_HILL_CLIMBER(botIndex)
+    phc1 = PARALLEL_HILL_CLIMBER(botIndex, swarmIndex)
     time.sleep(1)
     phc1.Evolve()
     time.sleep(1)
