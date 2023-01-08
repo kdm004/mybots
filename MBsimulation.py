@@ -18,16 +18,16 @@ class MANYBOTS_SIMULATION:
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[349],0,18),
-            # (bestBrains[1+self.swarmIndex*10],0,-14),
-            # (bestBrains[2+self.swarmIndex*10],0,-10),
-            # (bestBrains[3+self.swarmIndex*10],0,-6),
-            # (bestBrains[4+self.swarmIndex*10],0,-2),
-            # (bestBrains[5+self.swarmIndex*10],0,2),
-            # (bestBrains[6+self.swarmIndex*10],0,6),
-            # (bestBrains[7+self.swarmIndex*10],0,10),
-            # (bestBrains[8+self.swarmIndex*10],0,14),
-            # (bestBrains[9+self.swarmIndex*10],0,18)
+            (bestBrains[0+self.swarmIndex*10],0,18),                               # why is this 349?
+            (bestBrains[1+self.swarmIndex*10],0,-14),
+            (bestBrains[2+self.swarmIndex*10],0,-10),
+            (bestBrains[3+self.swarmIndex*10],0,-6),
+            (bestBrains[4+self.swarmIndex*10],0,-2),
+            (bestBrains[5+self.swarmIndex*10],0,2),
+            (bestBrains[6+self.swarmIndex*10],0,6),
+            (bestBrains[7+self.swarmIndex*10],0,10),
+            (bestBrains[8+self.swarmIndex*10],0,14),
+            (bestBrains[9+self.swarmIndex*10],0,18)
         ]
 
         self.swarmBots = SWARMBOT(*self.positions[self.botIndex])

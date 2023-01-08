@@ -1,29 +1,20 @@
 
 import numpy as np
 import random
-import constants as c
 import sys
-# weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)    # +1 row for the extra vector of leg parts                                                  
-# weights = weights * 2 - 1   
-# weights[9] = 1                                      # Assign value of 1 to every cell in last row
 
-# print(weights)
+myList = ['a','b','c','d','e']
+print(myList)
+#['a', 'b', 'c', 'd', 'e']
 
-argLength = len(sys.argv)
-print(argLength)
+myList[0] = 'Q'
+print(myList)
+# ['Q', 'b', 'c', 'd', 'e']
+'''You can replace entries in a list by simply setting them equal to something else'''
 
-if sys.argv[1] == '-continue':
-    # use weights from file
-    inputMatrix = np.loadtxt("testing789.txt", dtype = 'f' , delimiter=' ')               # This code block will read in the matrix from a file. 
-    print(inputMatrix)
+myList[4] = 'Z'   
+print(myList)
+# ['Q', 'b', 'c', 'd', 'Z']
+'''You can't replace an index in a list that doesn't exist'''
 
-else:
-    weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)    # +1 row for the extra vector of leg parts                                                  
-    for i in range(7):
-        weights[9][i] = random.uniform(.5,1.5)
-    print(weights)
 
-    # write out weights to file
-    someFile = open('testing789.txt', 'w')
-    np.savetxt('testing789.txt',weights)
-    someFile.close()

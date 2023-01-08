@@ -4,16 +4,17 @@ import constants as c
 import sys
 import pickle
 import os
+import testing789 as TESTING789
 
 
 
 
 
-
-if sys.argv[1] == '-continue':
-    with open('testing123.txt', 'rb') as pickledFile:
-        loadedMatrixList = pickle.load(pickledFile)
-        print(loadedMatrixList[1])
+if len(sys.argv) > 1:
+    if sys.argv[1] == '-continue':
+        with open('testing123.txt', 'rb') as pickledFile:
+            loadedMatrixList = pickle.load(pickledFile)
+            print(loadedMatrixList[1])
 
 
 else:
@@ -33,7 +34,7 @@ else:
 
     # Add a new matrix to weightsList
     weights = np.random.rand(9+1, 8)                                                  
-    for i in range(7):
+    for i in range(8): # 7 to 8
         weights[9][i] = random.uniform(.5,1.5)
     weightsList.append(weights)
     print(weights)

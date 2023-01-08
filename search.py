@@ -4,7 +4,14 @@ import glob
 import constants as c
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 import nonChampDeleter as NDC
+import sys
 #------------------------- 
+
+commandLineVar0 = sys.argv[0] # this is passed to swarmBot. This is required. This tells swarmBot to execute an if statement if 'search.py' is commandLineVar0
+commandLineLength = len(sys.argv)
+if len(sys.argv) > 1:
+    commandLineVar1 = sys.argv[1] # this will be the -continue flag
+
 
 
 for botIndex in range(10):

@@ -5,10 +5,10 @@ import os
 import random
 import time
 import constants as c
+import sys
+import search as SEARCH # Only being used to import commandLineVar<some value>
+import pickle
 #--------------------------------------------
-
-
-
 
 
 class SOLUTION:
@@ -16,36 +16,42 @@ class SOLUTION:
         self.myID = nextAvailableID
         
 
-        
-    
-        self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
-        #self.weights[0:9] = 1
-        self.weights = self.weights * 2 - 1    
-        for i in range(8):
-            self.weights[9][i] = random.uniform(.5,1.5)         
-                                                       
-        # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
-        # self.randomIndex = random.choice([0,1,2,3,4,5,6,7])
-        #self.weights[9] = [1,1,1,1,1,1,1,1] # try making these all random instead of [1,1,1,1,1,1,1,1]
+        if SEARCH.commandLineLength > 1:
+            if SEARCH.commandLineVar1 == '-continue':
+                with open('weightsAndLegs.txt', 'rb') as pickledFile:
+                    loadedMatrixList = pickle.load(pickledFile)
+                    print(loadedMatrixList[1])             # we want to use an appropriateMatrix that corresponds to the bot we are currently evolving.
+                                                           # so the index here should correspond to the bot we want to evolve further
 
-        # if legPartList[self.randomIndex] == 'l1':
-        #     self.weights[9][0] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l2':
-        #     self.weights[9][1] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l3':
-        #     self.weights[9][2] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l4':
-        #     self.weights[9][3] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l5':
-        #     self.weights[9][4] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l6':
-        #     self.weights[9][5] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l7':
-        #     self.weights[9][6] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l8':
-        #     self.weights[9][7] = np.random.uniform(0,2)
+        else:
 
-        
+            # if pickledFile doesn't exist, initialize empty weightsList
+            weightsList = []
+
+            # if pickledFile exists, open it and load weightsList
+            if os.path.exists('weightsAndLegs.txt'):
+                with open("weightsAndLegs.txt", "rb") as pickledFile:
+                    # Load weightsList from pickledFile
+                    weightsList = pickle.load(pickledFile)
+
+            # If pickledFile is empty, initialize weightsList 
+            if len(weightsList) == 0:
+                weightsList = []
+
+            # Add a new matrix to weightsList
+            weights = np.random.rand(9+1, 8)                                                  
+            for i in range(8): # 7 to 8
+                weights[9][i] = random.uniform(.5,1.5)
+            weightsList.append(weights)
+            print(weights)
+
+            # Overwrite pickledFile with new weightsList
+            with open("weightsAndLegs.txt", "wb") as pickledFile:       
+                pickle.dump(weightsList, pickledFile) 
+
+
+
+
 
     def Evaluate(self,directOrGUI):
         pass
@@ -57,17 +63,6 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Body(self, xi,yi): 
-        # tempfile1 = open('WeightsTemp.txt','a')
-        # tempfile1.write(str(self.weights))
-        # tempfile1.write('\n')
-        # tempfile1.write('\n')
-        # tempfile1.close  
-
-        # tempfile2 = open('LegSizesTemp.txt','a')
-        # tempfile2.write(str(self.weights[9]))
-        # tempfile2.write('\n')
-        # tempfile2.write('\n')
-        # tempfile2.close   
         pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") # LOOK here, we create the body with position and ID
         
         #Torso
@@ -168,26 +163,7 @@ class SOLUTION:
         tempfile.close   
 
 
-        # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
-        # self.randomIndex2 = random.choice([0,1,2,3,4,5,6,7])
-        # if legPartList[self.randomIndex2] == 'l1':
-        #     self.weights[9][0] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l2':
-        #     self.weights[9][1] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l3':
-        #     self.weights[9][2] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l4':
-        #     self.weights[9][3] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l5':
-        #     self.weights[9][4] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l6':
-        #     self.weights[9][5] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l7':
-        #     self.weights[9][6] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l8':
-        #     self.weights[9][7] =  np.random.uniform(0,2)
 
-        
 
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID

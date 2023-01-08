@@ -9,6 +9,7 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 from solution import SOLUTION
 import time
+import search as SEARCH # I only am using this to import the commandLineVar0 variable from search.py
 
 
 class SWARMBOT:
@@ -16,6 +17,11 @@ class SWARMBOT:
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
+        commandLineVar0 = SEARCH.commandLineVar0
+        if commandLineVar0 == 'search.py':
+            SOLUTION(solutionID).Generate_Body(xi,yi)       # 1-7-2023 ... this line is used when running search.py, and not used when running MBsimulate.py
+
+        # if sys.argv[0] == 'search.py':
         #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
