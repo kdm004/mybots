@@ -6,7 +6,7 @@ import random
 import time
 import constants as c
 import sys
-import search as SEARCH # Only being used to import commandLineVar<some value>
+#import search as SEARCH # Only being used to import commandLineVar<some value>
 # we should be using emptyWrapper, not SEARCH, since the -continue is going to be given along with emptyWrapper.py like so: python3 emptyWrapper.py -continue
 import emptyWrapper as EMPTY_WRAPPER
 
@@ -26,7 +26,7 @@ class SOLUTION:
             if EMPTY_WRAPPER.commandLineVar[1] == '-continue':
                 with open('weightsAndLegs.txt', 'rb') as pickledFile:
                     loadedMatrixList = pickle.load(pickledFile)
-                    print(loadedMatrixList[swarmIndex*10+botIndex])             # we want to use an appropriateMatrix that corresponds to the bot we are currently evolving.
+                    self.weights = loadedMatrixList[swarmIndex*10+botIndex]             # we want to use an appropriateMatrix that corresponds to the bot we are currently evolving.
                                                            # so the index here should correspond to the bot we want to evolve further
 
         else:
@@ -45,11 +45,11 @@ class SOLUTION:
                 weightsList = []
 
             # Add a new matrix to weightsList
-            weights = np.random.rand(9+1, 8)                                                  
+            self.weights = np.random.rand(9+1, 8)                                                  
             for i in range(8): # 7 to 8
-                weights[9][i] = random.uniform(.5,1.5)
-            weightsList.append(weights)
-            print(weights)
+                self.weights[9][i] = random.uniform(.5,1.5)
+            weightsList.append(self.weights)
+            #print(weights)
 
             # Overwrite pickledFile with new weightsList
             with open("weightsAndLegs.txt", "wb") as pickledFile:       

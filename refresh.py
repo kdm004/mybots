@@ -17,6 +17,7 @@ os.system("rm fitness*.txt")
 os.system("rm LegSizesTemp.txt")
 os.system("rm WeightsTemp.txt")
 
+os.system("rm weightsAndLegs.txt")
 
 # should this also refresh the pickled file?
 
