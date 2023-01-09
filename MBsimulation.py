@@ -13,12 +13,12 @@ class MANYBOTS_SIMULATION:
     def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 swarmBots. 
         self.botIndex = botIndex
         self.swarmIndex = swarmIndex
-        self.directOrGUI = p.connect(p.GUI) #DIRECT or GUI
+        self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[0+self.swarmIndex*10],0,18),                               # why is this 349?
+            (bestBrains[0+self.swarmIndex*10],0,-18),
             (bestBrains[1+self.swarmIndex*10],0,-14),
             (bestBrains[2+self.swarmIndex*10],0,-10),
             (bestBrains[3+self.swarmIndex*10],0,-6),
@@ -154,5 +154,3 @@ class MANYBOTS_SIMULATION:
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
 
         return bestBrains, overallChampionIndex
-
-
