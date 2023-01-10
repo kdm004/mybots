@@ -16,8 +16,8 @@ class SOLUTION:
     def __init__(self, nextAvailableID, spaceOrC, emptyBotIndex, emptySwarmIndex):
         self.myID = nextAvailableID
         self.spaceOrC = spaceOrC
-        self.emptyBotIndex = emptyBotIndex
-        self.emptySwarmIndex = emptySwarmIndex
+        self.emptyBotIndex = int(emptyBotIndex)
+        self.emptySwarmIndex = int(emptySwarmIndex)
 
         # now that we've incorporated spaceOrC here, we can finally make a conditional statement that executes if self.spaceOrC == '-c'
         
@@ -56,7 +56,7 @@ class SOLUTION:
 
             # If pickledFile doesn't exist, initialize matrixOfWeights 
             else:
-                matrixOfWeights = np.zeros((c.numberOfSwarms,c.populationSize))
+                matrixOfWeights = np.zeros((c.numberOfSwarms*10,c.populationSize)) # because 10 is the number of bots.
 
 
             # Add a new matrix to matrixOfWeights

@@ -12,7 +12,7 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self, botIndex, spaceOrC, emptySwarmIndex): #spaceOrC is the commandLineArg passed here from search.py. If -c is used, it will be '-c', else it will be ' ' or '' i think
         self.botIndex = botIndex
         self.spaceOrC = spaceOrC
-        self.emptySwarmIndex = emptySwarmIndex
+        self.emptySwarmIndex = int(emptySwarmIndex)
        # os.system("rm brain*.nndf") # step 82 parallelHC
         #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
