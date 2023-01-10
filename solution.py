@@ -13,24 +13,88 @@ import pickle
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, spaceOrC, emptyBotIndex, emptySwarmIndex):
         self.myID = nextAvailableID
+        self.spaceOrC = spaceOrC
+        self.emptyBotIndex = emptyBotIndex
+        self.emptySwarmIndex = emptySwarmIndex
+
+        # now that we've incorporated spaceOrC here, we can finally make a conditional statement that executes if self.spaceOrC == '-c'
         
-
-        
-        self.weightsList = []
-
-
 
         self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
         #self.weights[0:9] = 1
         self.weights = self.weights * 2 - 1    
         for i in range(8):
             self.weights[9][i] = random.uniform(.5,1.5)
-            self.weightsList.append(self.weights) 
-            with open("weightsAndLegs.txt", "wb") as pickledFile:
-                pickle.dump(self.weightsList, pickledFile) 
-                print(self.weights)
+
+
+        # initialize weightsList
+        self.weightsList = []
+
+    # if -c is used, open the pickledFile, and load all the matrices. Choose the appropriate matrix to continue evolving.
+        if self.spaceOrC == '-c':
+            with open('weightsAndLegs.txt', 'rb') as pickledFile:
+                #Load all matrices in the pickledFile
+                loadedMatrixList = pickle.load(pickledFile)
+
+                # set the self.weights to those of the appropriate robot to use the previous evolution end matrix as current starting matrix. After evolving it further, replace it in the pickledFile at the appropriate index.
+                self.weights == loadedMatrixList[self.emptySwarmIndex*10+self.emptyBotIndex ] # here, pass swarmIndex through in order to use the expression for appropriateRobot
+
+
+    # if -c is not used, load any previous matrices, generate a new one, then add it to the previous matrices. This is a correct interpretation of what this code block does.
+        else:
+            # if pickledFile doesn't exist, initialize empty weightsList
+            weightsList = []
+
+            # if pickledFile exists, open it and load weightsList
+            if os.path.exists('weightsAndLegs.txt'):
+                with open("weightsAndLegs.txt", "rb") as pickledFile:
+                    # Load weightsList from pickledFile
+                    weightsList = pickle.load(pickledFile)
+
+            # If pickledFile is empty, initialize weightsList 
+            if len(weightsList) == 0:
+                weightsList = []
+
+            # Add a new matrix to weightsList
+            weights = np.random.rand(9+1, 8)                                                  
+            for i in range(8): # 7 to 8
+                weights[9][i] = random.uniform(.5,1.5)
+            weightsList.append(weights)
+            self.weights = weights
+
+
+            # Overwrite pickledFile with new weightsList
+            with open("weightsAndLegs.txt", "wb") as pickledFile:       
+                pickle.dump(weightsList, pickledFile) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            #---------
+            # self.weightsList.append(self.weights) 
+            # with open("weightsAndLegs.txt", "wb") as pickledFile:
+            #     pickle.dump(self.weightsList, pickledFile) 
+            #     print(self.weights)
+
+
+
+
+
 
                                                        
         # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']

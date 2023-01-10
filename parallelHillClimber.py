@@ -8,8 +8,10 @@ import pybullet as p
 import random 
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self, botIndex):
+    def __init__(self, botIndex, spaceOrC, emptySwarmIndex): #spaceOrC is the commandLineArg passed here from search.py. If -c is used, it will be '-c', else it will be ' ' or '' i think
         self.botIndex = botIndex
+        self.spaceOrC = spaceOrC
+        self.emptySwarmIndex = emptySwarmIndex
        # os.system("rm brain*.nndf") # step 82 parallelHC
         #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
@@ -45,7 +47,7 @@ class PARALLEL_HILL_CLIMBER:
                     self.nextAvailableID += 1
 
         for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. This is the original for loop from parallelHC step #17
-            self.parents[i] = SOLUTION(self.nextAvailableID) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.spaceOrC, self.botIndex, self.emptySwarmIndex) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 

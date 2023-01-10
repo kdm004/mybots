@@ -15,7 +15,10 @@ class SWARMBOT:
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-        #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
+
+        # if sys.argv[0] = search.py, execute the statement below:
+        #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate 
+        '''the above line seems to be an artifact from ROBOT from when we copied that file. I think swarm bot is only meant to be used with MBsimulate.'''
 
         time.sleep(2)
         self.swarmBot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)

@@ -15,7 +15,6 @@ directOrGUI = sys.argv[1]
 solutionID = sys.argv[2] #Where does this come from? Where is the os.system call? I want this for each instance of PHC.
 botIndex = int(sys.argv[3]) # THIS IS NEW. THIS SHOULD BE GETTING RECEIVED FROM THE OS.SYSTEM CALL IN SOLUTION.PY.... it receives the botIndex as a string, and we convert it into an int.
 
-
 simulation = SIMULATION(directOrGUI, botIndex, solutionID)
 simulation.Run()
 simulation.Get_Fitness()    # might need to move p.disconnect to the Get_Fitness() function.
