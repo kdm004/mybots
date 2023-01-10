@@ -29,47 +29,49 @@ class SOLUTION:
             self.weights[9][i] = random.uniform(.5,1.5)
 
 
-        # initialize weightsList
-        self.weightsList = []
+        # initialize matrixOfWeights
+        self.matrixOfWeights = np.zeros((c.numberOfSwarms,c.populationSize)) # numberOfSwarms x 5 matrix is initially what we have it set to.
 
     # if -c is used, open the pickledFile, and load all the matrices. Choose the appropriate matrix to continue evolving.
         if self.spaceOrC == 'continue':
             with open('weightsAndLegs.txt', 'rb') as pickledFile:
                 #Load all matrices in the pickledFile
-                loadedMatrixList = pickle.load(pickledFile)
+                loadedMatrixOfWeights = pickle.load(pickledFile)
 
                 # set the self.weights to those of the appropriate robot to use the previous evolution end matrix as current starting matrix. After evolving it further, replace it in the pickledFile at the appropriate index.
-                self.weights == loadedMatrixList[self.emptySwarmIndex*10+self.emptyBotIndex ] # here, pass swarmIndex through in order to use the expression for appropriateRobot
+                self.weights == loadedMatrixOfWeights[self.emptySwarmIndex*10+self.emptyBotIndex][self.myID] # here, pass swarmIndex through in order to use the expression for appropriateRobot
 
 
     # if -c is not used, load any previous matrices, generate a new one, then add it to the previous matrices. This is a correct interpretation of what this code block does.
         else:
-            # if pickledFile doesn't exist, initialize empty weightsList
-            weightsList = []
+            # if pickledFile doesn't exist, initialize empty matrixOfWeights
+            matrixOfWeights = np.zeros((c.numberOfSwarms,c.populationSize))
 
-            # if pickledFile exists, open it and load weightsList
+            # if pickledFile exists, open it and load matrixOfWeights
             if os.path.exists('weightsAndLegs.txt'):
                 with open("weightsAndLegs.txt", "rb") as pickledFile:
-                    # Load weightsList from pickledFile
-                    weightsList = pickle.load(pickledFile)
+                    # Load matrixOfWeights from pickledFile
+                    matrixOfWeights = pickle.load(pickledFile)
                     pickledFile.close()                             # Required to avoid EOFError: Ran out of input
 
-            # If pickledFile is empty, initialize weightsList 
-            if len(weightsList) == 0:
-                weightsList = []
+            # If pickledFile doesn't exist, initialize matrixOfWeights 
+            else:
+                matrixOfWeights = np.zeros((c.numberOfSwarms,c.populationSize))
 
 
-            # Add a new matrix to weightsList
+            # Add a new matrix to matrixOfWeights
             weights = np.random.rand(9+1, 8)                                                  
             for i in range(8): # 7 to 8
                 weights[9][i] = random.uniform(.5,1.5)
             self.weights = weights
-            weightsList.append(self.weights)
+
+            # add the new matrix to the correct position in the matrixOfWeights
+            matrixOfWeights[self.emptySwarmIndex*10+self.emptyBotIndex][self.myID] = self.weights
 
 
-            # Overwrite pickledFile with new weightsList
+            # Overwrite pickledFile with new matrixOfWeights after we add a new random matrix. 
             with open("weightsAndLegs.txt", "wb") as pickledFile:       
-                pickle.dump(weightsList, pickledFile) 
+                pickle.dump(matrixOfWeights, pickledFile) 
                 pickledFile.close()                               # Required to avoid EOFError: Ran out of input
 
 

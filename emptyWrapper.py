@@ -7,7 +7,7 @@ import nonChampDeleter as NCD
 import sys
 
 commandLineArg = sys.argv # sys.argv = ['emptyWrapper.py', '-continue']         # should probably be using the -c way
-for emptySwarmIndex in range(2):
+for emptySwarmIndex in range(c.numberOfSwarms): # numberOfSwarms defined in constants.py
     os.system('python3' + ' ' + 'search.py' + '  ' + str(commandLineArg[1]) + ' ' + str(emptySwarmIndex))
 
 

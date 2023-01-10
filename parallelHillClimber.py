@@ -6,6 +6,7 @@ import os
 import glob
 import pybullet as p
 import random 
+import pickle
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self, botIndex, spaceOrC, emptySwarmIndex): #spaceOrC is the commandLineArg passed here from search.py. If -c is used, it will be '-c', else it will be ' ' or '' i think
@@ -96,6 +97,7 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
         
     def Show_Best(self):
+        # We evaluated 5 bots for 5 generations. Resulting in 5 evolved bots. We find the best of the 5 evolved bots. 
         overKey = 0                             
         bestFitness = self.parents[0].fitness 
         for i in range(len(self.parents)):
@@ -123,6 +125,14 @@ class PARALLEL_HILL_CLIMBER:
         #obstacleFile.write(str(xCoordinateOfLinkZero))
         #obstacleFile.write('\n')
         #obstacleFile.close
+
+        with open('weightsAndLegs.txt', 'rb') as pickledFile:
+            #Load all matrices in the pickledFile
+            loadedMatrixOfWeights = pickle.load(pickledFile)
+            # Assuming that len(self.parents), which means that there are 5 evolved matrices. For each evolved matrix, we replace it's antiquated matrix. 
+            for i in range(len(self.parents)):
+                loadedMatrixOfWeights[self.emptySwarmIndex*10+self.botIndex][self.parents[i].myID] = self.parents[overKey].weights # self.parents[overKey].myID is just the relevant ID 1-10-2023
+            pickledFile.close()
         
 
     #----------------------------------------------------------------------------------------------------------

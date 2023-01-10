@@ -1,9 +1,11 @@
 
 import time as t
 
-for i in range(100):
-    print(i)
-    t.sleep(1)
+import numpy as np
+
+
+
+print(np.zeros((3,5)))
 
 
 
