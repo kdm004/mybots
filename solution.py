@@ -5,6 +5,7 @@ import random
 import time
 import constants as c
 import pickle
+#import emptyWrapper as EMPTY_WRAPPER
 #--------------------------------------------
 
 
@@ -27,8 +28,9 @@ class SOLUTION:
         for i in range(8):
             self.weights[9][i] = random.uniform(.5,1.5)
             self.weightsList.append(self.weights) 
-            with open("testing123.txt", "wb") as pickledFile:
+            with open("weightsAndLegs.txt", "wb") as pickledFile:
                 pickle.dump(self.weightsList, pickledFile) 
+                print(self.weights)
 
                                                        
         # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']

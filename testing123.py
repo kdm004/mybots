@@ -15,6 +15,7 @@ if len(sys.argv) > 1:
         with open('testing123.txt', 'rb') as pickledFile:
             loadedMatrixList = pickle.load(pickledFile)
             print(loadedMatrixList[1])
+            print(sys.argv)
 
 
 else:
@@ -38,6 +39,7 @@ else:
         weights[9][i] = random.uniform(.5,1.5)
     weightsList.append(weights)
     print(weights)
+    print(sys.argv)
 
     # Overwrite pickledFile with new weightsList
     with open("testing123.txt", "wb") as pickledFile:       
