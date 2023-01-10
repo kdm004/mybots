@@ -9,12 +9,12 @@ import nonChampDeleter as NDC
 import sys
 #------------------------- 
 
-commandLineArg = sys.argv # sys.argv = ['-c', 'search.py']         # should probably be using the -c way
+commandLineArg = sys.argv # sys.argv = ['search.py', 'continue']         
 
 for botIndex in range(10):
     NDC.NonChampDeleter()
 
-    phc1 = PARALLEL_HILL_CLIMBER(botIndex, commandLineArg[0], commandLineArg[2]) # commandLineArg[0] = -c, commandLineArg[2] = emptySwarmIndex
+    phc1 = PARALLEL_HILL_CLIMBER(botIndex, commandLineArg[1], commandLineArg[2]) # commandLineArg[0] = -c, commandLineArg[2] = emptySwarmIndex
     time.sleep(1)
     phc1.Evolve()
     time.sleep(1)

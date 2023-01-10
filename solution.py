@@ -33,7 +33,7 @@ class SOLUTION:
         self.weightsList = []
 
     # if -c is used, open the pickledFile, and load all the matrices. Choose the appropriate matrix to continue evolving.
-        if self.spaceOrC == '-c':
+        if self.spaceOrC == 'continue':
             with open('weightsAndLegs.txt', 'rb') as pickledFile:
                 #Load all matrices in the pickledFile
                 loadedMatrixList = pickle.load(pickledFile)
@@ -283,7 +283,7 @@ class SOLUTION:
         ]
 
         self.Generate_Body(*positions[botIndex]) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) +" &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' '+ str(self.spaceOrC) + ' ' + str(self.emptySwarmIndex) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
