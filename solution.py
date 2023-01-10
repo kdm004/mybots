@@ -52,73 +52,28 @@ class SOLUTION:
                 with open("weightsAndLegs.txt", "rb") as pickledFile:
                     # Load weightsList from pickledFile
                     weightsList = pickle.load(pickledFile)
+                    pickledFile.close()                             # Required to avoid EOFError: Ran out of input
 
             # If pickledFile is empty, initialize weightsList 
             if len(weightsList) == 0:
                 weightsList = []
 
+
             # Add a new matrix to weightsList
             weights = np.random.rand(9+1, 8)                                                  
             for i in range(8): # 7 to 8
                 weights[9][i] = random.uniform(.5,1.5)
-            weightsList.append(weights)
             self.weights = weights
+            weightsList.append(self.weights)
 
 
             # Overwrite pickledFile with new weightsList
             with open("weightsAndLegs.txt", "wb") as pickledFile:       
                 pickle.dump(weightsList, pickledFile) 
+                pickledFile.close()                               # Required to avoid EOFError: Ran out of input
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            #---------
-            # self.weightsList.append(self.weights) 
-            # with open("weightsAndLegs.txt", "wb") as pickledFile:
-            #     pickle.dump(self.weightsList, pickledFile) 
-            #     print(self.weights)
-
-
-
-
-
-
-                                                       
-        # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
-        # self.randomIndex = random.choice([0,1,2,3,4,5,6,7])
-        #self.weights[9] = [1,1,1,1,1,1,1,1] # try making these all random instead of [1,1,1,1,1,1,1,1]
-
-        # if legPartList[self.randomIndex] == 'l1':
-        #     self.weights[9][0] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l2':
-        #     self.weights[9][1] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l3':
-        #     self.weights[9][2] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l4':
-        #     self.weights[9][3] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l5':
-        #     self.weights[9][4] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l6':
-        #     self.weights[9][5] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l7':
-        #     self.weights[9][6] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l8':
-        #     self.weights[9][7] = np.random.uniform(0,2)
-
-        
 
     def Evaluate(self,directOrGUI):
         pass
