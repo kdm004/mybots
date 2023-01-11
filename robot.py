@@ -22,7 +22,7 @@ class ROBOT:
         
         
         # if sys.argv[0] = search.py, execute the statement below: 
-        SOLUTION(solutionID, self.spaceOrC, self.botIndex, self.emptySwarmIndex).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
+        SOLUTION(solutionID, self.spaceOrC, self.botIndex, self.emptySwarmIndex,0).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
         # can I just add any number for populationID? does it really matter here?
 
 

@@ -32,15 +32,6 @@ class SOLUTION:
 
 
         # initialize matrixOfWeights
-        # zeroList = []
-        # for i in range(c.populationSize): # 5 is populationSize
-        #     zeroList.append(0)
-        # swarmOf10 = []
-        # for i in range(10):
-        #     swarmOf10.append(zeroList)
-        # emptyMatrixOfWeights = []
-        # for i in range(c.numberOfSwarms):
-        #     emptyMatrixOfWeights.append(swarmOf10)
         emptyMatrixOfWeights = np.empty(shape=(c.numberOfSwarms,10,c.populationSize), dtype='object')
 
         self.matrixOfWeights = emptyMatrixOfWeights #[zeroList*c.numberOfSwarms*10]#np.zeros((c.numberOfSwarms,c.populationSize)) # numberOfSwarms x 5 matrix is initially what we have it set to.
@@ -51,6 +42,7 @@ class SOLUTION:
         if self.spaceOrC == 'continue':
             with open('weightsAndLegs.txt', 'rb') as pickledFile:
                 #Load all matrices in the pickledFile
+                
                 loadedMatrixOfWeights = pickle.load(pickledFile)
 
                 # set the self.weights to those of the appropriate robot to use the previous evolution end matrix as current starting matrix. After evolving it further, replace it in the pickledFile at the appropriate index.
@@ -60,22 +52,12 @@ class SOLUTION:
     # if -c is not used, load any previous matrices, generate a new one, then add it to the previous matrices. This is a correct interpretation of what this code block does.
         else:
             # if pickledFile doesn't exist, initialize empty matrixOfWeights
-            #matrixOfWeights = [zeroList*c.numberOfSwarms*10] #np.zeros((c.numberOfSwarms,c.populationSize)) HEY
-            
+                        
             # initialize matrixOfWeights
             emptyMatrixOfWeights = np.empty(shape=(c.numberOfSwarms,10,c.populationSize), dtype='object')
             #self.matrixOfWeights = emptyMatrixOfWeights
 
-            # initialize emptyMatrixOfWeights
-            # zeroList = []
-            # for i in range(c.populationSize): # 5 is populationSize
-            #     zeroList.append(0)
-            # swarmOf10 = []
-            # for i in range(10):
-            #     swarmOf10.append(zeroList)
-            # emptyMatrixOfWeights = []
-            # for i in range(c.numberOfSwarms):
-            #     emptyMatrixOfWeights.append(swarmOf10)
+
 
             # if pickledFile exists, open it and load matrixOfWeights
             if os.path.exists('weightsAndLegs.txt'):
@@ -85,20 +67,7 @@ class SOLUTION:
                 pickledFile.close()                             # Required to avoid EOFError: Ran out of input
 
             # If pickledFile doesn't exist, initialize matrixOfWeights 
-            else:
-                #matrixOfWeights = [zeroList*c.numberOfSwarms*10] #np.zeros((c.numberOfSwarms*10,c.populationSize)) # because 10 is the number of bots. HEY
-
-                #initialize matrixOfWeights
-                # zeroList = []
-                # for i in range(c.populationSize): # 5 is populationSize
-                #     zeroList.append(0)
-                # swarmOf10 = []
-                # for i in range(10):
-                #     swarmOf10.append(zeroList)
-                # emptyMatrixOfWeights = []
-                # for i in range(c.numberOfSwarms):
-                #     emptyMatrixOfWeights.append(swarmOf10)
-                
+            else:                
                 emptyMatrixOfWeights = np.empty(shape=(c.numberOfSwarms,10,c.populationSize), dtype='object')
 
                 matrixOfWeights = emptyMatrixOfWeights
@@ -114,8 +83,6 @@ class SOLUTION:
             self.weights = weights   
 
             # add the new matrix to the correct position in the matrixOfWeights
-            #matrixOfWeights[self.emptySwarmIndex*10+self.emptyBotIndex][int(self.myID)-(5*self.emptySwarmIndex)] = self.weights
-            print('here it is: ',int(self.myID)-(5*self.emptySwarmIndex))
             matrixOfWeights[self.emptySwarmIndex][self.emptyBotIndex][self.populationID] = self.weights
 
 
