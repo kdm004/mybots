@@ -48,7 +48,7 @@ class PARALLEL_HILL_CLIMBER:
                     self.nextAvailableID += 1
 
         for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. This is the original for loop from parallelHC step #17
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.spaceOrC, self.botIndex, self.emptySwarmIndex) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.spaceOrC, self.botIndex, self.emptySwarmIndex, i) # i is 0 to 4
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
@@ -100,7 +100,7 @@ class PARALLEL_HILL_CLIMBER:
         # We evaluated 5 bots for 5 generations. Resulting in 5 evolved bots. We find the best of the 5 evolved bots. 
         overKey = 0                             
         bestFitness = self.parents[0].fitness 
-        for i in range(len(self.parents)):
+        for i in range(len(self.parents)): # len(self.parents) = c.populationSize
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
@@ -130,11 +130,12 @@ class PARALLEL_HILL_CLIMBER:
             #Load all matrices in the pickledFile
             loadedMatrixOfWeights = pickle.load(pickledFile)
             # Assuming that len(self.parents), which means that there are 5 evolved matrices. For each evolved matrix, we replace it's antiquated matrix. 
-            for i in range(len(self.parents)):
-                loadedMatrixOfWeights[self.emptySwarmIndex*10+self.botIndex][self.parents[i].myID] = self.parents[overKey].weights # self.parents[overKey].myID is just the relevant ID 1-10-2023
+            for i in range(len(self.parents)): # len(self.parents) = c.populationSize
+                # loadedMatrixOfWeights[self.emptySwarmIndex][self.emptySwarmIndex][int(self.parents[i].myID)-(5*self.emptySwarmIndex)] = self.parents[i].weights # self.parents[overKey].myID is just the relevant ID 1-10-2023
+                loadedMatrixOfWeights[self.emptySwarmIndex][self.emptySwarmIndex][i] = self.parents[i].weights # self.parents[overKey].myID is just the relevant ID 1-10-2023
+
             pickledFile.close()
         
-
     #----------------------------------------------------------------------------------------------------------
 
     def Evaluate(self, solutions):
