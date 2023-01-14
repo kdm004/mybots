@@ -1,3 +1,4 @@
+
 import pyrosim.pyrosim as pyrosim 
 import pybullet as p
 from sensor import SENSOR
@@ -15,10 +16,7 @@ class SWARMBOT:
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-
-        # if sys.argv[0] = search.py, execute the statement below:
-        #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate 
-        '''the above line seems to be an artifact from ROBOT from when we copied that file. I think swarm bot is only meant to be used with MBsimulate.'''
+        #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
         self.swarmBot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
@@ -94,9 +92,3 @@ class SWARMBOT:
  # This function is to return the fitness of an obstacle sim fitness. The func for empty env sim fitness is in parallelHC under show_best. 
  # The reason it is there is because it needs to distinguish between all swarmBots to see which is the best, whereas for the MB sims, there's 
  # only 1 swarmBotBrian controller, which is already the best.
-
-
-
- 
-
-

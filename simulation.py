@@ -7,9 +7,7 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, botIndex, solutionID, spaceOrC, emptySwarmIndex):
-        self.spaceOrC = spaceOrC
-        self.emptySwarmIndex = emptySwarmIndex
+    def __init__(self,directOrGUI, botIndex, solutionID):
         self.botIndex = botIndex
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
@@ -32,7 +30,7 @@ class SIMULATION:
             (self.solutionID,0,18)
         ]
 
-        self.robots = ROBOT(*self.positions[self.botIndex], self.spaceOrC, self.botIndex, self.emptySwarmIndex)
+        self.robots = ROBOT(*self.positions[self.botIndex])
 
 
     def Run(self):

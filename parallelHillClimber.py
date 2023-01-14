@@ -6,13 +6,10 @@ import os
 import glob
 import pybullet as p
 import random 
-import pickle
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self, botIndex, spaceOrC, emptySwarmIndex): #spaceOrC is the commandLineArg passed here from search.py. If -c is used, it will be '-c', else it will be ' ' or '' i think
+    def __init__(self, botIndex):
         self.botIndex = botIndex
-        self.spaceOrC = spaceOrC
-        self.emptySwarmIndex = int(emptySwarmIndex)
        # os.system("rm brain*.nndf") # step 82 parallelHC
         #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
@@ -48,7 +45,7 @@ class PARALLEL_HILL_CLIMBER:
                     self.nextAvailableID += 1
 
         for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. This is the original for loop from parallelHC step #17
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.spaceOrC, self.botIndex, self.emptySwarmIndex, i) # i is 0 to 4
+            self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
@@ -97,10 +94,9 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
         
     def Show_Best(self):
-        # We evaluated 5 bots for 5 generations. Resulting in 5 evolved bots. We find the best of the 5 evolved bots. 
         overKey = 0                             
         bestFitness = self.parents[0].fitness 
-        for i in range(len(self.parents)): # len(self.parents) = c.populationSize
+        for i in range(len(self.parents)):
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
@@ -125,17 +121,8 @@ class PARALLEL_HILL_CLIMBER:
         #obstacleFile.write(str(xCoordinateOfLinkZero))
         #obstacleFile.write('\n')
         #obstacleFile.close
-
-        with open('weightsAndLegs.txt', 'rb') as pickledFile:
-            #Load all matrices in the pickledFile
-            loadedMatrixOfWeights = pickle.load(pickledFile)
-            # Assuming that len(self.parents), which means that there are 5 evolved matrices. For each evolved matrix, we replace it's antiquated matrix. 
-            for i in range(len(self.parents)): # len(self.parents) = c.populationSize
-                # loadedMatrixOfWeights[self.emptySwarmIndex][self.emptySwarmIndex][int(self.parents[i].myID)-(5*self.emptySwarmIndex)] = self.parents[i].weights # self.parents[overKey].myID is just the relevant ID 1-10-2023
-                loadedMatrixOfWeights[self.emptySwarmIndex][self.emptySwarmIndex][i] = self.parents[i].weights # self.parents[overKey].myID is just the relevant ID 1-10-2023
-
-            pickledFile.close()
         
+
     #----------------------------------------------------------------------------------------------------------
 
     def Evaluate(self, solutions):

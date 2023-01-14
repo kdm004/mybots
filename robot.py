@@ -12,20 +12,11 @@ import time
 
 
 class ROBOT:
-    def __init__(self,solutionID,xi,yi, spaceOrC, botIndex, emptySwarmIndex):
+    def __init__(self,solutionID,xi,yi):
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-        self.spaceOrC = spaceOrC
-        self.emptySwarmIndex = emptySwarmIndex
-        self.botIndex = botIndex
-        
-        
-        # if sys.argv[0] = search.py, execute the statement below: 
-        SOLUTION(solutionID, self.spaceOrC, self.botIndex, self.emptySwarmIndex,0).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
-        # can I just add any number for populationID? does it really matter here?
-
-
+        #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
         self.robot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
@@ -109,7 +100,6 @@ class ROBOT:
 
 
  
-
 
 
 

@@ -1,11 +1,10 @@
+
 import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
 import random
 import time
 import constants as c
-import pickle
-#import emptyWrapper as EMPTY_WRAPPER
 #--------------------------------------------
 
 
@@ -13,86 +12,40 @@ import pickle
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, spaceOrC, emptyBotIndex, emptySwarmIndex, populationID):
+    def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
-        self.spaceOrC = spaceOrC
-        self.emptyBotIndex = int(emptyBotIndex)
-        self.emptySwarmIndex = int(emptySwarmIndex)
-        self.populationID = populationID
-
-
-        # now that we've incorporated spaceOrC here, we can finally make a conditional statement that executes if self.spaceOrC == '-c'
         
-        # Generate a random matrix
+
+        
+    
         self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
         #self.weights[0:9] = 1
         self.weights = self.weights * 2 - 1    
         for i in range(8):
-            self.weights[9][i] = random.uniform(.5,1.5)
+            self.weights[9][i] = random.uniform(.5,1.5)         
+                                                       
+        # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
+        # self.randomIndex = random.choice([0,1,2,3,4,5,6,7])
+        #self.weights[9] = [1,1,1,1,1,1,1,1] # try making these all random instead of [1,1,1,1,1,1,1,1]
 
+        # if legPartList[self.randomIndex] == 'l1':
+        #     self.weights[9][0] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l2':
+        #     self.weights[9][1] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l3':
+        #     self.weights[9][2] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l4':
+        #     self.weights[9][3] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l5':
+        #     self.weights[9][4] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l6':
+        #     self.weights[9][5] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l7':
+        #     self.weights[9][6] = np.random.uniform(0,2)
+        # if legPartList[self.randomIndex] == 'l8':
+        #     self.weights[9][7] = np.random.uniform(0,2)
 
-        # initialize matrixOfWeights
-        emptyMatrixOfWeights = np.empty(shape=(c.numberOfSwarms,10,c.populationSize), dtype='object')
-
-        self.matrixOfWeights = emptyMatrixOfWeights #[zeroList*c.numberOfSwarms*10]#np.zeros((c.numberOfSwarms,c.populationSize)) # numberOfSwarms x 5 matrix is initially what we have it set to.
-
-
-
-    # if -c is used, open the pickledFile, and load all the matrices. Choose the appropriate matrix to continue evolving.
-        if self.spaceOrC == 'continue':
-            with open('weightsAndLegs.txt', 'rb') as pickledFile:
-                #Load all matrices in the pickledFile
-                
-                loadedMatrixOfWeights = pickle.load(pickledFile)
-
-                # set the self.weights to those of the appropriate robot to use the previous evolution end matrix as current starting matrix. After evolving it further, replace it in the pickledFile at the appropriate index.
-                self.weights == loadedMatrixOfWeights[self.emptySwarmIndex][self.emptyBotIndex][int(self.myID)-(5*self.emptySwarmIndex)] # here, pass swarmIndex through in order to use the expression for appropriateRobot
-
-
-    # if -c is not used, load any previous matrices, generate a new one, then add it to the previous matrices. This is a correct interpretation of what this code block does.
-        else:
-            # if pickledFile doesn't exist, initialize empty matrixOfWeights
-                        
-            # initialize matrixOfWeights
-            emptyMatrixOfWeights = np.empty(shape=(c.numberOfSwarms,10,c.populationSize), dtype='object')
-            #self.matrixOfWeights = emptyMatrixOfWeights
-
-
-
-            # if pickledFile exists, open it and load matrixOfWeights
-            if os.path.exists('weightsAndLegs.txt'):
-                with open("weightsAndLegs.txt", "rb") as pickledFile:
-                    # Load matrixOfWeights from pickledFile
-                    matrixOfWeights = pickle.load(pickledFile)
-                pickledFile.close()                             # Required to avoid EOFError: Ran out of input
-
-            # If pickledFile doesn't exist, initialize matrixOfWeights 
-            else:                
-                emptyMatrixOfWeights = np.empty(shape=(c.numberOfSwarms,10,c.populationSize), dtype='object')
-
-                matrixOfWeights = emptyMatrixOfWeights
-
-
-
-            # Add a new matrix to matrixOfWeights
-            weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
-        #self.weights[0:9] = 1
-            weights = weights * 2 - 1    
-            for i in range(8):
-                weights[9][i] = random.uniform(.5,1.5)
-            self.weights = weights   
-
-            # add the new matrix to the correct position in the matrixOfWeights
-            matrixOfWeights[self.emptySwarmIndex][self.emptyBotIndex][self.populationID] = self.weights
-
-
-            # Overwrite pickledFile with new matrixOfWeights after we add a new random matrix. 
-            with open("weightsAndLegs.txt", "wb") as pickledFile:       
-                pickle.dump(matrixOfWeights, pickledFile) 
-                pickledFile.close()                               # Required to avoid EOFError: Ran out of input
-
-
-
+        
 
     def Evaluate(self,directOrGUI):
         pass
@@ -257,7 +210,7 @@ class SOLUTION:
         ]
 
         self.Generate_Body(*positions[botIndex]) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' '+ str(self.spaceOrC) + ' ' + str(self.emptySwarmIndex) +" &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):

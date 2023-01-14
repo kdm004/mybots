@@ -154,3 +154,4 @@ class MANYBOTS_SIMULATION:
         overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
 
         return bestBrains, overallChampionIndex
+
