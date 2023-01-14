@@ -5,13 +5,17 @@ import glob
 import constants as c
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 import nonChampDeleter as NDC
+import sys
 #------------------------- 
+commandLineArg = sys.argv # [search.py, continue, swarmIndex]
 
+continueOrNone = commandLineArg[1]
+swarmIndex = commandLineArg[2]
 
 for botIndex in range(10):
     NDC.NonChampDeleter()
 
-    phc1 = PARALLEL_HILL_CLIMBER(botIndex)
+    phc1 = PARALLEL_HILL_CLIMBER(botIndex, swarmIndex, continueOrNone)
     time.sleep(1)
     phc1.Evolve()
     time.sleep(1)

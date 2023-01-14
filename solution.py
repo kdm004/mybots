@@ -12,40 +12,29 @@ import constants as c
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, botIndex, swarmIndex, continueOrNone):
         self.myID = nextAvailableID
-        
+        self.botIndex = botIndex
+        self.swarmIndex = swarmIndex
+        self.continueOrNone = continueOrNone
 
+
+        if continueOrNone == 'continue':
+            pass
+            # load the matrix from the correct weightsID.txt file using self.botIndex and self.swarmIndex
         
-    
-        self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
-        #self.weights[0:9] = 1
-        self.weights = self.weights * 2 - 1    
-        for i in range(8):
-            self.weights[9][i] = random.uniform(.5,1.5)         
+        else:
+            self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
+            #self.weights[0:9] = 1
+            self.weights = self.weights * 2 - 1    
+            for i in range(8):
+                self.weights[9][i] = random.uniform(.5,1.5)
+
+            # create a file called weightsID.txt using self.myID (we probably want a method to do this, not a constructor). It's okay to load things in constructor, but not to save things
+            # probably do the save stuff in a method, and put that method in Evolve_For_One_Generation
+            # this method will do different things depending on if continueOrNone == 'continue'. It will basically be the second part of this constructor. 
+
                                                        
-        # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
-        # self.randomIndex = random.choice([0,1,2,3,4,5,6,7])
-        #self.weights[9] = [1,1,1,1,1,1,1,1] # try making these all random instead of [1,1,1,1,1,1,1,1]
-
-        # if legPartList[self.randomIndex] == 'l1':
-        #     self.weights[9][0] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l2':
-        #     self.weights[9][1] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l3':
-        #     self.weights[9][2] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l4':
-        #     self.weights[9][3] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l5':
-        #     self.weights[9][4] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l6':
-        #     self.weights[9][5] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l7':
-        #     self.weights[9][6] = np.random.uniform(0,2)
-        # if legPartList[self.randomIndex] == 'l8':
-        #     self.weights[9][7] = np.random.uniform(0,2)
-
-        
 
     def Evaluate(self,directOrGUI):
         pass
@@ -57,17 +46,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Body(self, xi,yi): 
-        # tempfile1 = open('WeightsTemp.txt','a')
-        # tempfile1.write(str(self.weights))
-        # tempfile1.write('\n')
-        # tempfile1.write('\n')
-        # tempfile1.close  
-
-        # tempfile2 = open('LegSizesTemp.txt','a')
-        # tempfile2.write(str(self.weights[9]))
-        # tempfile2.write('\n')
-        # tempfile2.write('\n')
-        # tempfile2.close   
+ 
         pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") # LOOK here, we create the body with position and ID
         
         #Torso
@@ -167,25 +146,6 @@ class SOLUTION:
         tempfile.write('\n')
         tempfile.close   
 
-
-        # legPartList = ['l1','l2','l3','l4','l5','l6','l7','l8']
-        # self.randomIndex2 = random.choice([0,1,2,3,4,5,6,7])
-        # if legPartList[self.randomIndex2] == 'l1':
-        #     self.weights[9][0] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l2':
-        #     self.weights[9][1] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l3':
-        #     self.weights[9][2] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l4':
-        #     self.weights[9][3] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l5':
-        #     self.weights[9][4] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l6':
-        #     self.weights[9][5] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l7':
-        #     self.weights[9][6] =  np.random.uniform(0,2)
-        # if legPartList[self.randomIndex2] == 'l8':
-        #     self.weights[9][7] =  np.random.uniform(0,2)
 
         
 
