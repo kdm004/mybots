@@ -47,7 +47,7 @@ class PARALLEL_HILL_CLIMBER:
                     self.nextAvailableID += 1
 
         for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. This is the original for loop from parallelHC step #17
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.botIndex, self.swarmIndex, self.continueOrNone) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.botIndex, self.swarmIndex, self.continueOrNone, i) # i = populationID
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
@@ -57,11 +57,11 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        headsOrTails = random.choice([0,1])
-        if headsOrTails == 1:
-            self.Mutate()
-        else:
-            self.Mutate_Body()
+        # headsOrTails = random.choice([0,1])
+        # if headsOrTails == 1:
+        self.Mutate()
+        # else:
+        #     self.Mutate_Body()
 
         self.Evaluate(self.children)
         self.Print() # uncommented call to parallelHC print method ... step 107 parallelHC

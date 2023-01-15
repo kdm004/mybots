@@ -5,6 +5,7 @@ import os
 import random
 import time
 import constants as c
+import pickle
 #--------------------------------------------
 
 
@@ -12,16 +13,23 @@ import constants as c
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, botIndex, swarmIndex, continueOrNone):
+    def __init__(self, nextAvailableID, botIndex, swarmIndex, continueOrNone, populationID):
         self.myID = nextAvailableID
-        self.botIndex = botIndex
-        self.swarmIndex = swarmIndex
+        self.botIndex = int(botIndex)
+        self.swarmIndex = int(swarmIndex)
         self.continueOrNone = continueOrNone
+        self.populationID = int(populationID) # obtained from parallelHillClimber constructor
 
 
-        if continueOrNone == 'continue':
-            pass
-            # load the matrix from the correct weightsID.txt file using self.botIndex and self.swarmIndex
+        # if continueOrNone == 'continue':
+        #     pass
+        #     # load the matrix from the correct weightsID.txt file using self.botIndex and self.swarmIndex
+
+        if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
+            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'rb') as pickleFile: # use botNumber
+                self.weights = pickle.load(pickleFile)
+                pickleFile.close()
+            # second part of this block is in mutate() because constructor should not save. Only load.
         
         else:
             self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
@@ -29,6 +37,7 @@ class SOLUTION:
             self.weights = self.weights * 2 - 1    
             for i in range(8):
                 self.weights[9][i] = random.uniform(.5,1.5)
+            # second part of this block is in mutate() because constructor should not save. Only load.
 
             # create a file called weightsID.txt using self.myID (we probably want a method to do this, not a constructor). It's okay to load things in constructor, but not to save things
             # probably do the save stuff in a method, and put that method in Evolve_For_One_Generation
@@ -126,25 +135,53 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self): #ADDED TO ROBOT_BRAIN
-        randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
-        randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
-        self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+        headsOrTails = random.choice([0,1])
+        if headsOrTails == 1:
 
-        tempfile = open('WeightsTemp.txt','a')
+            # randomly select an entry in the synaptic weights, and change it
+            randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
+            randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
+            self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+
+            tempfile = open('WeightsTemp.txt','a')
+            tempfile.write(str(self.weights))
+            tempfile.write('\n')
+            tempfile.write('\n')
+            tempfile.close  
+        else:
+
+            # randomly select a leg part and change it
+            randomLegPart = random.randint(0,7)
+            self.weights[9][randomLegPart] = random.uniform(0.5,1.5)
+
+            tempfile = open('LegSizesTemp.txt','a')
+            tempfile.write(str(self.weights[9]))
+            tempfile.write('\n')
+            tempfile.write('\n')
+            tempfile.close   
+
+        tempfile = open('testingBoth2.txt','a')
         tempfile.write(str(self.weights))
         tempfile.write('\n')
         tempfile.write('\n')
-        tempfile.close  
+        tempfile.close   
+
+        if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
+            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'wb') as pickleFile: #let's use botNumber
+                pickle.dump(self.weights, pickleFile)
+                pickleFile.close()
+            
+
+        else:
+            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'wb') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
+                pickle.dump(self.weights, pickleFile)
+                pickleFile.close()
+
+        # yep, looks like the weights and leg lengths are being changed correctly. We inspected testingBoth.txt, and we can see the 5 parent matrices evolving with every iteration. 
+        # so, we will write out the matrices to their own files using this method, and load them using the constructor.
 
     def Mutate_Body(self): #ADDED TO ROBOT_BRAIN
-        randomLegPart = random.randint(0,7)
-        self.weights[9][randomLegPart] = random.uniform(0.5,1.5)
-
-        tempfile = open('LegSizesTemp.txt','a')
-        tempfile.write(str(self.weights[9]))
-        tempfile.write('\n')
-        tempfile.write('\n')
-        tempfile.close   
+        pass
 
 
         
@@ -170,7 +207,7 @@ class SOLUTION:
         ]
 
         self.Generate_Body(*positions[botIndex]) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) +" &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' ' + str(self.swarmIndex) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):

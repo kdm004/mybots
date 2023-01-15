@@ -7,9 +7,13 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, botIndex, solutionID):
-        self.botIndex = botIndex
+    def __init__(self,directOrGUI, solutionID, botIndex, swarmIndex, continueOrNone, populationID):
         self.solutionID = solutionID
+        self.botIndex = botIndex
+        self.swarmIndex = swarmIndex
+        self.continueOrNone = continueOrNone
+        self.populationID = populationID
+    
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
@@ -30,7 +34,7 @@ class SIMULATION:
             (self.solutionID,0,18)
         ]
 
-        self.robots = ROBOT(*self.positions[self.botIndex])
+        self.robots = ROBOT(*self.positions[self.botIndex], self.botIndex, self.swarmIndex, self.continueOrNone, self.populationID)
 
 
     def Run(self):
