@@ -18,7 +18,7 @@ os.system("rm LegSizesTemp.txt")
 os.system("rm WeightsTemp.txt")
 
 os.system("rm weightsAndLegs.txt")
-os.system("rm weightsFile/weights*.txt")
+os.system("rm weightsFiles/weights*.txt")
 
 os.system("rm testingBoth.txt")
 
