@@ -25,9 +25,10 @@ class SOLUTION:
         #     pass
         #     # load the matrix from the correct weightsID.txt file using self.botIndex and self.swarmIndex
 
-        if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
-            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'rb') as pickleFile: # use botNumber
-                self.weights = pickle.load(pickleFile)
+
+        if self.continueOrNone == 'continue': 
+            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'r') as pickleFile: # use botNumber
+                self.weights = np.loadtxt(pickleFile)
                 pickleFile.close()
             # second part of this block is in mutate() because constructor should not save. Only load.
         
@@ -160,21 +161,21 @@ class SOLUTION:
             tempfile.write('\n')
             tempfile.close   
 
-        tempfile = open('testingBoth2.txt','a')
+        tempfile = open('testingBoth.txt','a')
         tempfile.write(str(self.weights))
         tempfile.write('\n')
         tempfile.write('\n')
         tempfile.close   
 
         if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
-            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'wb') as pickleFile: #let's use botNumber
-                pickle.dump(self.weights, pickleFile)
+            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
+                np.savetxt(pickleFile,self.weights)
                 pickleFile.close()
             
 
         else:
-            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'wb') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
-                pickle.dump(self.weights, pickleFile)
+            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
+                np.savetxt(pickleFile,self.weights)
                 pickleFile.close()
 
         # yep, looks like the weights and leg lengths are being changed correctly. We inspected testingBoth.txt, and we can see the 5 parent matrices evolving with every iteration. 
