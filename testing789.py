@@ -17,4 +17,5 @@ print(myList)
 # ['Q', 'b', 'c', 'd', 'Z']
 '''You can't replace an index in a list that doesn't exist'''
 
-
+for i in range(3,7):
+    print(i)

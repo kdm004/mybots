@@ -8,5 +8,5 @@ import sys
 commandLineArg = sys.argv # [emptyWrapper.py, continue]
 
 
-for i in range(3):
+for i in range(35):
     os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = swarmIndex
