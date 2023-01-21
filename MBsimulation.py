@@ -15,7 +15,8 @@ class MANYBOTS_SIMULATION:
         self.swarmIndex = swarmIndex
         self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
-        bestBrains, overallChampionIndex = self.Get_Champ()
+        #bestBrains, overallChampionIndex = self.Get_Champ()
+        bestBrains = self.Get_Champ()
 
         self.positions = [
             (bestBrains[0+self.swarmIndex*10],0,-18),
@@ -31,23 +32,6 @@ class MANYBOTS_SIMULATION:
         ]
 
         self.swarmBots = SWARMBOT(*self.positions[self.botIndex])
-        #self.swarmBots(*self.positions[self.botIndex])
-
-
-        # self.swarmBot0 = swarmBot(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
-        # self.swarmBot1 = swarmBot(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
-        # self.swarmBot2 = swarmBot(bestBrains[overallChampionIndex],-4,4)       # xi = 0, yi = 0
-        # self.swarmBot3 = swarmBot(bestBrains[overallChampionIndex],0,-8)       # xi = 0, yi = 0
-        # self.swarmBot4 = swarmBot(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
-        # self.swarmBot5 = swarmBot(bestBrains[overallChampionIndex],0,8)       # xi = 0, yi = 0
-        # self.swarmBot6 = swarmBot(bestBrains[overallChampionIndex],4,-4)       # xi = 0, yi = 0
-        # self.swarmBot7 = swarmBot(bestBrains[overallChampionIndex],4,0)       # xi = 0, yi = 0
-        # self.swarmBot8 = swarmBot(bestBrains[overallChampionIndex],4,4)       # xi = 0, yi = 0
-        # self.swarmBot9 = swarmBot(bestBrains[overallChampionIndex],8,0)       # xi = 0, yi = 0
-
-        #self.swarmBot5 = swarmBot(bestBrains[1],5)                   
-        #self.swarmBot10 = swarmBot(bestBrains[2],10)                 
-
 
 
     def Run(self):
@@ -61,49 +45,12 @@ class MANYBOTS_SIMULATION:
             self.swarmBots.Think()
             self.swarmBots.Act(timeStep)  
 
-            # self.swarmBot1.Sense(i)
-            # self.swarmBot1.Think()
-            # self.swarmBot1.Act(i)  
-            
-            # self.swarmBot2.Sense(i)
-            # self.swarmBot2.Think()
-            # self.swarmBot2.Act(i)  
-
-            # self.swarmBot3.Sense(i)
-            # self.swarmBot3.Think()
-            # self.swarmBot3.Act(i)  
-
-            # self.swarmBot4.Sense(i)
-            # self.swarmBot4.Think()
-            # self.swarmBot4.Act(i)  
-
-            # self.swarmBot5.Sense(i)
-            # self.swarmBot5.Think()
-            # self.swarmBot5.Act(i)  
-
-            # self.swarmBot6.Sense(i)
-            # self.swarmBot6.Think()
-            # self.swarmBot6.Act(i)  
-
-            # self.swarmBot7.Sense(i)
-            # self.swarmBot7.Think()
-            # self.swarmBot7.Act(i)  
-        
-            # self.swarmBot8.Sense(i)
-            # self.swarmBot8.Think()
-            # self.swarmBot8.Act(i)  
-
-            # self.swarmBot9.Sense(i)
-            # self.swarmBot9.Think()
-            # self.swarmBot9.Act(i)  
-
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
 
 
     def Get_Fitness(self):
         self.swarmBots.Get_Obstacle_Fitness()
-        #self.swarmBot0.Get_Fitness()
 
         p.disconnect()
 
@@ -136,14 +83,17 @@ class MANYBOTS_SIMULATION:
 
 
     def Get_Champ(self):
-        fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
-        fitnessList = fitnessFile.readlines()
-        fitnessFile.close()
-        # fitnessList = fitnessList[self.swarmIndex*10:(self.swarmIndex*10)+10] LOOK : only required for case1
-        cleanFitnessList = []
-        for entry in fitnessList:
-            cleanFitnessList.append(entry.replace('\n',''))
-        cleanFitnessList = list(map(float,cleanFitnessList))
+
+    # #Get the fitness of the champion
+        # fitnessFile = open('emptyEnv_fitnesses.txt','r')         # This block is to get the fitness values from emptyEnv_fitnesses.txt
+        # fitnessList = fitnessFile.readlines()
+        # fitnessFile.close()
+        # # fitnessList = fitnessList[self.swarmIndex*10:(self.swarmIndex*10)+10] LOOK : only required for case1
+        # cleanFitnessList = []
+        # for entry in fitnessList:
+        #     cleanFitnessList.append(entry.replace('\n',''))
+        # cleanFitnessList = list(map(float,cleanFitnessList))
+        # overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
 
         bestIDFile = open("bestBrains.txt","r")                  # This block is to get the IDs of the controllers from bestBrains.txt
         bestBrains = bestIDFile.readlines()
@@ -151,7 +101,9 @@ class MANYBOTS_SIMULATION:
         # bestBrains = bestBrains[self.swarmIndex*10:(self.swarmIndex*10)+10] LOOK : only required for case1
         bestBrains = list(map(int, bestBrains))
 
-        overallChampionIndex =  cleanFitnessList.index(min(cleanFitnessList))
 
-        return bestBrains, overallChampionIndex
 
+        # return bestBrains, overallChampionIndex
+        return bestBrains
+
+        # I also commented out #bestBrains, overallChampionIndex = self.Get_Champ() at the top of the file

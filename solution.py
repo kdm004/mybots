@@ -155,17 +155,17 @@ class SOLUTION:
             randomLegPart = random.randint(0,7)
             self.weights[9][randomLegPart] = random.uniform(0.5,1.5)
 
-            tempfile = open('LegSizesTemp.txt','a')
-            tempfile.write(str(self.weights[9]))
-            tempfile.write('\n')
-            tempfile.write('\n')
-            tempfile.close   
+        #     tempfile = open('LegSizesTemp.txt','a')
+        #     tempfile.write(str(self.weights[9]))
+        #     tempfile.write('\n')
+        #     tempfile.write('\n')
+        #     tempfile.close   
 
-        tempfile = open('testingBoth.txt','a')
-        tempfile.write(str(self.weights))
-        tempfile.write('\n')
-        tempfile.write('\n')
-        tempfile.close   
+        # tempfile = open('testingBoth.txt','a')
+        # tempfile.write(str(self.weights))
+        # tempfile.write('\n')
+        # tempfile.write('\n')
+        # tempfile.close   
 
         if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
             with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber

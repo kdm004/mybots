@@ -11,12 +11,12 @@ from solution import SOLUTION
 import time
 
 
-class SWARMBOT:
+class SWARMBOT:                          # I'm breaking this to make sure that everything runs correctly. I'm making sure that MBsimulate.py doesn't use this. 
     def __init__(self,solutionID,xi,yi):
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-        #SOLUTION(solutionID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
+        SOLUTION(solutionID, '1', '2', 'none', '4').Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
         self.swarmBot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
