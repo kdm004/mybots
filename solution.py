@@ -4,6 +4,7 @@ import os
 import random
 import time
 import constants as c
+import numpy as np
 #--------------------------------------------
 #Cube size (length, width, height) and position (x,y,z)
 length = 1
@@ -59,11 +60,25 @@ h4 = 0.2
 #--------------------------------------------
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, overallBot, continueOrNone, populationID):
         self.myID = nextAvailableID
+        self.overallBot = int(overallBot)
+        self.continueOrNone = continueOrNone
+        self.populationID = int(populationID) # obtained from parallelHillClimber constructor
         
         self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
+
+
+        if self.continueOrNone == 'continue': 
+            with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'r') as pickleFile: # use botNumber
+                self.weights = np.loadtxt(pickleFile)
+                pickleFile.close()
+            # second part of this block is in mutate() because constructor should not save. Only load.
+        
+        else:
+            self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
+            self.weights = self.weights * 2 - 1    
 
     def Evaluate(self,directOrGUI):
         pass
@@ -76,7 +91,7 @@ class SOLUTION:
 
     def Generate_Body(self,xi,yi): 
 
-        pyrosim.Start_URDF("body"+str(xi)+str(yi)+".urdf")
+        pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+".urdf")
         
         #Torso
         pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,1] , size=[length,width,height])
@@ -160,6 +175,18 @@ class SOLUTION:
         randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
         randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+        
+        if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
+            with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
+                np.savetxt(pickleFile,self.weights)
+                pickleFile.close()
+        else:
+            with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
+                np.savetxt(pickleFile,self.weights)
+                pickleFile.close()
+
+
+
 
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
@@ -177,7 +204,7 @@ class SOLUTION:
 
 
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(self.overallBot) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):

@@ -30,7 +30,7 @@ class MANYBOTS_SIMULATION:
             (bestBrains[9+self.swarmIndex*10],0,18)
         ]
 
-        self.robots = ROBOT(*self.positions[self.botIndex])
+        self.robots = ROBOT(*self.positions[self.botIndex], '999', 'none', '999')
         #self.robots(*self.positions[self.botIndex])
 
 
