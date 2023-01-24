@@ -7,16 +7,19 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, solutionID):
+    def __init__(self,directOrGUI, solutionID, overallBot, continueOrNone, populationID):
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
+        self.overallBot = overallBot
+        self.continueOrNone = continueOrNone
+        self.populationID = populationID
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
 
 
-        self.robot0 = ROBOT(self.solutionID,0,0)       # ROBOT(self.solutionID, xi, yi) where xi = 0, yi = 0
+        self.robot0 = ROBOT(self.solutionID,0,0, self.overallBot, self.continueOrNone, self.populationID)       # ROBOT(self.solutionID, xi, yi) where xi = 0, yi = 0 # we evolve the robot in an empty environment, so position doesn't matter.
         #self.robot5 = ROBOT(5,5)                    
         #self.robot10 = ROBOT(8,10)                  
 

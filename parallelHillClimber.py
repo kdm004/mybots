@@ -6,7 +6,9 @@ import glob
 import pybullet as p
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, overallBot, continueOrNone):
+        self.overallBot = overallBot
+        self.continueOrNone = continueOrNone
        # os.system("rm brain*.nndf") # step 82 parallelHC
         #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
@@ -42,7 +44,7 @@ class PARALLEL_HILL_CLIMBER:
                     self.nextAvailableID += 1
 
         for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. 
-            self.parents[i] = SOLUTION(self.nextAvailableID) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, i) # i = populationID
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 

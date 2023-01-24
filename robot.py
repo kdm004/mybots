@@ -11,14 +11,17 @@ import time
 
 
 class ROBOT:
-    def __init__(self,solutionID,xi,yi):
+    def __init__(self,solutionID,xi,yi,overallBot, continueOrNone, populationID):
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-        SOLUTION(solutionID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
+        self.overallBot = overallBot
+        self.continueOrNone = continueOrNone
+        self.populationID = populationID
+        SOLUTION(solutionID, self.overallBot, self.continueOrNone, self.populationID).Generate_Body(xi,yi) # I think this needs to be before loadURDF
 
         time.sleep(2)
-        self.robot = p.loadURDF("body"+str(xi)+str(yi)+".urdf") 
+        self.robot = p.loadURDF("bodyFiles/body"+str(xi)+str(yi)+".urdf") 
         pyrosim.Prepare_To_Simulate(self.robot) 
 
         self.sensors = {}
@@ -97,7 +100,6 @@ class ROBOT:
 
 
  
-
 
 
 
