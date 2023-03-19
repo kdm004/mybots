@@ -21,6 +21,7 @@ os.system("rm weightsAndLegs.txt")
 os.system("rm weightsFiles/weights*.txt")
 
 os.system("rm testingBoth.txt")
+os.system("rm fitnessCurves/fitness_curve*.txt")
 
 
 

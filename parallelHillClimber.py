@@ -4,6 +4,8 @@ import copy
 import os
 import glob
 import pybullet as p
+import numpy
+import random
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self, overallBot, continueOrNone):
@@ -12,6 +14,7 @@ class PARALLEL_HILL_CLIMBER:
        # os.system("rm brain*.nndf") # step 82 parallelHC
         #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
+        self.record = numpy.zeros((c.numberOfGenerations,c.populationSize)) # LOOK hello data
 
         # This block is for manyBots
         # Start with ID of 0, and check if a brain.nndf file has already occurred. Purpose of this code block is to determine the initial ID after possible prev ParallelHC
@@ -27,7 +30,7 @@ class PARALLEL_HILL_CLIMBER:
             for entry in lines:
                 cleanLines.append(entry.replace('\n',''))
             cleanLines = list(map(int, cleanLines))
-            print('Here are bestBrains entries:',cleanLines)
+            print('Here are bestBrains entries:', cleanLines)
             fp.close()
 
 
@@ -49,8 +52,22 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self): 
         self.Evaluate(self.parents)
-        for currentGeneration in range(c.numberOfGenerations):
+        for g in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
+            for p in range(c.populationSize): 
+                lookFitness = self.parents.get(p).fitness 
+                self.record.itemset((g,p), lookFitness) 
+
+
+    # def Evolve(self): 
+    #     self.Evaluate(self.parents)
+    #     for p in range(c.populationSize): 
+    #         lookFitness = self.parents.get(p).fitness 
+    #         for g in range(c.numberOfGenerations):
+    #             self.Evolve_For_One_Generation()
+    #             self.record.itemset((g,p), lookFitness) 
+
+
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -119,3 +136,44 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
         for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()
+
+    def Results(self):
+
+        if os.path.exists('bestBrains.txt'):
+            fp = open('bestBrains.txt', 'r') 
+            lines = fp.readlines()
+            cleanLines = []
+            for entry in lines:
+                cleanLines.append(entry.replace('\n',''))
+            cleanLines = list(map(int, cleanLines))
+            fp.close()
+        
+        # make sure that file will be overwritten if we decide to use "python3 emptyWrapper.py -continue"
+        if self.continueOrNone == 'none':
+            numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', self.record, delimiter=',') #LOOK
+
+        else:
+            itemset = []
+            with open('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', "r") as f:
+                for line in f:
+                    items = line.strip().split(",")
+                    itemset.append(items)
+
+            itemset.extend(self.record) # extend with self.record
+            itemset = numpy.array(itemset, dtype=float) # convert to float
+            print('itemset = ', itemset)
+
+
+            numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', itemset, delimiter=',')
+
+            f.close()
+
+
+
+
+
+
+
+
+
+
