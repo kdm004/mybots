@@ -7,10 +7,9 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, solutionID, botIndex, swarmIndex, continueOrNone, populationID):
+    def __init__(self,directOrGUI, solutionID, botIndex, continueOrNone, populationID):
         self.solutionID = solutionID
         self.botIndex = botIndex
-        self.swarmIndex = swarmIndex
         self.continueOrNone = continueOrNone
         self.populationID = populationID
     
@@ -34,7 +33,7 @@ class SIMULATION:
             (self.solutionID,0,18)
         ]
 
-        self.robots = ROBOT(*self.positions[self.botIndex], self.botIndex, self.swarmIndex, self.continueOrNone, self.populationID)
+        self.robots = ROBOT(*self.positions[self.botIndex], self.botIndex, self.continueOrNone, self.populationID)
 
 
     def Run(self):

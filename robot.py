@@ -12,12 +12,11 @@ import time
 
 
 class ROBOT:
-    def __init__(self,solutionID,xi,yi, botIndex, swarmIndex, continueOrNone, populationID):
+    def __init__(self,solutionID,xi,yi, botIndex, continueOrNone, populationID):
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
         self.botIndex = botIndex
-        self.swarmIndex = swarmIndex
         self.continueOrNone = continueOrNone
         self.populationID = populationID
         #SOLUTION(self.solutionID, self.botIndex, self.swarmIndex, self.continueOrNone, self.populationID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate |||# added self. to solutionID, and added others

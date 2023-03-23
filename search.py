@@ -4,24 +4,27 @@ import time
 import glob
 import constants as c
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
-import nonChampDeleter as NDC
+import nonChampDeleter as NCD
 import sys
 #------------------------- 
-commandLineArg = sys.argv # [search.py, continue, swarmIndex]
 
+commandLineArg = sys.argv
 continueOrNone = commandLineArg[1]
-swarmIndex = commandLineArg[2]
+overallBot = commandLineArg[2]
 
-for botIndex in range(10):
-    NDC.NonChampDeleter()
+NCD.NonChampDeleter()
 
-    phc1 = PARALLEL_HILL_CLIMBER(botIndex, swarmIndex, continueOrNone)
-    time.sleep(1)
-    phc1.Evolve()
-    time.sleep(1)
-    phc1.Show_Best()
+phc1 = PARALLEL_HILL_CLIMBER(overallBot, continueOrNone)
+time.sleep(1)
+phc1.Evolve()
+time.sleep(1)
+phc1.Show_Best()
 
-    NDC.NonChampDeleter()
+
+phc1.Results() #LOOK
+
+
+NCD.NonChampDeleter()
 
 
 # # Delete Non-Champion brain.nndf files

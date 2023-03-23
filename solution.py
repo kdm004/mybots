@@ -13,10 +13,9 @@ import pickle
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, botIndex, swarmIndex, continueOrNone, populationID):
+    def __init__(self, nextAvailableID, overallBot, continueOrNone, populationID):
         self.myID = nextAvailableID
-        self.botIndex = int(botIndex)
-        self.swarmIndex = int(swarmIndex)
+        self.overallBot = int(overallBot)
         self.continueOrNone = continueOrNone
         self.populationID = int(populationID) # obtained from parallelHillClimber constructor
 
@@ -27,7 +26,7 @@ class SOLUTION:
 
 
         if self.continueOrNone == 'continue': 
-            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'r') as pickleFile: # use botNumber
+            with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'r') as pickleFile: # use botNumber
                 self.weights = np.loadtxt(pickleFile)
                 pickleFile.close()
             # second part of this block is in mutate() because constructor should not save. Only load.
@@ -168,13 +167,13 @@ class SOLUTION:
         # tempfile.close   
 
         if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
-            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
+            with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
                 np.savetxt(pickleFile,self.weights)
                 pickleFile.close()
             
 
         else:
-            with open('weightsFiles/weights' + str(self.swarmIndex*10+self.botIndex) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
+            with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
                 np.savetxt(pickleFile,self.weights)
                 pickleFile.close()
 
@@ -190,7 +189,11 @@ class SOLUTION:
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
 
-    def Start_Simulation(self, directOrGUI, botIndex):
+    def Start_Simulation(self, directOrGUI, overallBot):
+
+        botIndex = self.overallBot % 10
+
+
         self.Create_World()
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
 
@@ -208,7 +211,7 @@ class SOLUTION:
         ]
 
         self.Generate_Body(*positions[botIndex]) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' ' + str(self.swarmIndex) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
