@@ -13,7 +13,7 @@ class MANYBOTS_SIMULATION:
     def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 swarmBots. 
         self.botIndex = botIndex
         self.swarmIndex = swarmIndex
-        self.directOrGUI = p.connect(p.GUI) #DIRECT or GUI
+        self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI
 
         #bestBrains, overallChampionIndex = self.Get_Champ()
         bestBrains = self.Get_Champ()

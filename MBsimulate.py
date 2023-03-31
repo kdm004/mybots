@@ -38,8 +38,37 @@ pyrosim.End()
 # #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
 # MBSIM2.Get_Fitness()
 
-for swarmIndex in range(35): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
-        for botIndex in range(10):
+def Get_Current_Bot_Number():
+        if os.path.exists('obstacleEnv_fitnesses.txt'):
+                fp = open('obstacleEnv_fitnesses.txt', 'r') 
+                lines = fp.readlines()
+                cleanLines = []
+                for entry in lines:
+                        cleanLines.append(entry.replace('\n',''))
+                cleanLines = list(map(float, cleanLines))
+                fp.close()
+                
+                currentBot = len(cleanLines) % 10
+                currentSwarm = int((len(cleanLines)-1 - currentBot) / 10)
+
+        return currentBot, currentSwarm
+
+
+currentBot, currentSwarm = Get_Current_Bot_Number()
+for swarmIndex in range(14,35): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
+        for botIndex in range(currentBot, 10):
+                #currentBot, currentSwarm = Get_Current_Bot_Number()
                 MBSIM = MB_SIMULATION(botIndex, swarmIndex)
                 MBSIM.Run()
                 MBSIM.Get_Fitness()
+
+
+    
+
+# for swarmIndex in range(35): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
+#         for botIndex in range(10):
+#                 MBSIM = MB_SIMULATION(botIndex, swarmIndex)
+#                 MBSIM.Run()
+#                 MBSIM.Get_Fitness()
+
+
