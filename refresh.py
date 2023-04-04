@@ -1,3 +1,5 @@
+
+
 import os
 
 # Write 'python3 refresh.py' in terminal to delete the following files:
@@ -21,9 +23,8 @@ os.system("rm weightsAndLegs.txt")
 os.system("rm weightsFiles/weights*.txt")
 
 os.system("rm testingBoth.txt")
+os.system("rm fitnessCurves/fitness_curve*.txt")
 
 
 
 # should this also refresh the pickled file?
-
-
