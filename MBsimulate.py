@@ -39,6 +39,8 @@ pyrosim.End()
 # MBSIM2.Get_Fitness()
 
 def Get_Current_Bot_Number():
+        currentBot = 0
+        currentSwarm = 0
         if os.path.exists('obstacleEnv_fitnesses.txt'):
                 fp = open('obstacleEnv_fitnesses.txt', 'r') 
                 lines = fp.readlines()
@@ -55,7 +57,7 @@ def Get_Current_Bot_Number():
 
 
 currentBot, currentSwarm = Get_Current_Bot_Number()
-for swarmIndex in range(14,35): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
+for swarmIndex in range(35): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
         for botIndex in range(currentBot, 10):
                 #currentBot, currentSwarm = Get_Current_Bot_Number()
                 MBSIM = MB_SIMULATION(botIndex, swarmIndex)
