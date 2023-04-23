@@ -56,9 +56,6 @@ def NonChampDeleter():
                             os.system('rm bodyFiles/body010'+str(i)+'.urdf')
                             os.system('rm bodyFiles/body014'+str(i)+'.urdf')
                             os.system('rm bodyFiles/body018'+str(i)+'.urdf')
-                            
-                            # edit to delete fitness_curve*.txt files
-                            os.system('rm fitness_curve'+str(i)+'.urdf')
 
 def Delete_Remaining():
 

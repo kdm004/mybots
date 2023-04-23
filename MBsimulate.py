@@ -20,6 +20,24 @@ pyrosim.End()
 #---------------------------------------------------------------------------------------------------------------------
 
 
+# MBSIM = MB_SIMULATION(1)
+# while not os.path.exists("obstacleWorld.sdf"):
+#         time.sleep(0.01)
+# MBSIM.Run()
+# #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
+# MBSIM.Get_Fitness()
+
+
+
+
+
+# MBSIM2 = MB_SIMULATION(2)
+# while not os.path.exists("obstacleWorld.sdf"):
+#         time.sleep(0.01)
+# MBSIM2.Run()
+# #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
+# MBSIM2.Get_Fitness()
+
 for outerLoopIndex in range(35): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
         for innerLoopIndex in range(10):
                 MBSIM = MB_SIMULATION(innerLoopIndex, outerLoopIndex)

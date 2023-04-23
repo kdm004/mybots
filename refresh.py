@@ -26,6 +26,3 @@ os.system("rm fitnessCurves/fitness_curve*.txt")
 
 
 # should this also refresh the pickled file?
-
-
-

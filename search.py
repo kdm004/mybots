@@ -19,9 +19,7 @@ phc1.Evolve()
 time.sleep(1)
 phc1.Show_Best()
 
-
-phc1.Results() #LOOK
-
+phc1.Results()
 
 NCD.NonChampDeleter()
 
