@@ -11,15 +11,14 @@ from solution import SOLUTION
 import time
 
 
-class SWARMBOT:                          # I'm breaking this to make sure that everything runs correctly. I'm making sure that MBsimulate.py doesn't use this. 
+class SWARMBOT:                          
     def __init__(self,solutionID,xi,yi):
         self.solutionID = solutionID
         self.xi = xi
         self.yi = yi
-        #SOLUTION(solutionID, '1', '2', 'none', '4').Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate
 
         time.sleep(2)
-        self.swarmBot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
+        self.swarmBot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf") 
         pyrosim.Prepare_To_Simulate(self.swarmBot) 
 
         self.sensors = {}
@@ -49,7 +48,7 @@ class SWARMBOT:                          # I'm breaking this to make sure that e
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
     
-    def Act(self,neuronName): # took out t from Act()
+    def Act(self,neuronName): 
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
@@ -78,14 +77,14 @@ class SWARMBOT:                          # I'm breaking this to make sure that e
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
 
 
-    def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.swarmBot.xi?
+    def Get_Obstacle_Fitness(self):                
         self.stateOfLinkZero = p.getLinkState(self.swarmBot,0)
         self.positionOfLinkZero = self.stateOfLinkZero[0]
         self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
         
         # Write fitness to txt file
-        f = open('obstacleEnv_fitnesses.txt','a')
-        f.write(str(self.xCoordinateOfLinkZero-self.xi)) # we want str(xCoordinateOfLinkZero - initialxcoord)
+        f = open('cluttered_fitnesses.txt','a')
+        f.write(str(self.xCoordinateOfLinkZero-self.xi)) # displacement from origin, not distance
         f.write('\n')
         f.close
 

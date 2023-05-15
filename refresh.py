@@ -10,10 +10,10 @@ os.system("rm bestBrains.txt")
 
 
 os.system("rm emptyEnv_fitnesses.txt")
-os.system("rm obstacleEnv_fitnesses.txt")
+os.system("rm cluttered_fitnesses.txt")
 
 
-os.system("rm fitness*.txt")
+os.system("rm fitnesses/fitness*.txt")
 os.system("rm LegSizesTemp.txt")
 os.system("rm WeightsTemp.txt")
 

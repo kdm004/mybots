@@ -1,4 +1,3 @@
-# This is the new simulation file that was created in the refactoring branch
 import time
 import constants as c
 from world import WORLD 
@@ -50,9 +49,7 @@ class SIMULATION:
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
-            #print('For loop variable is',i)   # commented this out for step 74 hillclimber
-        #    print(backLegSensorValues)
-        #    print(frontLegSensorValues) #
+
 
     def Get_Fitness(self):
         self.robots.Get_Fitness()

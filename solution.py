@@ -17,31 +17,19 @@ class SOLUTION:
         self.myID = nextAvailableID
         self.overallBot = int(overallBot)
         self.continueOrNone = continueOrNone
-        self.populationID = int(populationID) # obtained from parallelHillClimber constructor
-
-
-        # if continueOrNone == 'continue':
-        #     pass
-        #     # load the matrix from the correct weightsID.txt file using self.botIndex and self.swarmIndex
+        self.populationID = int(populationID)
 
 
         if self.continueOrNone == 'continue': 
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'r') as pickleFile: # use botNumber
                 self.weights = np.loadtxt(pickleFile)
                 pickleFile.close()
-            # second part of this block is in mutate() because constructor should not save. Only load.
         
         else:
             self.weights = np.random.rand(c.numSensorNeurons+1,c.numMotorNeurons)   
-            #self.weights[0:9] = 1
             self.weights = self.weights * 2 - 1    
             for i in range(8):
                 self.weights[9][i] = random.uniform(.5,1.5)
-            # second part of this block is in mutate() because constructor should not save. Only load.
-
-            # create a file called weightsID.txt using self.myID (we probably want a method to do this, not a constructor). It's okay to load things in constructor, but not to save things
-            # probably do the save stuff in a method, and put that method in Evolve_For_One_Generation
-            # this method will do different things depending on if continueOrNone == 'continue'. It will basically be the second part of this constructor. 
 
                                                        
 
@@ -56,7 +44,7 @@ class SOLUTION:
 
     def Generate_Body(self, xi,yi): 
  
-        pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") # LOOK here, we create the body with position and ID
+        pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") 
         
         #Torso
         pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,max(self.weights[9])] , size=[1,1,1])
@@ -98,10 +86,8 @@ class SOLUTION:
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf
 
-    def Generate_Brain(self):  #ADDED TO ROBOT_BRAIN
-
-        pyrosim.Start_NeuralNetwork("brainFiles/brain" + str(self.myID) + ".nndf") #changed from brain.nndf
-
+    def Generate_Brain(self):  
+        pyrosim.Start_NeuralNetwork("brainFiles/brain" + str(self.myID) + ".nndf")
 
 # Upper Extremity Sensor Neurons
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
@@ -134,43 +120,28 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Mutate(self): #ADDED TO ROBOT_BRAIN
+    def Mutate(self): 
         headsOrTails = random.choice([0,1])
         if headsOrTails == 1:
-
             # randomly select an entry in the synaptic weights, and change it
             randomRow = random.randint(0,c.numSensorNeurons - 1) #(0,2) represents 0th, 1st, and 2nd rows
             randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
             self.weights[randomRow, randomColumn] = random.random() * 2 - 1
-
             tempfile = open('WeightsTemp.txt','a')
             tempfile.write(str(self.weights))
             tempfile.write('\n')
             tempfile.write('\n')
             tempfile.close  
-        else:
 
+        else:
             # randomly select a leg part and change it
             randomLegPart = random.randint(0,7)
             self.weights[9][randomLegPart] = random.uniform(0.5,1.5)
-
-        #     tempfile = open('LegSizesTemp.txt','a')
-        #     tempfile.write(str(self.weights[9]))
-        #     tempfile.write('\n')
-        #     tempfile.write('\n')
-        #     tempfile.close   
-
-        # tempfile = open('testingBoth.txt','a')
-        # tempfile.write(str(self.weights))
-        # tempfile.write('\n')
-        # tempfile.write('\n')
-        # tempfile.close   
 
         if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
                 np.savetxt(pickleFile,self.weights)
                 pickleFile.close()
-            
 
         else:
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
@@ -180,11 +151,7 @@ class SOLUTION:
         # yep, looks like the weights and leg lengths are being changed correctly. We inspected testingBoth.txt, and we can see the 5 parent matrices evolving with every iteration. 
         # so, we will write out the matrices to their own files using this method, and load them using the constructor.
 
-    def Mutate_Body(self): #ADDED TO ROBOT_BRAIN
-        pass
 
-
-        
 
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
@@ -192,7 +159,6 @@ class SOLUTION:
     def Start_Simulation(self, directOrGUI, overallBot):
 
         botIndex = self.overallBot % 10
-
 
         self.Create_World()
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
@@ -210,7 +176,7 @@ class SOLUTION:
             (0,18)
         ]
 
-        self.Generate_Body(*positions[botIndex]) #... I just put this in 11-22-2022... will putting this here allow me to evolve the body? 
+        self.Generate_Body(*positions[botIndex]) 
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
@@ -222,14 +188,9 @@ class SOLUTION:
         lines = fitnessFile.read()
         time.sleep(0.1)
         self.fitness = float(lines)
-        #self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
-        #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
+
         fitnessFile.close()
         os.system("rm fitness"+ str(self.myID) + ".txt")
         while os.path.exists("fitness"+str(self.myID)+".txt"):
             os.system("rm fitness"+ str(self.myID) + ".txt")
        
-        # allIDFile = open("allIDs.txt", "a") 
-        # allIDFile.write(str(self.myID))  
-        # allIDFile.write('\n')                              #Write delimiter after brain ID
-        # allIDFile.close

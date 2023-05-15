@@ -12,16 +12,8 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self, overallBot, continueOrNone):
         self.overallBot = overallBot
         self.continueOrNone = continueOrNone
-       # os.system("rm brain*.nndf") # step 82 parallelHC
-        #os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
-        self.record = numpy.zeros((c.numberOfGenerations,c.populationSize)) # LOOK hello data
-
-        # This block is for manyBots
-        # Start with ID of 0, and check if a brain.nndf file has already occurred. Purpose of this code block is to determine the initial ID after possible prev ParallelHC
-    
-
-
+        self.record = numpy.zeros((c.numberOfGenerations,c.populationSize)) 
         numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf"))
 
         if os.path.exists('bestBrains.txt'):
@@ -33,24 +25,23 @@ class PARALLEL_HILL_CLIMBER:
             cleanLines = list(map(int, cleanLines))
             print('Here are bestBrains entries:',cleanLines)
             fp.close()
-
-
             self.nextAvailableID = max(cleanLines) + 1
             for i in range(numberOfBrainFiles):
                 if os.path.exists('brainFiles/brain'+str(self.nextAvailableID)+'.nndf'):
                     self.nextAvailableID += 1
 
-
         else:
-            self.nextAvailableID = 0      # we should make it start at something that already exists so the code can iterate to an ID that doesn't exist yet.
+            self.nextAvailableID = 0    
             for i in range(numberOfBrainFiles): 
                 if os.path.exists("brainFiles/brain"+ str(self.nextAvailableID) + ".nndf"):  
                     self.nextAvailableID += 1
 
-        for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. This is the original for loop from parallelHC step #17
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, i) # i = populationID
+        for i in range(c.populationSize): 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, i) # i is the populationID
             self.nextAvailableID = self.nextAvailableID + 1
     
+
+
     def Evolve(self): 
         self.Evaluate(self.parents)
         for g in range(c.numberOfGenerations):
@@ -58,6 +49,8 @@ class PARALLEL_HILL_CLIMBER:
             for p in range(c.populationSize): 
                 lookFitness = self.parents.get(p).fitness 
                 self.record.itemset((g,p), lookFitness) 
+
+
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -68,8 +61,10 @@ class PARALLEL_HILL_CLIMBER:
         #     self.Mutate_Body()
 
         self.Evaluate(self.children)
-        self.Print() # uncommented call to parallelHC print method ... step 107 parallelHC
+        self.Print() 
         self.Select()
+
+
 
     def Spawn(self):
         self.children = {}
@@ -80,12 +75,15 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Mutate(self):
-        for i in range(len(self.children)): # len(self.children) iterates through empty keys too?
+        for i in range(len(self.children)):
             self.children[i].Mutate()
         
+
+
     def Mutate_Body(self):
-        for i in range(len(self.children)): # len(self.children) iterates through empty keys too?
+        for i in range(len(self.children)): 
             self.children[i].Mutate_Body()
+
 
 
     def Print(self): 
@@ -94,39 +92,38 @@ class PARALLEL_HILL_CLIMBER:
             print('parents fitness =',self.parents[key].fitness, 'children fitness=',self.children[key].fitness)
         print('\n')
 
+
+
     def Select(self): 
         for key in range(len(self.parents)):
             if self.parents[key].fitness > self.children[key].fitness:
                 self.parents[key] = self.children[key]
         
-    def Show_Best(self):
-        overKey = 0                             
-        bestFitness = self.parents[0].fitness 
-        for i in range(len(self.parents)):
-            if self.parents[i].fitness < bestFitness:
-                bestFitness = self.parents[i].fitness
-                overKey = i
-        self.parents[overKey].Start_Simulation("DIRECT", self.overallBot) #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
+
         
 
+
+    def Show_Best(self):
+        self.parents = sorted(self.parents.values(), key = lambda x: x.fitness, reverse = True)
+        print("Best fitness = ", self.parents[0].fitness)
+        self.parents[0].Start_Simulation("DIRECT")
+
+
+    def Write_Best_ID(self):
         # Write best brain file ID to bestBrains.txt
         bestIDFile = open("bestBrains.txt", "a") 
-        bestIDFile.write(str(self.parents[overKey].myID))       
-        bestIDFile.write('\n')                              #Write delimiter after brain ID
+        bestIDFile.write(str(self.parents[0].myID))       
+        bestIDFile.write('\n')                             
         bestIDFile.close
         
 #--------------------------------------------------------------------------------------------------------------
-        # write bestFitness to a file....... only use one of the following blocks at a time
-
+    def Write_Best_Fitness(self):
         noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
-        noObstacleFile.write(str(bestFitness))
+        noObstacleFile.write(str(self.parents[0].fitness))
         noObstacleFile.write('\n')
         noObstacleFile.close
 
-        #obstacleFile = open("obstacleEnv_fitnesses", "a")    # Use this if obstacle environment.
-        #obstacleFile.write(str(xCoordinateOfLinkZero))
-        #obstacleFile.write('\n')
-        #obstacleFile.close
+
         
 
     #----------------------------------------------------------------------------------------------------------

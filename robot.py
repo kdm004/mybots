@@ -78,7 +78,7 @@ class ROBOT:
         f = open("tmp" + str(self.solutionID) + ".txt", "w")
         f.write(str(xCoordinateOfLinkZero))
         f.close
-        os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+        os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitnesses/fitness"+str(self.solutionID)+".txt")
 
 
     def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.robot.xi?
@@ -87,7 +87,7 @@ class ROBOT:
         self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
         
         # Write fitness to txt file
-        f = open('obstacleEnv_fitnesses.txt','a')
+        f = open('cluttered_fitnesses.txt','a')
         f.write(str(self.xCoordinateOfLinkZero-self.xi)) # we want str(xCoordinateOfLinkZero - initialxcoord)
         f.write('\n')
         f.close
