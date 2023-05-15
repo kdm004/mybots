@@ -11,14 +11,13 @@ class SIMULATION:
         self.botIndex = botIndex
         self.continueOrNone = continueOrNone
         self.populationID = populationID
-    
         self.directOrGUI = directOrGUI # step 86 hillclimber ... # make sure the if else statements are correct
+
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
             p.connect(p.GUI)
               
-
         self.positions = [
             (self.solutionID,0,-18),
             (self.solutionID,0,-14),
@@ -35,25 +34,25 @@ class SIMULATION:
         self.robots = ROBOT(*self.positions[self.botIndex], self.botIndex, self.continueOrNone, self.populationID)
 
 
+
     def Run(self):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
         self.world = WORLD()
-
         for i in range (c.loopLength):
             p.stepSimulation()
             self.robots.Sense(i)
             self.robots.Think()
             self.robots.Act(i)  
-
-
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
+
 
 
     def Get_Fitness(self):
         self.robots.Get_Fitness()
         p.disconnect()
+
 
 
     # def __del__(self):

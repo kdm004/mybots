@@ -6,7 +6,8 @@ import constants as c
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 import nonChampDeleter as NCD
 import sys
-#------------------------- 
+
+
 
 commandLineArg = sys.argv
 continueOrNone = commandLineArg[1]
@@ -22,8 +23,6 @@ time.sleep(1)
 phc1.Show_Best()
 phc1.Write_Best_ID()
 phc1.Write_Best_Fitness()
-
-
 phc1.Results() 
 
 NCD.NonChampDeleter()

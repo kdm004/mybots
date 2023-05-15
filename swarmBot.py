@@ -30,24 +30,26 @@ class SWARMBOT:
 
 
 
-
-
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
 
+
+
     def Sense(self,t):
         for key in self.sensors:
-            #print(self.sensors)
-            #print('key is ', key)
             self.values[t] =self.sensors[key].Get_Value(t)
             if t == c.loopLength:
                 print(self.values[key])
+
+
 
     def Prepare_To_Act(self):
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
     
+
+
     def Act(self,neuronName): 
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
@@ -63,9 +65,13 @@ class SWARMBOT:
         for key in self.sensors:
             self.sensors[key].Save_Values()
 
+
+
     def Think(self):
         self.nn.Update()
         self.nn.Print()
+
+
 
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.swarmBot,0)
@@ -75,6 +81,7 @@ class SWARMBOT:
         f.write(str(xCoordinateOfLinkZero))
         f.close
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+
 
 
     def Get_Obstacle_Fitness(self):                
@@ -88,6 +95,4 @@ class SWARMBOT:
         f.write('\n')
         f.close
 
- # This function is to return the fitness of an obstacle sim fitness. The func for empty env sim fitness is in parallelHC under show_best. 
- # The reason it is there is because it needs to distinguish between all swarmBots to see which is the best, whereas for the MB sims, there's 
- # only 1 swarmBotBrian controller, which is already the best.
+

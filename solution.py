@@ -6,10 +6,6 @@ import random
 import time
 import constants as c
 import pickle
-#--------------------------------------------
-
-
-
 
 
 class SOLUTION:
@@ -18,7 +14,6 @@ class SOLUTION:
         self.overallBot = int(overallBot)
         self.continueOrNone = continueOrNone
         self.populationID = int(populationID)
-
 
         if self.continueOrNone == 'continue': 
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'r') as pickleFile: # use botNumber
@@ -37,13 +32,15 @@ class SOLUTION:
         pass
 
 
+
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
         #pyrosim.Send_Cube(name="Box", pos=[-3,3,0.5] , size=[1,1,1]) 
         pyrosim.End()
 
+
+
     def Generate_Body(self, xi,yi): 
- 
         pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") 
         
         #Torso
@@ -58,11 +55,11 @@ class SOLUTION:
         pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,max(self.weights[9])], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="FrontLeg", pos=[0,(self.weights[9][1]/2),0] , size=[0.2,self.weights[9][1],0.2])
 
-            #Left Leg
+        #Left Leg
         pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,max(self.weights[9])], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="LeftLeg", pos=[-(self.weights[9][2]/2),0,0] , size=[self.weights[9][2],0.2,0.2])        
 
-            #Right Leg
+        #Right Leg
         pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,max(self.weights[9])], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="RightLeg", pos=[(self.weights[9][3]/2),0,0] , size=[self.weights[9][3],0.2,0.2])   
 
@@ -85,6 +82,8 @@ class SOLUTION:
 
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf
+
+
 
     def Generate_Brain(self):  
         pyrosim.Start_NeuralNetwork("brainFiles/brain" + str(self.myID) + ".nndf")
@@ -119,6 +118,8 @@ class SOLUTION:
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn+c.numSensorNeurons , weight = self.weights[currentRow][currentColumn] ) #step 7 randomsearch
 
         pyrosim.End()
+
+
 
     def Mutate(self): 
         headsOrTails = random.choice([0,1])
@@ -156,13 +157,12 @@ class SOLUTION:
     def Set_ID(self): #ADDED TO ROBOT_BRAIN
         self.myID
 
+
+
     def Start_Simulation(self, directOrGUI, overallBot):
-
         botIndex = self.overallBot % 10
-
         self.Create_World()
         self.Generate_Brain() #ADDED TO ROBOT_BRAIN
-
         positions = [
             (0,-18),
             (0,-14),
@@ -179,6 +179,8 @@ class SOLUTION:
         self.Generate_Body(*positions[botIndex]) 
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(botIndex) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
 
+
+
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
             time.sleep(0.01)
@@ -188,8 +190,8 @@ class SOLUTION:
         lines = fitnessFile.read()
         time.sleep(0.1)
         self.fitness = float(lines)
-
         fitnessFile.close()
+
         os.system("rm fitness"+ str(self.myID) + ".txt")
         while os.path.exists("fitness"+str(self.myID)+".txt"):
             os.system("rm fitness"+ str(self.myID) + ".txt")

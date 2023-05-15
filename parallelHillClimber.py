@@ -100,13 +100,12 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
         
 
-        
-
 
     def Show_Best(self):
         self.parents = sorted(self.parents.values(), key = lambda x: x.fitness, reverse = True)
         print("Best fitness = ", self.parents[0].fitness)
         self.parents[0].Start_Simulation("DIRECT")
+
 
 
     def Write_Best_ID(self):
@@ -116,7 +115,8 @@ class PARALLEL_HILL_CLIMBER:
         bestIDFile.write('\n')                             
         bestIDFile.close
         
-#--------------------------------------------------------------------------------------------------------------
+
+
     def Write_Best_Fitness(self):
         noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
         noObstacleFile.write(str(self.parents[0].fitness))
@@ -124,9 +124,6 @@ class PARALLEL_HILL_CLIMBER:
         noObstacleFile.close
 
 
-        
-
-    #----------------------------------------------------------------------------------------------------------
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
@@ -134,9 +131,9 @@ class PARALLEL_HILL_CLIMBER:
         for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()
 
-    def Results(self):
 
-        print('TEST1') # test1
+
+    def Results(self):
         if os.path.exists('bestBrains.txt'):
             fp = open('bestBrains.txt', 'r') 
             lines = fp.readlines()
@@ -145,8 +142,7 @@ class PARALLEL_HILL_CLIMBER:
                 cleanLines.append(entry.replace('\n',''))
             cleanLines = list(map(int, cleanLines))
             fp.close()
-            print('TEST2') #test2
-        
+
         # make sure that file will be overwritten if we decide to use "python3 emptyWrapper.py -continue"
         if self.continueOrNone == 'none':
             print('Start Test1')
@@ -161,14 +157,10 @@ class PARALLEL_HILL_CLIMBER:
                 for line in f:
                     items = line.strip().split(",")
                     itemset.append(items)
-
             itemset.extend(self.record) # extend with self.record
             itemset = numpy.array(itemset, dtype=float) # convert to float
             print('itemset = ', itemset)
-
-
             numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', itemset, delimiter=',')
-
             f.close()
 
             

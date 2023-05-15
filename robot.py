@@ -19,10 +19,9 @@ class ROBOT:
         self.botIndex = botIndex
         self.continueOrNone = continueOrNone
         self.populationID = populationID
-        #SOLUTION(self.solutionID, self.botIndex, self.swarmIndex, self.continueOrNone, self.populationID).Generate_Body(xi,yi) # 11-25-2022 ... Comment this out whenever you want to run MBsimulate |||# added self. to solutionID, and added others
 
         time.sleep(2)
-        self.robot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  # LOOK : 11-23-2022 : added str(solutionID)
+        self.robot = p.loadURDF("bodyFiles/body"+str(self.xi)+str(self.yi)+str(self.solutionID)+".urdf")  
         pyrosim.Prepare_To_Simulate(self.robot) 
 
         self.sensors = {}
@@ -40,6 +39,8 @@ class ROBOT:
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
 
+
+
     def Sense(self,t):
         for key in self.sensors:
             #print(self.sensors)
@@ -48,10 +49,14 @@ class ROBOT:
             if t == c.loopLength:
                 print(self.values[key])
 
+
+
     def Prepare_To_Act(self):
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
     
+
+
     def Act(self,neuronName): # took out t from Act()
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
@@ -67,9 +72,13 @@ class ROBOT:
         for key in self.sensors:
             self.sensors[key].Save_Values()
 
+
+
     def Think(self):
         self.nn.Update()
         self.nn.Print()
+
+
 
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robot,0)
@@ -79,6 +88,7 @@ class ROBOT:
         f.write(str(xCoordinateOfLinkZero))
         f.close
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitnesses/fitness"+str(self.solutionID)+".txt")
+
 
 
     def Get_Obstacle_Fitness(self):                    # do I need to specify what xi is for each instance of Get_Obstacle_Fitness? can I just say self.robot.xi?
