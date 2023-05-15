@@ -16,13 +16,8 @@ if os.path.exists('bestBrains.txt'):
         cleanLines.append(entry.replace('\n',''))
     cleanLines = list(map(int, cleanLines))
     fp.close()
-
-# Let's try it without the +1
     for i in range(len(cleanLines) ,350):
         os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
-        #time.sleep(zzz*2)
-
 else:
     for i in range(350):
         os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
-        #time.sleep(zzz*2)
