@@ -102,31 +102,29 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
-        overKey = 0                             
-        bestFitness = self.parents[0].fitness 
-        for i in range(len(self.parents)):
-            if self.parents[i].fitness < bestFitness:
-                bestFitness = self.parents[i].fitness
-                overKey = i
-        self.parents[overKey].Start_Simulation("DIRECT", self.overallBot) #Shows best single robot sim in GUI.........change if you want to see the final evolved robot.
-        
+        self.parents = sorted(self.parents.values(), key = lambda x: x.fitness, reverse = True)
+        print("Best fitness = ", self.parents[0].fitness)
+        self.parents[0].Start_Simulation("DIRECT", self.overallBot)
 
 
+
+    def Write_Best_ID(self):
         # Write best brain file ID to bestBrains.txt
         bestIDFile = open("bestBrains.txt", "a") 
-        bestIDFile.write(str(self.parents[overKey].myID))       
-        bestIDFile.write('\n')                              #Write delimiter after brain ID
+        bestIDFile.write(str(self.parents[0].myID))       
+        bestIDFile.write('\n')                             
         bestIDFile.close
         
 
 
-        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")     
-        noObstacleFile.write(str(bestFitness))
+    def Write_Best_Fitness(self):
+        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
+        noObstacleFile.write(str(self.parents[0].fitness))
         noObstacleFile.write('\n')
         noObstacleFile.close
 
 
-    #----------------------------------------------------------------------------------------------------------
+
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
@@ -163,7 +161,7 @@ class PARALLEL_HILL_CLIMBER:
             itemset = numpy.array(itemset, dtype=float) # convert to float
             print('itemset = ', itemset)
             numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', itemset, delimiter=',')
-            
+
             f.close()
 
             
