@@ -44,27 +44,29 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Body(self, xi,yi): 
+
+        initial_height = max(self.weights[9]) + 1 # initial height of torso (measured from origin of torso)
  
         pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+str(self.myID)+".urdf") # LOOK here, we create the body with position and ID
         
         #Torso
-        pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,max(self.weights[9])] , size=[1,1,1])
+        pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,initial_height] , size=[1,1,1])
             
     # Upper Extremities
         #Back Leg
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0+xi,-0.5+yi,max(self.weights[9])], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0+xi,-0.5+yi,initial_height], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="BackLeg", pos=[0,-(self.weights[9][0]/2),0] , size=[0.2,self.weights[9][0],0.2])
 
         #Front Leg
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,max(self.weights[9])], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,initial_height], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="FrontLeg", pos=[0,(self.weights[9][1]/2),0] , size=[0.2,self.weights[9][1],0.2])
 
         #Left Leg
-        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,max(self.weights[9])], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,initial_height], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="LeftLeg", pos=[-(self.weights[9][2]/2),0,0] , size=[self.weights[9][2],0.2,0.2])        
 
         #Right Leg
-        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,max(self.weights[9])], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,initial_height], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="RightLeg", pos=[(self.weights[9][3]/2),0,0] , size=[self.weights[9][3],0.2,0.2])   
 
     # Lower Extremities

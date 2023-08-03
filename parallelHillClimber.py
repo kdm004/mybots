@@ -104,7 +104,7 @@ class PARALLEL_HILL_CLIMBER:
     def Show_Best(self):
         self.parents = sorted(self.parents.values(), key = lambda x: x.fitness, reverse = True)
         print("Best fitness = ", self.parents[0].fitness)
-        self.parents[0].Start_Simulation("DIRECT", self.overallBot)
+        self.parents[0].Start_Simulation("GUI", self.overallBot) # change this to GUI to actually see the best bot simulation
 
 
 
