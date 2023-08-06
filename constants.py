@@ -25,3 +25,5 @@ numMotorNeurons = 8
 numberOfBots = 2 # not currently used anywhere.
 numberOfSwarms = 2 # used in emptyWrapper.py
  
+
+runs = 700

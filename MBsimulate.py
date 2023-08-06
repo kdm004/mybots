@@ -38,7 +38,7 @@ def Get_Current_Bot_Number():
 
 
 currentBot, currentSwarm = Get_Current_Bot_Number()
-for swarmIndex in range(35):
+for swarmIndex in range(int(c.runs/10)):
         for botIndex in range(currentBot, 10):
                 MBSIM = MB_SIMULATION(botIndex, swarmIndex)
                 MBSIM.Run()

@@ -16,8 +16,8 @@ if os.path.exists('bestBrains.txt'):
         cleanLines.append(entry.replace('\n',''))
     cleanLines = list(map(int, cleanLines))
     fp.close()
-    for i in range(len(cleanLines) ,350):
+    for i in range(len(cleanLines) ,c.runs): # 700 from 350
         os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
 else:
-    for i in range(350):
+    for i in range(c.runs):
         os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
