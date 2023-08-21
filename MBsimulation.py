@@ -10,7 +10,7 @@ import pyrosim.pyrosim as pyrosim
 
 
 class MANYBOTS_SIMULATION:
-    def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 robots. 
+    def __init__(self,botIndex, swarmIndex): # swarmIndex is the outer loop. So we want 35 total swarms of 10 robots.  # changed to 70
         self.botIndex = botIndex
         self.swarmIndex = swarmIndex
         self.directOrGUI = p.connect(p.DIRECT) #DIRECT or GUI

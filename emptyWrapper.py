@@ -40,13 +40,13 @@ if commandLineArg[1] == 'none':
         cleanLines = list(map(int, cleanLines))
         fp.close()
 
-        for i in range(len(cleanLines) ,350):
+        for i in range(len(cleanLines) ,700):
             os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
             #time.sleep(zzz*2)
 
 
     else:
-        for i in range(350):
+        for i in range(700):
             os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
             #time.sleep(zzz*2)
             print('hello world')
@@ -54,7 +54,7 @@ if commandLineArg[1] == 'none':
 
 
 if commandLineArg[1] == 'continue':
-    for i in range(350):
+    for i in range(700):
         os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
         #time.sleep(zzz*2)
 
