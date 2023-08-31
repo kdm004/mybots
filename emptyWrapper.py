@@ -7,7 +7,7 @@ import sys
 
 commandLineArg = sys.argv # [emptyWrapper.py, continue]
 
-for i in range(35): # 35 for case1
+for i in range(70): # 35 for case1
     os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
     #time.sleep(zzz*2)
 
