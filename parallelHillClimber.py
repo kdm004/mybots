@@ -145,11 +145,11 @@ class PARALLEL_HILL_CLIMBER:
             print(cleanLines)
             print(self.overallBot)
             print('End Test1')
-            numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', self.record, delimiter=',') #LOOK
+            numpy.savetxt('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', self.record, delimiter=',') #LOOK
 
         else:
             itemset = []
-            with open('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', "r") as f:
+            with open('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', "r") as f:
                 for line in f:
                     items = line.strip().split(",")
                     itemset.append(items)
@@ -159,6 +159,6 @@ class PARALLEL_HILL_CLIMBER:
             print('itemset = ', itemset)
 
 
-            numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', itemset, delimiter=',')
+            numpy.savetxt('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', itemset, delimiter=',')
 
             f.close()
