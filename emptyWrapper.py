@@ -26,5 +26,5 @@ if commandLineArg[1] == 'none':
 
 
 if commandLineArg[1] == 'continue':
-    for i in range(700): # if interrupted, range should begin at the number we have yet to get to. Look at fitnessCurves for correct # of total gens
+    for i in range(117, 700): # if interrupted, range should begin at the number we have yet to get to. Look at fitnessCurves for correct # of total gens
         os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
