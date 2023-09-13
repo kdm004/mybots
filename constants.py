@@ -12,7 +12,7 @@ legMaxForce = 120 # change back to 20 #was at 120 at beginning of quadruped
 targetAngles = numpy.linspace(-numpy.pi,numpy.pi, loopLength)
 
 
-numberOfGenerations = 40  # change to 40 to complete quadruped #5 for manyBotsV2
+numberOfGenerations = 20  # change to 40 to complete quadruped #5 for manyBotsV2
 populationSize = 5 # change to 5 to complete quadruped #5 for manyBotsV2
 
 motorJointRange = .8 # set to .2 for oscillatory motion ... step 55 quadruped
