@@ -32,7 +32,7 @@ class SOLUTION:
             for i in range(8):
                 self.weights[9][i] = random.uniform(.5,1.5)
 
-                                                       
+        self.initial_weights = self.weights.copy()
 
     # def Evaluate(self,directOrGUI):
     #     pass
@@ -132,11 +132,7 @@ class SOLUTION:
             randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
             self.weights[randomRow, randomColumn] = random.random() * 2 - 1
 
-            tempfile = open('WeightsTemp.txt','a')
-            tempfile.write(str(self.weights))
-            tempfile.write('\n')
-            tempfile.write('\n')
-            tempfile.close  
+
         else:
 
             # randomly select a leg part and change it
@@ -144,7 +140,7 @@ class SOLUTION:
             self.weights[9][randomLegPart] = random.uniform(0.5,1.5)
 
 
-
+    def Save_Weights(self):
         if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
                 np.savetxt(pickleFile,self.weights)
@@ -155,6 +151,13 @@ class SOLUTION:
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: # let's use botNumber, not botIndex swarmID*10+botIndex
                 np.savetxt(pickleFile,self.weights)
                 pickleFile.close()
+
+        tempfile = open('WeightsTemp.txt','a')
+        tempfile.write(str(self.weights))
+        tempfile.write('---------------'+str(self.overallBot) + '_' + str(self.populationID)+'----------------')
+        tempfile.write('\n')
+        tempfile.write('\n')
+        tempfile.close  
 
         # yep, looks like the weights and leg lengths are being changed correctly. We inspected testingBoth.txt, and we can see the 5 parent matrices evolving with every iteration. 
         # so, we will write out the matrices to their own files using this method, and load them using the constructor.
