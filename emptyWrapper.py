@@ -2,7 +2,7 @@ import os
 import time
 import glob 
 import constants as c
-import nonChampDeleter as NCD
+# import nonChampDeleter as NCD
 import sys
 
 
