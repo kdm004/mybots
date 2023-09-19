@@ -87,3 +87,44 @@ def Delete_Remaining():
             os.system('rm bodyFiles/body010'+str(entry)+'.urdf')
             os.system('rm bodyFiles/body014'+str(entry)+'.urdf')
             os.system('rm bodyFiles/body018'+str(entry)+'.urdf')
+
+
+def NonChampPruner():
+    if os.path.exists('bestBrains.txt'):
+        # Delete Non-Champion brain.nndf files
+        fp = open('bestBrains.txt', 'r') 
+        lines = fp.readlines()
+        cleanLines = []
+        for entry in lines:
+            cleanLines.append(entry.replace('\n',''))
+        cleanLines = list(map(int, cleanLines))
+        print('Here are bestBrains entries:',cleanLines)
+        fp.close()
+        bestBrainsList = cleanLines
+        
+        lastInBestBrains = cleanLines[-1:][0]
+        allIDs = list(range(int(lastInBestBrains)+c.populationSize*c.numberOfGenerations))
+        nonChamps = list(set(allIDs).difference(set(cleanLines)))
+        # print(lastInBestBrains)
+        # print(lastInBestBrains+c.populationSize*c.numberOfGenerations)
+        
+
+        if len(bestBrainsList) > 0:
+            for i in nonChamps:
+                os.system('rm brainFiles/brain'+str(i)+'.nndf')
+                os.system('rm bodyFiles/body0-18'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body0-14'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body0-10'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body0-6'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body0-2'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body02'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body06'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body010'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body014'+str(i)+'.urdf')
+                os.system('rm bodyFiles/body018'+str(i)+'.urdf')
+                #os.system('rm fitness_curve'+str(i)+'.urdf') # has never done anything since it's a urdf
+        print(len(nonChamps))
+        os.system('rm fitness*.txt')
+        print(nonChamps)
+
+NonChampPruner()

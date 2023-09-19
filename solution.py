@@ -176,6 +176,7 @@ class SOLUTION:
         randomColumn = random.randint(0,c.numMotorNeurons - 1) #(0,1) represents 0th and 1st column
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
         
+    def Save_Weights(self):
         if self.continueOrNone == 'continue': # if 'continue', we've already loaded from this file. Edit the constructor to include this.
             with open('weightsFiles/weights' + str(self.overallBot) + '_' + str(self.populationID) + '.txt', 'w') as pickleFile: #let's use botNumber
                 np.savetxt(pickleFile,self.weights)
