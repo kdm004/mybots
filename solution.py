@@ -91,26 +91,28 @@ class SOLUTION:
 
     def Generate_Body(self,xi,yi): 
 
+        initial_height = 1
+
         pyrosim.Start_URDF("bodyFiles/body"+str(xi)+str(yi)+".urdf")
         
         #Torso
-        pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,1] , size=[length,width,height])
+        pyrosim.Send_Cube(name="Torso", pos=[0+xi,0+yi,initial_height] , size=[length,width,height])
             
     # Upper Extremities
         #Back Leg
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0+xi,-0.5+yi,1], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [0+xi,-0.5+yi,initial_height], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="BackLeg", pos=[0,-0.5,0] , size=[l1,w1,h1])
 
         #Front Leg
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,1], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [0+xi,0.5+yi,initial_height], jointAxis = "1 0 0")
         pyrosim.Send_Cube(name="FrontLeg", pos=[0,0.5,0] , size=[l2,w2,h2])
 
             #Left Leg
-        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,1], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [-0.5+xi,0+yi,initial_height], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="LeftLeg", pos=[-0.5,0,0] , size=[l3,w3,h3])        
 
             #Right Leg
-        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,1], jointAxis = "0 1 0")
+        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0.5+xi,0+yi,initial_height], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="RightLeg", pos=[0.5,0,0] , size=[l4,w4,h4])   
 
     # Lower Extremities
