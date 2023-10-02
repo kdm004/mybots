@@ -13,33 +13,33 @@ import os
 
 
 pyrosim.Start_SDF("obstacleWorld.sdf")
-for x in range(10, -22-2,-2): # -4
-       for y in range(-28, 28+2, 2): #-4
+for x in range(10, -22-2,-2): 
+       for y in range(-28, 28+2, 2): 
            pyrosim.Send_Cube(name="Box", pos=[x,y,.5] , size=[1/3,1/3,1/3]) 
 pyrosim.End()
-#---------------------------------------------------------------------------------------------------------------------
 
 
-# MBSIM = MB_SIMULATION(1)
-# while not os.path.exists("obstacleWorld.sdf"):
-#         time.sleep(0.01)
-# MBSIM.Run()
-# #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
-# MBSIM.Get_Fitness()
+def Get_Current_Bot_Number():
+        currentBot = 0
+        currentSwarm = 0
+        if os.path.exists('obstacleEnv_fitnesses.txt'):
+                fp = open('obstacleEnv_fitnesses.txt', 'r') 
+                lines = fp.readlines()
+                cleanLines = []
+                for entry in lines:
+                        cleanLines.append(entry.replace('\n',''))
+                cleanLines = list(map(float, cleanLines))
+                fp.close()
+                
+                currentBot = len(cleanLines) % 10
+                currentSwarm = int((len(cleanLines)-1 - currentBot) / 10)
+
+        return currentBot, currentSwarm
 
 
-
-
-
-# MBSIM2 = MB_SIMULATION(2)
-# while not os.path.exists("obstacleWorld.sdf"):
-#         time.sleep(0.01)
-# MBSIM2.Run()
-# #MBSIM.Shift_Lines() We comment this out for case1 because if the top line is deleted by Shift_Lines(), that would change the index of the overall champion of the 35 controllers
-# MBSIM2.Get_Fitness()
-
-for outerLoopIndex in range(70): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
-        for innerLoopIndex in range(10):
-                MBSIM = MB_SIMULATION(innerLoopIndex, outerLoopIndex)
+currentBot, currentSwarm = Get_Current_Bot_Number()
+for swarmIndex in range(int(700/10)):
+        for botIndex in range(currentBot, 10):
+                MBSIM = MB_SIMULATION(botIndex, swarmIndex)
                 MBSIM.Run()
                 MBSIM.Get_Fitness()
