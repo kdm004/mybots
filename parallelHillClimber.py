@@ -1,4 +1,3 @@
-
 from solution import SOLUTION 
 import constants as c
 import copy
@@ -13,8 +12,15 @@ class PARALLEL_HILL_CLIMBER:
         self.overallBot = overallBot
         self.continueOrNone = continueOrNone
         self.parents = {}
-        self.record = numpy.zeros((c.numberOfGenerations,c.populationSize)) # LOOK hello data
         numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf"))
+
+        if self.continueOrNone == 'none':
+            self.record = numpy.zeros((c.numberOfGenerations+1,c.populationSize)) # LOOK hello data
+        if self.continueOrNone == 'continue':
+            self.record = numpy.zeros((c.numberOfGenerations,c.populationSize))   # purpose would be such that we don't want to rewrite the fitness of the loaded in weights, so size will only be g instead of g+1
+
+
+        
 
         if os.path.exists('bestBrains.txt'):
             fp = open('bestBrains.txt', 'r') 
@@ -44,11 +50,29 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self): 
         self.Evaluate(self.parents)
+
+        #----
+        
+        for p in self.parents:
+            # initialFitness = self.parents.get(p).fitness # maybe put this above the for loop
+            # self.record.itemset((1,p), initialFitness)
+            if self.continueOrNone == 'none':
+                initialFitness = self.parents[p].fitness
+                self.record[0, p] = initialFitness  # Fill the first row            # if 'continue', then this shouldn't happen
+        #----
+
+
         for g in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
             for p in range(c.populationSize): 
-                lookFitness = self.parents.get(p).fitness 
-                self.record.itemset((g,p), lookFitness) 
+                # lookFitness = self.parents.get(p).fitness 
+                # self.record.itemset((g+1,p), lookFitness)       # +1
+                lookFitness = self.parents[p].fitness
+
+                if self.continueOrNone == 'none':
+                    self.record[g+1,p] = lookFitness                                # if 'continue', then [g,p] not [g+1,p]
+                if self.continueOrNone == 'continue':
+                    self.record[g,p] = lookFitness
 
 
 
@@ -63,6 +87,9 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children)
         self.Print() # uncommented call to parallelHC print method ... step 107 parallelHC
         self.Select()
+        for p in self.parents:
+            self.parents[p].Save_Weights()
+
 
 
 
@@ -145,14 +172,14 @@ class PARALLEL_HILL_CLIMBER:
         # make sure that file will be overwritten if we decide to use "python3 emptyWrapper.py -continue"
         if self.continueOrNone == 'none':
             print('Start Test1')
-            print(cleanLines)
+            #print(cleanLines)
             print(self.overallBot)
             print('End Test1')
-            numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', self.record, delimiter=',') #LOOK
+            numpy.savetxt('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', self.record, delimiter=',') #LOOK
 
         else:
             itemset = []
-            with open('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', "r") as f:
+            with open('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', "r") as f:
                 for line in f:
                     items = line.strip().split(",")
                     itemset.append(items)
@@ -160,8 +187,6 @@ class PARALLEL_HILL_CLIMBER:
             itemset.extend(self.record) # extend with self.record
             itemset = numpy.array(itemset, dtype=float) # convert to float
             print('itemset = ', itemset)
-            numpy.savetxt('fitnessCurves/fitness_curve'+str(cleanLines[int(self.overallBot)])+'.txt', itemset, delimiter=',')
+            numpy.savetxt('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', itemset, delimiter=',')
 
             f.close()
-
-            
