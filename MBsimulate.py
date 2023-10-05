@@ -72,16 +72,8 @@ pyrosim.End()
 
 
 
-<<<<<<< HEAD
-for outerLoopIndex in range(70): # 34 because we want the final line number to be 350, which will be swarmIndex + 10
-        for innerLoopIndex in range(10):
-                MBSIM = MB_SIMULATION(innerLoopIndex, outerLoopIndex)
-                MBSIM.Run()
-                MBSIM.Get_Fitness()
-=======
 for swarmIndex in range(int(700/10)):
     for botIndex in range(currentBot, 10):
         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
         MBSIM.Run()
         MBSIM.Get_Fitness()
->>>>>>> origin/case1_evolved

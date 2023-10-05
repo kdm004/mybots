@@ -8,11 +8,6 @@ import sys
 
 commandLineArg = sys.argv # [emptyWrapper.py, continue]
 
-<<<<<<< HEAD
-for i in range(70): # 35 for case1
-    os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
-    #time.sleep(zzz*2)
-=======
 if commandLineArg[1] == 'none':
     if os.path.exists('bestBrains.txt'):
         fp = open('bestBrains.txt', 'r') 
@@ -29,7 +24,6 @@ if commandLineArg[1] == 'none':
         for i in range(70):
             os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
 
->>>>>>> origin/case1_evolved
 
 if commandLineArg[1] == 'continue':
     for i in range(70): # if interrupted, range should begin at the number we have yet to get to. Look at fitnessCurves for correct # of total gens
