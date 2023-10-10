@@ -46,7 +46,7 @@ def Get_Current_Bot_Number():
         fp.close()
         
         currentBot = len(cleanLines) % 10
-        currentSwarm = int((len(cleanLines)-1 - currentBot) / 10)
+        currentSwarm = int((len(cleanLines)-1 - currentBot) / 10) # + 1
 
     return currentBot, currentSwarm
 
@@ -72,7 +72,7 @@ pyrosim.End()
 
 
 
-for swarmIndex in range(int(700/10)):
+for swarmIndex in range(12, int(700/10)):               # stopped at line 129, swarms go from 0 to 69 resulting in 70 swarms. So line 129 should be swarm 12
     for botIndex in range(currentBot, 10):
         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
         MBSIM.Run()
