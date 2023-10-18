@@ -26,9 +26,17 @@ if commandLineArg[1] == 'none':
 
 
 if commandLineArg[1] == 'continue':
-    for i in range(70): # if interrupted, range should begin at the number we have yet to get to. Look at fitnessCurves for correct # of total gens
-        os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
+    if os.path.exists('emptyEnv_fitnesses.txt'):
+        fp = open('emptyEnv_fitnesses.txt', 'r') 
+        lines = fp.readlines()
+        cleanLines = []
+        for entry in lines:
+            cleanLines.append(entry.replace('\n',''))
+        cleanLines = list(map(str, cleanLines))
+        fp.close()
+        for i in range(len(cleanLines), 70): # 700 from 350
+            os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
 
-
-
-
+    else: 
+        for i in range(70): # 700 from 350
+                    os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
