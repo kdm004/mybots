@@ -1,4 +1,3 @@
-
 import os
 import time
 import glob 
@@ -35,8 +34,18 @@ if commandLineArg[1] == 'none':
 
 
 if commandLineArg[1] == 'continue':
-    for i in range(700):
-        os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
-        #time.sleep(zzz*2)
-
-
+    if os.path.exists('emptyEnv_fitnesses.txt'):
+        fp = open('emptyEnv_fitnesses.txt', 'r') 
+        lines = fp.readlines()
+        cleanLines = []
+        for entry in lines:
+            cleanLines.append(entry.replace('\n',''))
+        cleanLines = list(map(str, cleanLines))
+        fp.close()
+        for i in range(len(cleanLines),700):
+            os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
+            #time.sleep(zzz*2)
+    else:
+        for i in range(700):
+            os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
+            #time.sleep(zzz*2)
