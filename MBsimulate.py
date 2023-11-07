@@ -42,7 +42,7 @@ def Get_Current_Bot_Number():
         cleanLines = []
         for entry in lines:
             cleanLines.append(entry.replace('\n',''))
-        cleanLines = list(map(float, cleanLines))
+        cleanLines = list(map(str, cleanLines))
         fp.close()
         
         currentBot = len(cleanLines) % 10
@@ -57,16 +57,16 @@ currentBot, currentSwarm = Get_Current_Bot_Number()
 
 # Your Pyrosim SDF setup code here
 pyrosim.Start_SDF("obstacleWorld.sdf")
-for x in range(10, -22-2, -2): 
-    for y in range(-28, 28+2, 2): 
-        current_coordinate = (x, y)
-        current_position = positions[currentBot]
-        distances = [(distance(current_position, (x, y)), (x, y)) for x in range(10, -22-2, -2) for y in range(-28, 28+2, 2)]
-        distances.sort(key=lambda x: x[0])
-        coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
-        if current_coordinate in coordinates_to_skip:
-            continue  # Skip this coordinate
-        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/3, 1/3, 1/3]) 
+# for x in range(10, -22-2, -2): 
+#     for y in range(-28, 28+2, 2): 
+#         current_coordinate = (x, y)
+#         current_position = positions[currentBot]
+#         distances = [(distance(current_position, (x, y)), (x, y)) for x in range(10, -22-2, -2) for y in range(-28, 28+2, 2)]
+#         distances.sort(key=lambda x: x[0])
+#         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
+#         if current_coordinate in coordinates_to_skip:
+#             continue  # Skip this coordinate
+#         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/3, 1/3, 1/3]) 
 
 pyrosim.End()
 

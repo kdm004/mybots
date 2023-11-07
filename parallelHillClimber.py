@@ -117,36 +117,25 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
         
     def Show_Best(self):
-        overKey = 0                             
-        bestFitness = self.parents[0].fitness 
-        for i in range(len(self.parents)):
-            if self.parents[i].fitness < bestFitness:
-                bestFitness = self.parents[i].fitness
-                overKey = i
-        self.parents[overKey].Start_Simulation("DIRECT") #Shows best single robot sim in GUI
-        
+        self.parents = sorted(self.parents.values(), key=lambda x: x.fitness)
+        self.parents[0].Start_Simulation("DIRECT")
+
+
 
         # Write best brain file ID to bestBrains.txt
         bestIDFile = open("bestBrains.txt", "a") 
-        bestIDFile.write(str(self.parents[overKey].myID))       
+        bestIDFile.write(str(self.parents[0].myID))       
         bestIDFile.write('\n')                              #Write delimiter after brain ID
         bestIDFile.close
         
-#--------------------------------------------------------------------------------------------------------------
-        # write bestFitness to a file....... only use one of the following blocks at a time
 
-        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
-        noObstacleFile.write(str(bestFitness))
+        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      
+        noObstacleFile.write(str(self.parents[0].fitness))
         noObstacleFile.write('\n')
         noObstacleFile.close
 
-        #obstacleFile = open("obstacleEnv_fitnesses", "a")    # Use this if obstacle environment.
-        #obstacleFile.write(str(xCoordinateOfLinkZero))
-        #obstacleFile.write('\n')
-        #obstacleFile.close
-        
+ 
 
-    #----------------------------------------------------------------------------------------------------------
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
