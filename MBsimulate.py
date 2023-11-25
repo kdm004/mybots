@@ -12,7 +12,7 @@ import math
 
 
 
-# Your list of positions
+# List of positions
 positions = [
     (0, -18),
     (0, -14),
@@ -26,13 +26,13 @@ positions = [
     (0, 18)
 ]
 
-# Function to calculate the Euclidean distance between two points (coordinates)
+# calculate distance between two points (coordinates)
 def distance(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-# Your code to determine currentBot
+# Determine currentBot
 def Get_Current_Bot_Number():
     currentBot = 0
     currentSwarm = 0
@@ -55,7 +55,7 @@ num_coordinates_to_skip = 5
 
 currentBot, currentSwarm = Get_Current_Bot_Number()
 
-# Your Pyrosim SDF setup code here
+# Pyrosim SDF setup
 pyrosim.Start_SDF("obstacleWorld.sdf")
 for x in range(10, -22-2, -2): 
     for y in range(-28, 28+2, 2): 
