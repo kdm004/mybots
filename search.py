@@ -19,8 +19,8 @@ time.sleep(1)
 phc1.Evolve()
 time.sleep(1)
 phc1.Show_Best()
-phc1.Write_Best_ID()
-phc1.Write_Best_Fitness()
+# phc1.Write_Best_ID()              Write_Best_ID() and Write_Best_Fitness() are still in parallelHillClimber.py
+# phc1.Write_Best_Fitness()
 
 phc1.Results() #LOOK
 

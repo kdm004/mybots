@@ -129,22 +129,41 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
-        self.parents = sorted(self.parents.values(), key = lambda x: x.fitness, reverse = True)
+        # order the parents from best to worst
+        self.parents = sorted(self.parents.values(), key=lambda x: x.fitness)
         print("Best fitness = ", self.parents[0].fitness)
         self.parents[0].Start_Simulation("DIRECT", self.overallBot) # change this to GUI to actually see the best bot simulation
+
+        bestIDFile = open("bestBrains.txt", "a") 
+        bestIDFile.write(str(self.parents[0].myID))       
+        bestIDFile.write('\n')                             
+        bestIDFile.close
+
+        # Write best fitness value to emptyEnv_fitnesses.txt
+        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
+        noObstacleFile.write(str(self.parents[0].fitness))
+        noObstacleFile.write('\n')
+        noObstacleFile.close
 
 
 
     def Write_Best_ID(self):
+        # order the parents from best to worst
+        self.parents = sorted(self.parents.values(), key=lambda x: x.fitness)
+
+
         # Write best brain file ID to bestBrains.txt
         bestIDFile = open("bestBrains.txt", "a") 
         bestIDFile.write(str(self.parents[0].myID))       
         bestIDFile.write('\n')                             
         bestIDFile.close
-        
 
 
     def Write_Best_Fitness(self):
+        # order the parents from best to worst
+        self.parents = sorted(self.parents.values(), key=lambda x: x.fitness)
+
+
         noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      # Use this one if empty environment.
         noObstacleFile.write(str(self.parents[0].fitness))
         noObstacleFile.write('\n')
