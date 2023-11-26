@@ -12,7 +12,7 @@ import math
 
 
 
-# Your list of positions
+# list of positions
 positions = [
     (0, -18),
     (0, -14),
@@ -26,13 +26,13 @@ positions = [
     (0, 18)
 ]
 
-# Function to calculate the Euclidean distance between two points (coordinates)
+# Calculate the Euclidean distance between two points (coordinates)
 def distance(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-# Your code to determine currentBot
+#  determine currentBot
 def Get_Current_Bot_Number():
     currentBot = 0
     currentSwarm = 0
@@ -55,9 +55,10 @@ num_coordinates_to_skip = 5
 
 currentBot, currentSwarm = Get_Current_Bot_Number()
 
-# Your Pyrosim SDF setup code here
+cube_size = (1/3) * (1/2)
+# Generate environment
 pyrosim.Start_SDF("obstacleWorld.sdf")
-for x in range(10, -22-2, -2): 
+for x in range(10, -22-2, -4): 
     for y in range(-28, 28+2, 2): 
         current_coordinate = (x, y)
         current_position = positions[currentBot]
@@ -66,7 +67,7 @@ for x in range(10, -22-2, -2):
         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
         if current_coordinate in coordinates_to_skip:
             continue  # Skip this coordinate
-        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/3, 1/3, 1/3]) 
+        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[cube_size, cube_size, cube_size]) 
 
 pyrosim.End()
 
