@@ -12,7 +12,7 @@ import math
 
 
 
-# Your list of positions
+# list of positions
 positions = [
     (0, -18),
     (0, -14),
@@ -26,13 +26,13 @@ positions = [
     (0, 18)
 ]
 
-# Function to calculate the Euclidean distance between two points (coordinates)
+# calculate the Euclidean distance between two points (coordinates)
 def distance(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-# Your code to determine currentBot
+# determine currentBot
 def Get_Current_Bot_Number():
     currentBot = 0
     currentSwarm = 0
@@ -51,28 +51,36 @@ def Get_Current_Bot_Number():
     return currentBot, currentSwarm
 
 # Define the number of closest coordinates to skip
-num_coordinates_to_skip = 5
+num_coordinates_to_skip = 4
 
 currentBot, currentSwarm = Get_Current_Bot_Number()
 
-# Your Pyrosim SDF setup code here
+
+
+# generate environment
+cube_size = (1/3) * (1/2)
 pyrosim.Start_SDF("obstacleWorld.sdf")
-for x in range(10, -22-2, -2): 
+for x in range(0, -22-4, -4): 
     for y in range(-28, 28+2, 2): 
         current_coordinate = (x, y)
         current_position = positions[currentBot]
-        distances = [(distance(current_position, (x, y)), (x, y)) for x in range(10, -22-2, -2) for y in range(-28, 28+2, 2)]
+            
+        # Check if the y-coordinate is within 10 units of the current position's y-coordinate
+        if abs(current_coordinate[1] - current_position[1]) > 10:
+            continue  # Skip this coordinate
+
+        distances = [(distance(current_position, (x, y)), (x, y)) for x in range(0, -22-4, -4) for y in range(-28, 28+2, 2)]
         distances.sort(key=lambda x: x[0])
         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
         if current_coordinate in coordinates_to_skip:
             continue  # Skip this coordinate
-        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/3, 1/3, 1/3]) 
+        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1, 1/8, 1/8]) # formula: [x,y,z]
 
 pyrosim.End()
 
 
 
-for swarmIndex in range(int(700/10)):
+for swarmIndex in range(70): # 46, 70
     for botIndex in range(currentBot, 10):
         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
         MBSIM.Run()

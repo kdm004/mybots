@@ -17,7 +17,7 @@ if commandLineArg[1] == 'none':
             cleanLines.append(entry.replace('\n',''))
         cleanLines = list(map(int, cleanLines))
         fp.close()
-        for i in range(len(cleanLines), 700): # 700 from 350
+        for i in range(472, 473): # 700 from 350 for             i in range(len(cleanLines), 700): 
             os.system('python3 search.py' + ' ' + str(commandLineArg[1]) + ' ' + str(i)) # i = overallBot
 
     else:
