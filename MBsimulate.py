@@ -74,7 +74,7 @@ for x in range(0, -22-4, -4):
         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
         if current_coordinate in coordinates_to_skip:
             continue  # Skip this coordinate
-        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1, 1/8, 1/8]) # formula: [x,y,z]
+        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/10, 1/10, 1/10]) # formula: [x,y,z]
 
 pyrosim.End()
 
