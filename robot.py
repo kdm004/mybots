@@ -19,7 +19,7 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf")
-        os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
+        # os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
 
 
 
@@ -67,3 +67,4 @@ class ROBOT:
         f.write(str(xCoordinateOfLinkZero))
         f.close
         os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+        print('fitness:', xCoordinateOfLinkZero)

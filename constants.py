@@ -13,7 +13,7 @@ targetAngles = numpy.linspace(-numpy.pi,numpy.pi, loopLength)
 
 
 numberOfGenerations = 10 # change to 10 to complete quadruped
-populationSize = 10 # change to 10 to complete quadruped
+populationSize = 1 # change to 10 to complete quadruped
 
 motorJointRange = .2 # set to .2 for oscillatory motion ... step 55 quadruped
 
