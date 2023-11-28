@@ -5,7 +5,7 @@ import os
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-        os.system("rm brain*.nndf") # step 82 parallelHC
+        # os.system("rm brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") # step 83 parallelHC
         self.parents = {}
         self.nextAvailableID = 0
@@ -59,7 +59,7 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < bestFitness:
                 bestFitness = self.parents[i].fitness
                 overKey = i
-        self.parents[overKey].Start_Simulation("GUI")
+        self.parents[overKey].Start_Simulation("DIRECT")
 
 
     def Evaluate(self, solutions):
