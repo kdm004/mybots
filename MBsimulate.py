@@ -59,21 +59,21 @@ currentBot, currentSwarm = Get_Current_Bot_Number()
 cube_size = 1/3 * 1/2 #unused
 # Pyrosim SDF setup
 pyrosim.Start_SDF("obstacleWorld.sdf")
-for x in range(6, -22-4, -4): 
-    for y in range(-28, 28+2, 2): 
-        current_coordinate = (x, y)
-        current_position = positions[currentBot]
+# for x in range(6, -22-4, -4): 
+#     for y in range(-28, 28+2, 2): 
+#         current_coordinate = (x, y)
+#         current_position = positions[currentBot]
             
-        # Check if the y-coordinate is within 10 units of the current position's y-coordinate
-        if abs(current_coordinate[1] - current_position[1]) > 10:
-            continue  # Skip this coordinate
+#         # Check if the y-coordinate is within 10 units of the current position's y-coordinate
+#         if abs(current_coordinate[1] - current_position[1]) > 10:
+#             continue  # Skip this coordinate
 
-        distances = [(distance(current_position, (x, y)), (x, y)) for x in range(6, -22-4, -4) for y in range(-28, 28+2, 2)]
-        distances.sort(key=lambda x: x[0])
-        coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
-        if current_coordinate in coordinates_to_skip:
-            continue  # Skip this coordinate
-        pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/100, 1/100, 1/100]) # formula: [x,y,z]
+#         distances = [(distance(current_position, (x, y)), (x, y)) for x in range(6, -22-4, -4) for y in range(-28, 28+2, 2)]
+#         distances.sort(key=lambda x: x[0])
+#         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
+#         if current_coordinate in coordinates_to_skip:
+#             continue  # Skip this coordinate
+#         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/100, 1/100, 1/100]) # formula: [x,y,z]
 
 pyrosim.End()
 
