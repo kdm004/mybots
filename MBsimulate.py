@@ -11,8 +11,7 @@ import os
 import math
 
 
-
-# List of positions
+# List of robot x,y positions
 positions = [
     (0, -18),
     (0, -14),
@@ -36,28 +35,24 @@ def distance(point1, point2):
 def Get_Current_Bot_Number():
     currentBot = 0
     currentSwarm = 0
-    if os.path.exists('obstacleEnv_fitnesses.txt'):
-        fp = open('obstacleEnv_fitnesses.txt', 'r') 
+    file_path = 'obstacleEnv_fitnesses.txt'
+    if os.path.exists(file_path):
+        fp = open(file_path, 'r') 
         lines = fp.readlines()
-        cleanLines = []
+        clean_lines = []
         for entry in lines:
-            cleanLines.append(entry.replace('\n',''))
-        cleanLines = list(map(float, cleanLines))
+            clean_lines.append(entry.replace('\n',''))
+        clean_lines = list(map(float, clean_lines))
         fp.close()
-        
-        currentBot = len(cleanLines) % 10
-        currentSwarm = int((len(cleanLines)-1 - currentBot) / 10)
-
+        currentBot = len(clean_lines) % 10
+        currentSwarm = int((len(clean_lines) - 1 - currentBot) / 10)
     return currentBot, currentSwarm
 
-# Define the number of closest coordinates to skip
-num_coordinates_to_skip = 0
 
 currentBot, currentSwarm = Get_Current_Bot_Number()
+num_coordinates_to_skip = 0
 
-
-cube_size = 1/3 * 1/2 #unused
-# Pyrosim SDF setup
+# Generate SDF file for unfamiliar environment
 pyrosim.Start_SDF("obstacleWorld.sdf")
 # for x in range(6, -22-4, -4): 
 #     for y in range(-28, 28+2, 2): 
@@ -70,19 +65,13 @@ pyrosim.Start_SDF("obstacleWorld.sdf")
 #         if abs(current_coordinate[0] - current_position[0]) < 22:                                 # removes blocks in the x direction (parallel to robot motion)
 #             continue  # Skip this coordinate
 
-        
-
 #         distances = [(distance(current_position, (x, y)), (x, y)) for x in range(6, -22-4, -4) for y in range(-28, 28+2, 2)]
 #         distances.sort(key=lambda x: x[0])
 #         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
 #         if current_coordinate in coordinates_to_skip:
 #             continue  # Skip this coordinate
 #         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1, 1, 1]) # formula: [x,y,z]
-
 pyrosim.End()
-
-# currentSwarm and currentBot just get the initial state of the obstacleEnv_fitness.txt file. It doesn't do anything else. 
-
 
 for swarmIndex in range(int(700/10)):
     for botIndex in range(10):
@@ -90,9 +79,3 @@ for swarmIndex in range(int(700/10)):
         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
         MBSIM.Run()
         MBSIM.Get_Fitness()
-
-# for swarmIndex in range(currentSwarm, int(700/10)):
-#     for botIndex in range(currentBot, 10):
-#         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
-#         MBSIM.Run()
-#         MBSIM.Get_Fitness()

@@ -31,24 +31,6 @@ class MANYBOTS_SIMULATION:
         ]
 
         self.robots = ROBOT(*self.positions[self.botIndex], '999', 'none', '999')
-        #self.robots(*self.positions[self.botIndex])
-
-
-        # self.robot0 = ROBOT(bestBrains[overallChampionIndex],-8,0)       # xi = 0, yi = 0
-        # self.robot1 = ROBOT(bestBrains[overallChampionIndex-2],-4,-4)       # xi = 0, yi = 0
-        # self.robot2 = ROBOT(bestBrains[overallChampionIndex],-4,4)       # xi = 0, yi = 0
-        # self.robot3 = ROBOT(bestBrains[overallChampionIndex],0,-8)       # xi = 0, yi = 0
-        # self.robot4 = ROBOT(bestBrains[overallChampionIndex],0,0)       # xi = 0, yi = 0
-        # self.robot5 = ROBOT(bestBrains[overallChampionIndex],0,8)       # xi = 0, yi = 0
-        # self.robot6 = ROBOT(bestBrains[overallChampionIndex],4,-4)       # xi = 0, yi = 0
-        # self.robot7 = ROBOT(bestBrains[overallChampionIndex],4,0)       # xi = 0, yi = 0
-        # self.robot8 = ROBOT(bestBrains[overallChampionIndex],4,4)       # xi = 0, yi = 0
-        # self.robot9 = ROBOT(bestBrains[overallChampionIndex],8,0)       # xi = 0, yi = 0
-
-        #self.robot5 = ROBOT(bestBrains[1],5)                   
-        #self.robot10 = ROBOT(bestBrains[2],10)                 
-
-
 
     def Run(self):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -60,42 +42,6 @@ class MANYBOTS_SIMULATION:
             self.robots.Sense(timeStep)
             self.robots.Think()
             self.robots.Act(timeStep)  
-
-            # self.robot1.Sense(i)
-            # self.robot1.Think()
-            # self.robot1.Act(i)  
-            
-            # self.robot2.Sense(i)
-            # self.robot2.Think()
-            # self.robot2.Act(i)  
-
-            # self.robot3.Sense(i)
-            # self.robot3.Think()
-            # self.robot3.Act(i)  
-
-            # self.robot4.Sense(i)
-            # self.robot4.Think()
-            # self.robot4.Act(i)  
-
-            # self.robot5.Sense(i)
-            # self.robot5.Think()
-            # self.robot5.Act(i)  
-
-            # self.robot6.Sense(i)
-            # self.robot6.Think()
-            # self.robot6.Act(i)  
-
-            # self.robot7.Sense(i)
-            # self.robot7.Think()
-            # self.robot7.Act(i)  
-        
-            # self.robot8.Sense(i)
-            # self.robot8.Think()
-            # self.robot8.Act(i)  
-
-            # self.robot9.Sense(i)
-            # self.robot9.Think()
-            # self.robot9.Act(i)  
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
