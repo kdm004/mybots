@@ -4,7 +4,7 @@ import copy
 import os
 import glob
 import pybullet as p
-import numpy
+import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self, overallBot, continueOrNone):
@@ -15,67 +15,44 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
 
         if self.continueOrNone == 'none':
-            self.record = numpy.zeros((c.numberOfGenerations+1,c.populationSize)) # LOOK hello data
+            self.record = np.zeros((c.numberOfGenerations+1,c.populationSize)) # LOOK hello data
         if self.continueOrNone == 'continue':
-            self.record = numpy.zeros((c.numberOfGenerations,c.populationSize))   # purpose would be such that we don't want to rewrite the fitness of the loaded in weights, so size will only be g instead of g+1
-
-
+            self.record = np.zeros((c.numberOfGenerations,c.populationSize))   # purpose would be such that we don't want to rewrite the fitness of the loaded in weights, so size will only be g instead of g+1
 
         # This block is for manyBots
         # Start with ID of 0, and check if a brain.nndf file has already occurred. Purpose of this code block is to determine the initial ID after possible prev ParallelHC
-    
-
-
-        numberOfBrainFiles = len(glob.glob("brainFiles/brain*.nndf"))
-
+        brain_files = glob.glob("brainFiles/brain*.nndf")
+        numberOfBrainFiles = len(brain_files)
         if os.path.exists('bestBrains.txt'):
-            fp = open('bestBrains.txt', 'r') 
-            lines = fp.readlines()
-            cleanLines = []
-            for entry in lines:
-                cleanLines.append(entry.replace('\n',''))
-            cleanLines = list(map(int, cleanLines))
-            print('Here are bestBrains entries:',cleanLines)
-            fp.close()
-
-
+            with open('bestBrains.txt', 'r') as fp:
+                cleanLines = [int(entry.strip()) for entry in fp]
+            print('Here are bestBrains entries:', cleanLines)
+            
             self.nextAvailableID = max(cleanLines) + 1
             for i in range(numberOfBrainFiles):
                 if os.path.exists('brainFiles/brain'+str(self.nextAvailableID)+'.nndf'):
                     self.nextAvailableID += 1
-
-
         else:
             self.nextAvailableID = 0      # we should make it start at something that already exists so the code can iterate to an ID that doesn't exist yet.
             for i in range(numberOfBrainFiles): 
                 if os.path.exists("brainFiles/brain"+ str(self.nextAvailableID) + ".nndf"):  
                     self.nextAvailableID += 1
 
-        for i in range(c.populationSize): # this for loop says that there will be 1 file that will be overwritten/evolved per parent. 
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, i) # i = populationID
+        # For each parent, a single file is going to be overwritten/evolved
+        for populationID in range(c.populationSize): 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, populationID)
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
         self.Evaluate(self.parents)
-
-        #----
-        
         for p in self.parents:
-            # initialFitness = self.parents.get(p).fitness # maybe put this above the for loop
-            # self.record.itemset((1,p), initialFitness)
             if self.continueOrNone == 'none':
                 initialFitness = self.parents[p].fitness
                 self.record[0, p] = initialFitness  # Fill the first row            # if 'continue', then this shouldn't happen
-        #----
-
-
         for g in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
             for p in range(c.populationSize): 
-                # lookFitness = self.parents.get(p).fitness 
-                # self.record.itemset((g+1,p), lookFitness)       # +1
                 lookFitness = self.parents[p].fitness
-
                 if self.continueOrNone == 'none':
                     self.record[g+1,p] = lookFitness                                # if 'continue', then [g,p] not [g+1,p]
                 if self.continueOrNone == 'continue':
@@ -96,10 +73,8 @@ class PARALLEL_HILL_CLIMBER:
             self.children[i] = copy.deepcopy(self.parents[i])
             self.nextAvailableID = self.nextAvailableID + 1
             
-
-
     def Mutate(self):
-        for i in range(len(self.children)): # len(self.children) iterates through empty keys too?
+        for i in range(len(self.children)):
             self.children[i].Mutate()
 
     def Print(self): 
@@ -114,62 +89,44 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
         
     def Show_Best(self):
-        self.parents = sorted(self.parents.values(), key=lambda x: x.fitness)
-        self.parents[0].Start_Simulation("DIRECT")
-
-
-
-        # Write best brain file ID to bestBrains.txt
-        bestIDFile = open("bestBrains.txt", "a") 
-        bestIDFile.write(str(self.parents[0].myID))       
-        bestIDFile.write('\n')                             
-        bestIDFile.close
-        
-
-        noObstacleFile = open("emptyEnv_fitnesses.txt", "a")      
-        noObstacleFile.write(str(self.parents[0].fitness))
-        noObstacleFile.write('\n')
-        noObstacleFile.close
+        sorted_parents = sorted(self.parents.values(), key=lambda x: x.fitness)             # Sort parents by fitness
+        sorted_parents[0].Start_Simulation("DIRECT")                                        # Start simulation with the best parent using "DIRECT" method
+        with open("bestBrains.txt", "a") as best_id_file:                                   # Write the best brain file ID to bestBrains.txt
+            best_id_file.write(str(sorted_parents[0].myID))
+            best_id_file.write('\n')
+        with open("emptyEnv_fitnesses.txt", "a") as no_obstacle_file:                       # Write the fitness to emptyEnv_fitnesses.txt
+            no_obstacle_file.write(str(sorted_parents[0].fitness))
+            no_obstacle_file.write('\n')
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
-            solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
-        for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
+            solutions[i].Start_Simulation("DIRECT")                                         #step 69 parallelHC
+        for i in range(len(solutions)):                                                     #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
             solutions[i].Wait_For_Simulation_To_End()
 
-    def Results(self):
 
-        print('TEST1') # test1
+
+    def Results(self):        
         if os.path.exists('bestBrains.txt'):
-            fp = open('bestBrains.txt', 'r') 
-            lines = fp.readlines()
-            cleanLines = []
-            for entry in lines:
-                cleanLines.append(entry.replace('\n',''))
-            cleanLines = list(map(int, cleanLines))
-            fp.close()
-            print('TEST2') #test2
-        
-        # make sure that file will be overwritten if we decide to use "python3 emptyWrapper.py -continue"
-        if self.continueOrNone == 'none':
-            print('Start Test1')
-            print(cleanLines)
-            print(self.overallBot)
-            print('End Test1')
-            numpy.savetxt('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', self.record, delimiter=',') #LOOK
+            with open('bestBrains.txt', 'r') as fp:
+                clean_lines = [int(entry.strip()) for entry in fp]
 
-        else:
-            itemset = []
-            with open('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', "r") as f:
-                for line in f:
-                    items = line.strip().split(",")
-                    itemset.append(items)
-
-            itemset.extend(self.record) # extend with self.record
-            itemset = numpy.array(itemset, dtype=float) # convert to float
-            print('itemset = ', itemset)
+            # make sure that the file will be overwritten if we decide to use "python3 emptyWrapper.py -continue"
+            if self.continueOrNone == 'none':
+                print('Start Test1')
+                print(clean_lines)
+                print(self.overallBot)
+                print('End Test1')
+                np.savetxt(f'fitnessCurves/fitness_curve{int(self.overallBot)}.txt', self.record, delimiter=',')  # LOOK
+            else:
+                itemset = []
+                with open(f'fitnessCurves/fitness_curve{int(self.overallBot)}.txt', "r") as f:
+                    for line in f:
+                        items = line.strip().split(",")
+                        itemset.append(items)
+                itemset.extend(self.record)  # extend with self.record
+                itemset = np.array(itemset, dtype=float)  # convert to float
+                print('itemset = ', itemset)
+                np.savetxt(f'fitnessCurves/fitness_curve{int(self.overallBot)}.txt', itemset, delimiter=',')
 
 
-            numpy.savetxt('fitnessCurves/fitness_curve'+str(int(self.overallBot))+'.txt', itemset, delimiter=',')
-
-            f.close()
