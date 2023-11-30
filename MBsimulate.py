@@ -65,15 +65,22 @@ pyrosim.Start_SDF("obstacleWorld.sdf")
 #         current_position = positions[currentBot]
             
 #         # Check if the y-coordinate is within 10 units of the current position's y-coordinate
-#         if abs(current_coordinate[1] - current_position[1]) > 10:
+#         if abs(current_coordinate[1] - current_position[1]) > 10:                                 # removes blocks in the y direction (perpendicular to robot motion)
 #             continue  # Skip this coordinate
+#         if abs(current_coordinate[0] - current_position[0]) < 22:                                 # removes blocks in the x direction (parallel to robot motion)
+#             continue  # Skip this coordinate
+
+        
 
 #         distances = [(distance(current_position, (x, y)), (x, y)) for x in range(6, -22-4, -4) for y in range(-28, 28+2, 2)]
 #         distances.sort(key=lambda x: x[0])
 #         coordinates_to_skip = [coord for _, coord in distances[:num_coordinates_to_skip]]
 #         if current_coordinate in coordinates_to_skip:
 #             continue  # Skip this coordinate
-#         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1/100, 1/100, 1/100]) # formula: [x,y,z]
+#         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1, 1, 1]) # formula: [x,y,z]
+
+
+
 
 pyrosim.End()
 
