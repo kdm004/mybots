@@ -73,8 +73,16 @@ pyrosim.Start_SDF("obstacleWorld.sdf")
 #         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1, 1, 1]) # formula: [x,y,z]
 pyrosim.End()
 
-for swarmIndex in range(int(700/10)):
-    for botIndex in range(10):
+# for swarmIndex in range(int(700/10)):
+#     for botIndex in range(10):
+#         print(f'currentSwarm, currentBot = {swarmIndex}, {botIndex}')
+#         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
+#         MBSIM.Run()
+#         MBSIM.Get_Fitness()
+
+# Only simulate the first bot
+for swarmIndex in range(1):
+    for botIndex in range(1):
         print(f'currentSwarm, currentBot = {swarmIndex}, {botIndex}')
         MBSIM = MB_SIMULATION(botIndex, swarmIndex)
         MBSIM.Run()

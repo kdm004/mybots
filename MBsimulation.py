@@ -46,6 +46,8 @@ class MANYBOTS_SIMULATION:
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
 
+        self.robots.Save_Values()
+
 
     def Get_Fitness(self):
         self.robots.Get_Obstacle_Fitness()
