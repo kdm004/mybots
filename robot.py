@@ -30,12 +30,6 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK("brainFiles/brain" + str(solutionID)+ ".nndf")
-        #self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")    Josh said you might need to make multiple instances of NEURAL_NETWORK inside ROBOT?
-       # self.nn = NEURAL_NETWORK("brain" + str(solutionID)+ ".nndf")
-        #os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
-
-
-
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
@@ -59,8 +53,6 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange 
                 self.motors[jointName].Set_Value(self.robot, desiredAngle) 
-
-
 
     def Save_Values(self):
         for key in self.motors:
@@ -96,12 +88,5 @@ class ROBOT:
  # This function is to return the fitness of an obstacle sim fitness. The func for empty env sim fitness is in parallelHC under show_best. 
  # The reason it is there is because it needs to distinguish between all robots to see which is the best, whereas for the MB sims, there's 
  # only 1 robotBrian controller, which is already the best.
-
-
-
- 
-
-
-
 
 
