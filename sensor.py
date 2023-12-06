@@ -13,4 +13,4 @@ class SENSOR:
         return self.values
 
     def Save_Values(self):
-        numpy.save(f'data/{self.linkName}sensorValues.npy', self.values)
+        numpy.save(f'data/obstacles/{self.linkName}sensorValues.npy', self.values)
