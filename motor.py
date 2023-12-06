@@ -10,13 +10,14 @@ class MOTOR:
         self.jointName = jointName
         
     
-    def Set_Value(self, robot, desiredAngle):
+    def Set_Value(self, robot, desiredAngle, t):
         pyrosim.Set_Motor_For_Joint(
             bodyIndex = robot,
             jointName = self.jointName,
             controlMode = p.POSITION_CONTROL,
             targetPosition = desiredAngle,
             maxForce = c.legMaxForce)
+        self.values[t] = desiredAngle
         
     def Save_Values(self):
         # numpy.save('data/sensorValues.npy', self.values)
