@@ -39,8 +39,8 @@ class PARALLEL_HILL_CLIMBER:
                     self.nextAvailableID += 1
 
         # For each parent, a single file is going to be overwritten/evolved
-        for populationID in range(c.populationSize): 
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, populationID)
+        for i in range(c.populationSize): 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot, self.continueOrNone, i) # i = populationID
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 

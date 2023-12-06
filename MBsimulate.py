@@ -71,10 +71,12 @@ pyrosim.Start_SDF("obstacleWorld.sdf")
 #         if current_coordinate in coordinates_to_skip:
 #             continue  # Skip this coordinate
 #         pyrosim.Send_Cube(name="Box", pos=[x, y, .5], size=[1, 1, 1]) # formula: [x,y,z]
-pyrosim.Send_Cube(name="Box", pos=[20, 10, .5], size=[1, 1, 1]) # formula: [x,y,z]
-pyrosim.Send_Cube(name="Box", pos=[20, 12, .5], size=[1, 1, 1]) # formula: [x,y,z]
-pyrosim.Send_Cube(name="Box", pos=[20, 14, .5], size=[1, 1, 1]) # formula: [x,y,z]
-pyrosim.Send_Cube(name="Box", pos=[20, 16, .5], size=[1, 1, 1]) # formula: [x,y,z]
+
+
+# pyrosim.Send_Cube(name="Box", pos=[20, 10, .5], size=[1, 1, 1]) # formula: [x,y,z]
+# pyrosim.Send_Cube(name="Box", pos=[20, 12, .5], size=[1, 1, 1]) # formula: [x,y,z]
+# pyrosim.Send_Cube(name="Box", pos=[20, 14, .5], size=[1, 1, 1]) # formula: [x,y,z]
+# pyrosim.Send_Cube(name="Box", pos=[20, 16, .5], size=[1, 1, 1]) # formula: [x,y,z]
 pyrosim.Send_Cube(name="Box", pos=[20, 18, .5], size=[1, 1, 1]) # formula: [x,y,z]
 
 

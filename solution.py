@@ -129,7 +129,7 @@ class SOLUTION:
         self.Generate_Brain() 
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(self.overallBot) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
     
-    def wait_for_simulation_to_end(self):
+    def Wait_For_Simulation_To_End(self):
         fitness_file_path = f"fitness{self.myID}.txt"
         while not os.path.exists(fitness_file_path):
             time.sleep(0.01)
