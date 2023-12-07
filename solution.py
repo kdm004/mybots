@@ -130,12 +130,18 @@ class SOLUTION:
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+ ' ' + str(self.overallBot) + ' ' + str(self.continueOrNone) + ' ' + str(self.populationID) +" &") # changed from "DIRECT" to directOrGUI... added " &"
     
     def Wait_For_Simulation_To_End(self):
-        fitness_file_path = f"fitness{self.myID}.txt"
-        while not os.path.exists(fitness_file_path):
+        while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
             time.sleep(0.01)
-        with open(fitness_file_path, 'r') as fitness_file:
-            self.fitness = float(fitness_file.read())
-        os.remove(fitness_file_path)
-        while os.path.exists(fitness_file_path):
-            os.remove(fitness_file_path)
-            time.sleep(0.01)
+
+        fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
+        time.sleep(0.1)
+        lines = fitnessFile.read()
+        time.sleep(0.1)
+        self.fitness = float(lines)
+        #self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
+        #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
+        fitnessFile.close()
+        os.system("rm fitness"+ str(self.myID) + ".txt")
+        while os.path.exists("fitness"+str(self.myID)+".txt"):
+            os.system("rm fitness"+ str(self.myID) + ".txt")
+

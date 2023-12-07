@@ -13,7 +13,7 @@ import math
 
 # List of robot x,y positions
 positions = [
-    (0, -18),
+    (0, 0),         #0, -18
     (0, -14),
     (0, -10),
     (0, -6),

@@ -18,7 +18,7 @@ class MANYBOTS_SIMULATION:
         bestBrains, overallChampionIndex = self.Get_Champ()
 
         self.positions = [
-            (bestBrains[self.swarmIndex],0,-18),
+            (bestBrains[self.swarmIndex],0, 0), # 0, -18
             (bestBrains[self.swarmIndex],0,-14),
             (bestBrains[self.swarmIndex],0,-10),
             (bestBrains[self.swarmIndex],0,-6),
