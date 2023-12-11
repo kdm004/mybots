@@ -77,7 +77,9 @@ pyrosim.Start_SDF("obstacleWorld.sdf")
 # pyrosim.Send_Cube(name="Box", pos=[20, 12, .5], size=[1, 1, 1]) # formula: [x,y,z]
 # pyrosim.Send_Cube(name="Box", pos=[20, 14, .5], size=[1, 1, 1]) # formula: [x,y,z]
 # pyrosim.Send_Cube(name="Box", pos=[20, 16, .5], size=[1, 1, 1]) # formula: [x,y,z]
-pyrosim.Send_Cube(name="Box", pos=[20, 18, .5], size=[1, 1, 1]) # formula: [x,y,z]
+
+if c.environment == 'obstacles':
+    pyrosim.Send_Cube(name="Box", pos=[20, 18, .5], size=[1, 1, 1]) # formula: [x,y,z]
 
 
 

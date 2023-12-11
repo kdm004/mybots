@@ -78,7 +78,7 @@ class SOLUTION:
 # Start neural network. Give 
         pyrosim.Start_NeuralNetwork("brainFiles/brain" + str(self.myID) + ".nndf") #changed from brain.nndf
 # Upper Extremity Sensor Neurons
-        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")       # Do we really need the torso sensor? I think we do, or else problem would probably just occur in whichever joint has name=0? idk
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
         pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")

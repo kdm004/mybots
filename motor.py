@@ -21,7 +21,7 @@ class MOTOR:
         
     def Save_Values(self):
         # numpy.save('data/sensorValues.npy', self.values)
-        np.save(f'data/obstacles/{self.jointName}motorValues.npy', self.values)
+        np.save(f'data/{c.environment}/{self.jointName}motorValues.npy', self.values)
 
 
 

@@ -14,6 +14,8 @@ from pyrosim.urdf  import URDF
 
 from pyrosim.joint import JOINT
 
+import constants as c
+
 SDF_FILETYPE  = 0
 
 URDF_FILETYPE = 1
@@ -42,13 +44,13 @@ def End_Model():
 
     model.Save_End_Tag(f)
 
-def Get_Touch_Sensor_Value_For_Link(linkName): # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
+def Get_Touch_Sensor_Value_For_Link(linkName): 
 
     touchValue = -1.0
 
     desiredLinkIndex = linkNamesToIndices[linkName]
 
-    pts = p.getContactPoints()
+    pts = p.getContactPoints()                                  
 
     for pt in pts:
 
@@ -58,15 +60,20 @@ def Get_Touch_Sensor_Value_For_Link(linkName): # LOOK : This seems like  it shou
 
             touchValue = 1.0
 
+    with open(f'z_{c.environment}.txt', 'a+') as temp_file:        # Write out touch sensor values. Looks like the initial (4 or 8) touch sensors are not
+        temp_file.write(str(touchValue))                # the same across environments.
+        temp_file.write('\n')
+
     return touchValue
 
-def Prepare_Link_Dictionary(bodyID):  # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
+def Prepare_Link_Dictionary(bodyID): 
 
     global linkNamesToIndices
 
     linkNamesToIndices = {}
 
     for jointIndex in range( 0 , p.getNumJoints(bodyID) ):
+        print(jointIndex)
 
         jointInfo = p.getJointInfo( bodyID , jointIndex )
 
@@ -77,16 +84,19 @@ def Prepare_Link_Dictionary(bodyID):  # LOOK : This seems like  it should be spe
         jointName = jointName.split("_")
 
         linkName = jointName[1]
+        print(linkName)
 
         linkNamesToIndices[linkName] = jointIndex
 
         if jointIndex==0:
 
            rootLinkName = jointName[0]
+           print(f'rootLinkName: {rootLinkName}')
 
            linkNamesToIndices[rootLinkName] = -1 
+           print(f'linkNamesToIndices[rootLinkName] = {linkNamesToIndices[rootLinkName]}')
 
-def Prepare_Joint_Dictionary(bodyID):  # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
+def Prepare_Joint_Dictionary(bodyID): 
 
     global jointNamesToIndices
 
@@ -100,7 +110,7 @@ def Prepare_Joint_Dictionary(bodyID):  # LOOK : This seems like  it should be sp
 
         jointNamesToIndices[jointName] = jointIndex
 
-def Prepare_To_Simulate(bodyID):  # LOOK : This seems like  it should be specific to each instance of neuralNetwork.py? 
+def Prepare_To_Simulate(bodyID):  
 
     Prepare_Link_Dictionary(bodyID)
 

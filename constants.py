@@ -20,5 +20,6 @@ numberOfGenerations = 1 # change to 10 to complete quadruped #5 for manyBotsV2
 populationSize = 1 # change to 10 to complete quadruped #5 for manyBotsV2
 
 
-
+# environment = 'empty' 
+environment = 'obstacles'
  
