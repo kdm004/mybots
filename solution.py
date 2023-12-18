@@ -164,9 +164,10 @@ class SOLUTION:
         self.myID
 
     def Start_Simulation(self, directOrGUI):
-        self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
+        self.Create_World()
+
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
 
     def Wait_For_Simulation_To_End(self):
