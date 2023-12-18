@@ -19,8 +19,10 @@ class SIMULATION:
         #self.physicsClient = p.connect(p.DIRECT)   # should this be directorGUI? Maybe delete this line completely?
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
-        self.world = WORLD()
         self.robot = ROBOT(self.solutionID)
+        self.world = WORLD()
+
+
         
     def Run(self):
         for i in range (c.loopLength):
