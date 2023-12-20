@@ -10,8 +10,12 @@ class SENSOR:
 
     def Get_Value(self,t):
         self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName) 
+
+        # if self.linkName == 'Box':  
+        #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
         # if self.linkName == 'Torso':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
+
         return self.values
 
     def Save_Value(self):

@@ -25,16 +25,14 @@ class ROBOT:
 
 
     def Prepare_To_Sense(self):
+        print('linkNamesToIndices from robot.py = ', pyrosim.linkNamesToIndices)
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
+            
 
     def Sense(self,t):
-        for key in self.sensors:
-            #print(self.sensors)
-            #print('key is ', key)
-            self.values[t] =self.sensors[key].Get_Value(t)
-            if t == c.loopLength:
-                print(self.values[key])
+        for linkName in self.sensors:
+            self.sensors[linkName].Get_Value(t)
 
     def Prepare_To_Act(self):
         for jointName in pyrosim.jointNamesToIndices:
