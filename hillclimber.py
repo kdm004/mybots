@@ -7,9 +7,9 @@ class HILL_CLIMBER:
         self.parent = SOLUTION()
         self.child = SOLUTION()
 
-    def Evolve(self): # how to edit this to just show parent???
+    def Evolve(self): 
         self.parent.Evaluate("GUI")
-        for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
+        for currentGeneration in range(c.numberOfGenerations): 
             self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
@@ -33,7 +33,7 @@ class HILL_CLIMBER:
             self.parent = self.child
         
     def Show_Best(self):
-        self.parent.Evaluate("GUI") #why isn't this showing?
+        self.parent.Evaluate("GUI")
 
 
 

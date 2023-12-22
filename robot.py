@@ -11,8 +11,8 @@ import os
 class ROBOT:
     def __init__(self,solutionID):
         self.solutionID = solutionID
-        self.robot = p.loadURDF("body.urdf") #changed from robotId to robot
-        pyrosim.Prepare_To_Simulate(self.robot) #changed from robotId to robot
+        self.robot = p.loadURDF("body.urdf") 
+        pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
         self.motors = {}
         self.values = {}  
@@ -21,15 +21,11 @@ class ROBOT:
         self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf")
         # os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
 
-
-
-
     def Prepare_To_Sense(self):
-        print('linkNamesToIndices from robot.py = ', pyrosim.linkNamesToIndices)
+        # print('linkNamesToIndices from robot.py = ', pyrosim.linkNamesToIndices)
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
             
-
     def Sense(self,t):
         for linkName in self.sensors:
             self.sensors[linkName].Get_Value(t)
@@ -38,14 +34,12 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
     
-    def Act(self,neuronName): # took out t from Act()
+    def Act(self,t): # took out t from Act()
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange # multiplied by  c.motorJointRange ... finishing quadruped
-                self.motors[jointName].Set_Value(self.robot, desiredAngle) #step 71 neurons
-
-
+                desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange 
+                self.motors[jointName].Set_Value(self.robot, desiredAngle, t) 
 
     def Save_Values(self):
         for key in self.motors:
