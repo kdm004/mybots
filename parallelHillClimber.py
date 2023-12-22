@@ -2,68 +2,78 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         # os.system("rm brain*.nndf") # step 82 parallelHC
-        os.system("rm fitness*.txt") # step 83 parallelHC
+        os.system("rm fitness*.txt") 
         self.parents = {}
         self.nextAvailableID = 0
-        #self.child = SOLUTION() #might need to pass in self.nextAvailableID to SOLUTION()
-        for i in range(c.populationSize): # why isn't this len(self.nextAvailableID)?
+        self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize)) # LOOK hello data
+
+        for i in range(c.populationSize): 
             self.parents[i] = SOLUTION(self.nextAvailableID) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
         self.Evaluate(self.parents)
-        for currentGeneration in range(c.numberOfGenerations): # to get just the first gen, set c.numberOfGenerations = 1
+        for p in self.parents:
+            initialFitness = self.parents[p].fitness
+            self.evolutionHistory[0,p] = initialFitness
+        for g in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
+            for p in range(c.populationSize):
+                fitness = self.parents[p].fitness
+                self.evolutionHistory[g+1, p] = fitness
+
+    # def Evolve(self):
+    #     self.Evaluate(self.parents)
+    #     for currentGeneration in range(c.numberOfGenerations):
+    #         self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        self.Print() # uncommented call to parallelHC print method ... step 107 parallelHC
+        self.Print() 
         self.Select()
 
     def Spawn(self):
         self.children = {}
-        #self.parents = {}
-        #self.child = copy.deepcopy(self.parent)
-        for i in range (len(self.parents)): #changed from i in range (len(self.parents))
-            #self.children[i].Set_ID()
+
+        for i in self.parents:
             self.children[i] = copy.deepcopy(self.parents[i])
+            #self.children[i].Set_ID()
             self.nextAvailableID = self.nextAvailableID + 1
             
-
-
     def Mutate(self):
-        for i in range(len(self.children)): # len(self.children) iterates through empty keys too
+        for i in self.children: 
             self.children[i].Mutate()
 
-    def Print(self): # modified according to step 108
+    def Print(self): 
         print('\n')
-        for key in range(len(self.parents)):
+        for key in self.parents:
             print('parents fitness =',self.parents[key].fitness, 'children fitness=',self.children[key].fitness)
         print('\n')
 
-    def Select(self): # modified for step 112
-        for key in range(len(self.parents)):
-            if self.parents[key].fitness > self.children[key].fitness:
-                self.parents[key] = self.children[key]
+    def Select(self): 
+        for i in self.parents:
+            if self.parents[i].fitness > self.children[i].fitness:
+                self.parents[i] = self.children[i]
         
     def Show_Best(self):
-        overKey = 0
-        bestFitness = self.parents[0].fitness
-        for i in range(len(self.parents)):
-            if self.parents[i].fitness < bestFitness:
-                bestFitness = self.parents[i].fitness
-                overKey = i
-        self.parents[overKey].Start_Simulation("GUI")
-
+        sorted_parents = sorted(self.parents.values(), key=lambda x: x.fitness)             # Sort parents by fitness
+        sorted_parents[0].Start_Simulation("GUI")   
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
-            solutions[i].Start_Simulation("DIRECT") #step 69 parallelHC -- GUI -> DIRECT
-        for i in range(len(solutions)):            #step 72 parallelHC... uncomment to activate Parallelism, comment to deactivate Parallelism
+            solutions[i].Start_Simulation("DIRECT") 
+        for i in range(len(solutions)):         
             solutions[i].Wait_For_Simulation_To_End()
+
+    def Save_Evolution_History(self):
+        if os.path.exists('fitnessCurves'):
+            with os.scandir('fitnessCurves') as entries:
+                fileCount = np.sum(entry.is_file() for entry in entries)
+                np.savetxt(f'fitnessCurves/fitnessCurve{fileCount}.txt', self.evolutionHistory, delimiter=',') 
