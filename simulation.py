@@ -36,6 +36,7 @@ class SIMULATION:
             #print('For loop variable is',i)   # commented this out for step 74 hillclimber
         #    print(backLegSensorValues)
         #    print(frontLegSensorValues) #
+        self.robot.Save_Values()
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
