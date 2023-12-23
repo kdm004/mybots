@@ -1,8 +1,10 @@
 import os
 
 
-# Choose swarmType: case1, case2, case3
-swarmType = 'case1'
+swarmType = 'case1'  # Choose swarmType: case1, case2, case3
+continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
+continueCollection = False # if continueCollection = True, continue collecting swarm data with the same parameters
+
 
 # Swarm parameters
 numberOfSwarms = 3

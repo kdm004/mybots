@@ -64,8 +64,16 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[i] = self.children[i]
         
     def Show_Best(self):
-        sortedParents = sorted(self.parents.values(), key=lambda x: x.fitness)           
-        sortedParents[0].Start_Simulation("DIRECT")   
+        self.sortedParents = sorted(self.parents.values(), key=lambda x: x.fitness)           
+        self.sortedParents[0].Start_Simulation("DIRECT")   
+
+    def Write_Best(self):
+        with open("bestBrains.txt", "a") as f:                                   # Write the best brain file ID to bestBrains.txt
+            f.write(str(self.sortedParents[0].myID))
+            f.write('\n')
+        with open("familiarFits.txt", "a") as f:
+            f.write(str(self.sortedParents[0].fitness))
+            f.write('\n')
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
