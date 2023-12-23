@@ -7,8 +7,6 @@ phc = PARALLEL_HILL_CLIMBER()
 phc.Evolve()
 phc.Show_Best()
 phc.Save_Evolution_History()
-os.system('rm fitness*.txt')
-
 
 #for i in range(2): #this is number of simulation windows that will pop up. 3 are currently popping
     # up because there's another "simulate.py" call in SOLUTION's Evaluate(self)
