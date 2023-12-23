@@ -8,6 +8,7 @@ overallBot = sys.argv[1]
 phc = PARALLEL_HILL_CLIMBER(overallBot)
 phc.Evolve()
 phc.Show_Best()
+phc.Write_Best()
 phc.Save_Evolution_History()
 
 #for i in range(2): #this is number of simulation windows that will pop up. 3 are currently popping
