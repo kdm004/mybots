@@ -5,15 +5,16 @@ import os
 import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, overallBot):
         # os.system("rm brains/brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") 
         self.parents = {}
+        self.overallBot = overallBot
         self.nextAvailableID = 0
         self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize))
 
         for i in range(c.populationSize): 
-            self.parents[i] = SOLUTION(self.nextAvailableID) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
@@ -73,7 +74,4 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Wait_For_Simulation_To_End()
 
     def Save_Evolution_History(self):
-        if os.path.exists('fitnessCurves'):
-            with os.scandir('fitnessCurves') as entries:
-                fileCount = np.sum(entry.is_file() for entry in entries)
-                np.savetxt(f'fitnessCurves/fitnessCurve_{fileCount}.txt', self.evolutionHistory, delimiter=',') 
+                np.savetxt(f'fitnessCurves/fitnessCurve_{self.overallBot}.txt', self.evolutionHistory, delimiter=',') 

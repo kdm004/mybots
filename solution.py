@@ -8,8 +8,9 @@ import constants as c
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, overallBot):
         self.myID = nextAvailableID
+        self.overallBot = overallBot
         self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
 
@@ -52,7 +53,7 @@ class SOLUTION:
         #exit() # uncommenting this allows you to see effects of code on body.urdf
 
     def Generate_Brain(self): 
-        pyrosim.Start_NeuralNetwork("brains/brain_" + str(self.myID) + ".nndf")
+        pyrosim.Start_NeuralNetwork("brains/brain_" + str(self.overallBot) + "_" + str(self.myID) + ".nndf")
 
         # Note: Do not add neuron for Torso. Root links have the same index as SDF links, so their touchValues will be conflated. 
 
@@ -89,19 +90,19 @@ class SOLUTION:
         self.Generate_Body(0,0,1)
         self.Generate_Brain()
         self.Create_World()
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.overallBot) + " &")
 
     def Wait_For_Simulation_To_End(self):
-        while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
+        while not os.path.exists("fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt"):
             time.sleep(0.01)
 
-        f = open("fitness"+ str(self.myID) + ".txt","r")
+        f = open("fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt","r")
         time.sleep(0.1)
         lines = f.read()
         time.sleep(0.1)
         self.fitness = float(lines)
         f.close()
 
-        os.system("rm fitness"+ str(self.myID) + ".txt")
-        while os.path.exists("fitness"+str(self.myID)+".txt"):
-            os.system("rm fitness"+ str(self.myID) + ".txt")
+        os.system("rm fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt")
+        while os.path.exists("rm fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt"):
+            os.system("rm fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt")
