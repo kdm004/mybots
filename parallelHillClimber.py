@@ -10,7 +10,7 @@ class PARALLEL_HILL_CLIMBER:
         os.system("rm fitness*.txt") 
         self.parents = {}
         self.nextAvailableID = 0
-        self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize)) # LOOK hello data
+        self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize))
 
         for i in range(c.populationSize): 
             self.parents[i] = SOLUTION(self.nextAvailableID) 
@@ -64,7 +64,7 @@ class PARALLEL_HILL_CLIMBER:
         
     def Show_Best(self):
         sortedParents = sorted(self.parents.values(), key=lambda x: x.fitness)           
-        sortedParents[0].Start_Simulation("GUI")   
+        sortedParents[0].Start_Simulation("DIRECT")   
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
