@@ -15,8 +15,8 @@ numSensorNeurons = 4
 numMotorNeurons = 8
 
 # Evolution Parameters
-numberOfGenerations = 3 # change to 10 to complete quadruped #5 for manyBotsV2
-populationSize = 4 # change to 10 to complete quadruped #5 for manyBotsV2
+numberOfGenerations = 3 
+populationSize = 4 
 
 
 
