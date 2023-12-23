@@ -13,10 +13,6 @@ class SOLUTION:
         self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
 
-    # def Evaluate(self,directOrGUI):       only needed in hillclimber.py (not used in parallelHillClimber)
-    #     pass
-
-
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
         pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
@@ -58,6 +54,8 @@ class SOLUTION:
     def Generate_Brain(self): 
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 
+        # Note: Do not add neuron for Torso. Root links have the same index as SDF links, so their touchValues will be conflated. 
+
         # Sensor neurons (only lower legs)
         pyrosim.Send_Sensor_Neuron(name=0, linkName="FrontLowerLeg")
         pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLowerLeg")
@@ -87,28 +85,23 @@ class SOLUTION:
         randomColumn = random.randint(0,c.numMotorNeurons - 1)
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
 
-    # def Set_ID(self):  Never used
-    #     self.myID
-
     def Start_Simulation(self, directOrGUI):
         self.Generate_Body(0,0,1)
         self.Generate_Brain()
         self.Create_World()
-
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &") # changed from "DIRECT" to directOrGUI... added " &"
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness"+ str(self.myID) + ".txt"):
             time.sleep(0.01)
 
-        fitnessFile = open("fitness"+ str(self.myID) + ".txt","r")
+        f = open("fitness"+ str(self.myID) + ".txt","r")
         time.sleep(0.1)
-        lines = fitnessFile.read()
+        lines = f.read()
         time.sleep(0.1)
         self.fitness = float(lines)
-        #self.fitness = float(fitnessFile.read()) #Used fitnessFile, they normally use f
-        #print("fitness"+str(self.myID)+"=", self.fitness) # commented out for step 75 parallelHC
-        fitnessFile.close()
+        f.close()
+
         os.system("rm fitness"+ str(self.myID) + ".txt")
         while os.path.exists("fitness"+str(self.myID)+".txt"):
             os.system("rm fitness"+ str(self.myID) + ".txt")
