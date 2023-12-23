@@ -19,4 +19,4 @@ class MOTOR:
         self.values[t] = desiredAngle
         
     def Save_Values(self):
-        np.save(f'data//{self.jointName}motorValues.npy', self.values)
+        np.save(f'data/{self.jointName}motorValues.npy', self.values)

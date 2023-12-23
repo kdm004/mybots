@@ -19,7 +19,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Body(self, xi, yi, zi):
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF("bodies/body.urdf")
 
         # Root link
         pyrosim.Send_Cube(name="Torso", pos=[xi, yi, zi], size=[1,1,1])
@@ -52,7 +52,7 @@ class SOLUTION:
         #exit() # uncommenting this allows you to see effects of code on body.urdf
 
     def Generate_Brain(self): 
-        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
+        pyrosim.Start_NeuralNetwork("brains/brain_" + str(self.myID) + ".nndf")
 
         # Note: Do not add neuron for Torso. Root links have the same index as SDF links, so their touchValues will be conflated. 
 

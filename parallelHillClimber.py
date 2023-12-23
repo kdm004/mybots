@@ -6,7 +6,7 @@ import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-        # os.system("rm brain*.nndf") # step 82 parallelHC
+        # os.system("rm brains/brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") 
         self.parents = {}
         self.nextAvailableID = 0
@@ -76,4 +76,4 @@ class PARALLEL_HILL_CLIMBER:
         if os.path.exists('fitnessCurves'):
             with os.scandir('fitnessCurves') as entries:
                 fileCount = np.sum(entry.is_file() for entry in entries)
-                np.savetxt(f'fitnessCurves/fitnessCurve{fileCount}.txt', self.evolutionHistory, delimiter=',') 
+                np.savetxt(f'fitnessCurves/fitnessCurve_{fileCount}.txt', self.evolutionHistory, delimiter=',') 
