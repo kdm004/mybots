@@ -11,15 +11,15 @@ import os
 class ROBOT:
     def __init__(self,solutionID):
         self.solutionID = solutionID
-        self.robot = p.loadURDF("body.urdf") 
+        self.robot = p.loadURDF("bodies/body.urdf") 
         pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
         self.motors = {}
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brain" + str(solutionID) + ".nndf")
-        # os.system("rm" +" "+ "brain" + str(solutionID) + ".nndf")
+        self.nn = NEURAL_NETWORK("brains/brain_" + str(solutionID) + ".nndf")
+        # os.system("rm" +" "+ "brains/brain_" + str(solutionID) + ".nndf")
 
     def Prepare_To_Sense(self):
         # print('linkNamesToIndices from robot.py = ', pyrosim.linkNamesToIndices)
