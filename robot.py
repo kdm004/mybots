@@ -9,8 +9,9 @@ import os
 
 
 class ROBOT:
-    def __init__(self,solutionID):
+    def __init__(self,solutionID, overallBot):
         self.solutionID = solutionID
+        self.overallBot = overallBot
         self.robot = p.loadURDF("bodies/body.urdf") 
         pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
@@ -18,7 +19,7 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brains/brain_" + str(solutionID) + ".nndf")
+        self.nn = NEURAL_NETWORK("brains/brain_" + str(self.overallBot) + "_" + str(self.solutionID) + ".nndf")
         # os.system("rm" +" "+ "brains/brain_" + str(solutionID) + ".nndf")
 
     def Prepare_To_Sense(self):
@@ -55,8 +56,8 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robot,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        f = open("tmp" + str(self.solutionID) + ".txt", "w")
+        f = open("tmp" + str(self.overallBot) + "_" + str(self.solutionID) + ".txt", "w")
         f.write(str(xCoordinateOfLinkZero))
         f.close
-        os.system("mv" +" "+ "tmp"+str(self.solutionID)+".txt" + " " + "fitness"+str(self.solutionID)+".txt")
+        os.system("mv" +" "+ "tmp"+ str(self.overallBot) + "_" + str(self.solutionID)+".txt" + " " + "fitness" + str(self.overallBot) + "_" + str(self.solutionID)+".txt")
         print('fitness:', xCoordinateOfLinkZero)

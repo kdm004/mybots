@@ -1,9 +1,11 @@
 import os
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
-#-------------------------
+import sys
 
-phc = PARALLEL_HILL_CLIMBER()
+overallBot = sys.argv[1]
 
+
+phc = PARALLEL_HILL_CLIMBER(overallBot)
 phc.Evolve()
 phc.Show_Best()
 phc.Save_Evolution_History()
