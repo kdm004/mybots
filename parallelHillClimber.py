@@ -11,7 +11,12 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.overallBot = overallBot
         self.nextAvailableID = 0
-        self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize))
+
+        if c.continueEvolution == True:
+            self.evolutionHistory = np.zeros((c.numberOfGenerations,c.populationSize))  
+        else: 
+            self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize))  
+
 
         for i in range(c.populationSize): 
             self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot) 
@@ -20,13 +25,22 @@ class PARALLEL_HILL_CLIMBER:
     def Evolve(self): 
         self.Evaluate(self.parents)
         for p in self.parents:
-            initialFitness = self.parents[p].fitness
-            self.evolutionHistory[0,p] = initialFitness
+            if c.continueEvolution == False:                # maybe put this above its for loop?
+                initialFitness = self.parents[p].fitness
+                self.evolutionHistory[0, p] = initialFitness  # Fill the first row            # if 'continue', then this shouldn't happen
+
         for g in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
-            for p in range(c.populationSize):
-                fitness = self.parents[p].fitness
-                self.evolutionHistory[g+1, p] = fitness
+            for p in range(c.populationSize): 
+                lookFitness = self.parents[p].fitness
+                if c.continueEvolution == True:
+                    self.evolutionHistory[g,p] = lookFitness                                # if 'continue', then [g,p] not [g+1,p]
+                else:
+                    self.evolutionHistory[g+1,p] = lookFitness
+
+    # def Evolve(self):
+    #     '''TO DO: Figure out why the first row in fitnessCurves is not being written'''
+
 
     # def Evolve(self):
     #     self.Evaluate(self.parents)
@@ -39,6 +53,8 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children)
         self.Print() 
         self.Select()
+        for p in self.parents:
+            self.parents[p].Save_Weights()
 
     def Spawn(self):
         self.children = {}
@@ -71,9 +87,14 @@ class PARALLEL_HILL_CLIMBER:
         with open("bestBrains.txt", "a") as f:                                   # Write the best brain file ID to bestBrains.txt
             f.write(str(self.sortedParents[0].myID))
             f.write('\n')
-        with open("familiarFits.txt", "a") as f:
-            f.write(str(self.sortedParents[0].fitness))
-            f.write('\n')
+        if c.continueEvolution == True:
+            with open("familiarFitsContinued.txt", "a") as f:
+                f.write(str(self.sortedParents[0].fitness))
+                f.write('\n')
+        else:
+            with open("familiarFits.txt", "a") as f:
+                f.write(str(self.sortedParents[0].fitness))
+                f.write('\n')
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
@@ -82,4 +103,15 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Wait_For_Simulation_To_End()
 
     def Save_Evolution_History(self):
-                np.savetxt(f'fitnessCurves/fitnessCurve_{self.overallBot}.txt', self.evolutionHistory, delimiter=',') 
+        if c.continueEvolution == True:
+            itemset = []
+            with open(f'fitnessCurves/fitnessCurve_{int(self.overallBot)}.txt', "r") as f:
+                for line in f:
+                    items = line.strip().split(",")
+                    itemset.append(items)
+            itemset.extend(self.evolutionHistory)  # extend with self.evolutionHistor
+            itemset = np.array(itemset, dtype=float)  # convert to float
+            # print('itemset = ', itemset)
+            np.savetxt(f'fitnessCurves/fitnessCurve_{int(self.overallBot)}.txt', itemset, delimiter=',')
+        else:
+            np.savetxt(f'fitnessCurves/fitnessCurve_{self.overallBot}.txt', self.evolutionHistory, delimiter=',') 
