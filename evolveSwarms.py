@@ -1,14 +1,18 @@
 import os
+import sys
 
 
-swarmType = 'case1'  # Choose swarmType: case1, case2, case3
-continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
-continueCollection = False # if continueCollection = True, continue collecting swarm data with the same parameters
+# if len(sys.argv) > 0:
+#    if sys.argv[1] == 'hey':
+#       print('hello')
 
+# assert len(sys.argv) == 3
+# if sys.argv[0] == 'case1':
+#     print('hello')
 
 # Swarm parameters
-numberOfSwarms = 3
-botsPerSwarm = 10
+numberOfSwarms = 2
+botsPerSwarm = 4
 
 # To do:
 '''
@@ -73,4 +77,13 @@ TO DO:
    # do this
 
 
+'''
+To do:
+- Make a playback script, test it, push it
+- Rename this branch to "quadruped_swarms"
+- create a new branch called clean_case1
+- implement case1 and case2
+- 
 
+
+'''

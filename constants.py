@@ -15,10 +15,10 @@ numSensorNeurons = 4
 numMotorNeurons = 8
 
 # Evolution Parameters
-numberOfGenerations = 3 
-populationSize = 4 
+numberOfGenerations = 2
+populationSize = 3
 
-
-
-
- 
+# Collection parameters
+swarmType = 'case1'  # Choose swarmType: case1, case2, case3
+continueEvolution = True  # if continueEvolution = True, add more generations (assuming same number of parents)
+continueCollection = False # if continueCollection = True, continue collecting swarm data with the same parameters
