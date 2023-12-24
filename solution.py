@@ -1,9 +1,10 @@
-import numpy
+import numpy as np
 import pyrosim.pyrosim as pyrosim
 import os
 import random
 import time
 import constants as c
+
 #-----------------------------------------------------------------------------------------
 
 
@@ -11,8 +12,16 @@ class SOLUTION:
     def __init__(self, nextAvailableID, overallBot):
         self.myID = nextAvailableID
         self.overallBot = overallBot
-        self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
+        self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
+        
+        # Load weights from disk if continuing evolution 
+        if c.continueEvolution == True: 
+            with open(f'weights/weights_{self.overallBot}_{self.myID}.txt', 'r') as f:
+                self.weights = np.loadtxt(f)
+
+
+
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -85,6 +94,13 @@ class SOLUTION:
         randomRow = random.randint(0,c.numSensorNeurons - 1) 
         randomColumn = random.randint(0,c.numMotorNeurons - 1)
         self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+
+
+    def Save_Weights(self):
+        file_path = f'weights/weights_{self.overallBot}_{self.myID}.txt'
+        with open(file_path, 'w') as f: 
+            np.savetxt(f,self.weights)
+                      
 
     def Start_Simulation(self, directOrGUI):
         self.Generate_Body(0,0,1)
