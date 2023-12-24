@@ -4,14 +4,19 @@ import os
 import random
 import time
 import constants as c
-
+import math
 #-----------------------------------------------------------------------------------------
 
 
 class SOLUTION:
     def __init__(self, nextAvailableID, overallBot):
         self.myID = nextAvailableID
-        self.overallBot = overallBot
+        self.overallBot = int(overallBot)
+        self.swarmNumber = math.floor(self.overallBot / c.botsPerSwarm)
+        self.botNumber = self.overallBot % c.botsPerSwarm
+        self.initialPos = c.botPositions[self.botNumber]                    # give solution.py the bot number
+
+
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
         
@@ -28,8 +33,11 @@ class SOLUTION:
         pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
         pyrosim.End()
 
-    def Generate_Body(self, xi, yi, zi):
-        pyrosim.Start_URDF("bodies/body.urdf")
+    def Generate_Body(self, xi, yi, zi=1):
+        if c.swarmType == 'case1' or 'case2':
+            pyrosim.Start_URDF(f"bodies/body_{self.botNumber}.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        elif c.swarmType == 'case3':
+            pyrosim.Start_URDF(f"bodies/body_{self.overallBot}_{self.myID}.urdf")   # differentiate files by their evolution traits ie overallBot and myID since we evolve body for case3
 
         # Root link
         pyrosim.Send_Cube(name="Torso", pos=[xi, yi, zi], size=[1,1,1])
@@ -103,7 +111,7 @@ class SOLUTION:
                       
 
     def Start_Simulation(self, directOrGUI):
-        self.Generate_Body(0,0,1)
+        self.Generate_Body(*self.initialPos)   # (0,0,1)
         self.Generate_Brain()
         self.Create_World()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.overallBot) + " &")
