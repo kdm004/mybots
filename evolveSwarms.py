@@ -1,6 +1,6 @@
 import os
 import sys
-
+import constants as c
 
 # if len(sys.argv) > 0:
 #    if sys.argv[1] == 'hey':
@@ -10,9 +10,7 @@ import sys
 # if sys.argv[0] == 'case1':
 #     print('hello')
 
-# Swarm parameters
-numberOfSwarms = 2
-botsPerSwarm = 4
+
 
 # To do:
 '''
@@ -30,8 +28,8 @@ TO DO:
 
 # Evolve robots
 overallBot = 0                                     # later, change this to the length of the bestBrains file
-for swarm in range(numberOfSwarms):
-    for bot in range(botsPerSwarm):
+for swarm in range(c.numberOfSwarms):
+    for bot in range(c.botsPerSwarm):
         os.system(f"python3 search.py {overallBot}")
         overallBot += 1
 
@@ -85,5 +83,13 @@ To do:
 - implement case1 and case2
 - 
 
+
+'''
+
+
+
+'''
+To Do
+- output the correct files for case1 such that playback simply needs to load them.
 
 '''
