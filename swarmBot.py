@@ -6,24 +6,13 @@ import constants as c
 import numpy as numpy
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
-import math
 
-class ROBOT:
+
+class SWARM_BOT:
     def __init__(self,solutionID, overallBot):
         self.solutionID = solutionID
-        self.overallBot = int(overallBot)
-        self.swarmNumber = math.floor(self.overallBot / c.botsPerSwarm)
-        self.botNumber = self.overallBot % c.botsPerSwarm
-
-        # self.initialPos = c.botPositions[self.overallBot%10]    # tuple of initial xy..... do I need this?
-
-
-
-        if c.swarmType == 'case3':
-            self.robot = p.loadURDF(f"bodies/body_{self.overallBot}_{self.solutionID}.urdf")       # give body unique ID depending on its position
-        if c.swarmType == 'case1' or 'case2':
-            self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf")       # This will overwrite for every loop through a new swarm
-
+        self.overallBot = overallBot
+        self.robot = p.loadURDF("bodies/body.urdf") 
         pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
         self.motors = {}
