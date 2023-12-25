@@ -4,10 +4,10 @@ import sys
 
 swarm = sys.argv[1]
 bot = sys.argv[2]
+overallBot = sys.argv[3]
 
 
-
-phc = PARALLEL_HILL_CLIMBER(swarm, bot)
+phc = PARALLEL_HILL_CLIMBER(swarm, bot, overallBot)
 phc.Evolve()
 phc.Show_Best()
 phc.Write_Best()
