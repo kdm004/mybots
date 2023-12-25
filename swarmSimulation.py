@@ -10,19 +10,27 @@ import math
 
 
 class SWARM_SIMULATION:
-    def __init__(self,directOrGUI, swarmNumber, botNumber):
-        self.directOrGUI = p.connect(p.GUI) 
+    def __init__(self,directOrGUI, swarmNumber, botNumber, overallBot):
+
+        self.directOrGUI = directOrGUI
+        if self.directOrGUI == "DIRECT":
+            p.connect(p.DIRECT) 
+        elif self.directOrGUI == 'GUI':
+            p.connect(p.GUI) 
+
 
         self.swarmNumber = swarmNumber
         self.botNumber = botNumber
+        self.overallBot = overallBot
+
+
         self.bestBrains = self.Get_Brain_IDs()
 
         # self.initialPos = c.botPositions[self.botNumber]
 
 
         self.bestBrain = self.bestBrains[self.botNumber]  # is this going to actually be the bestBrain for case1 or for everything?
-
-        self.robot = ROBOT(self.bestBrain, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
+        self.robot = ROBOT(self.bestBrain, self.swarmNumber, self.botNumber, self.overallBot) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
 
 
     def Run(self):
