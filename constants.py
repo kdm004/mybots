@@ -23,7 +23,7 @@ swarmType = 'case1'  # Choose swarmType: case1, case2, case3
 numberOfSwarms = 2
 botsPerSwarm = 10
 continueEvolution = True  # if continueEvolution = True, add more generations (assuming same number of parents)
-continueCollection = False # if continueCollection = True, continue collecting swarm data with the same parameters
+continueCollection = False # currently not implemented completely. Might appear in codebase occasionally.
 
 # List of robot x,y positions in the swarm
 
