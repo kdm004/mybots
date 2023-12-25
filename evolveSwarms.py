@@ -30,7 +30,7 @@ TO DO:
 overallBot = 0                                     # later, change this to the length of the bestBrains file
 for swarm in range(c.numberOfSwarms):
     for bot in range(c.botsPerSwarm):
-        os.system(f"python3 search.py {overallBot}")
+        os.system(f"python3 search.py {swarm} {bot}")
         overallBot += 1
 
 '''

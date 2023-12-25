@@ -11,9 +11,10 @@ import os
 
 directOrGUI = sys.argv[1]
 solutionID = sys.argv[2]
-overallBot = sys.argv[3]
+swarmNumber = sys.argv[3]
+botNumber = sys.argv[4]
 
-simulation = SIMULATION(directOrGUI, solutionID, overallBot)
+simulation = SIMULATION(directOrGUI, solutionID, swarmNumber, botNumber)
 simulation.Run()
 simulation.Get_Fitness()
 
