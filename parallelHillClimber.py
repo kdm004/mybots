@@ -5,12 +5,13 @@ import os
 import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self, swarmNumber, botNumber):
+    def __init__(self, swarmNumber, botNumber, overallBot):
         # os.system("rm brains/brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") 
         self.parents = {}
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
+        self.overallBot = int(overallBot)
 
 
         if c.continueEvolution == True:
@@ -20,7 +21,7 @@ class PARALLEL_HILL_CLIMBER:
 
         self.nextAvailableID = 0
         for i in range(c.populationSize): 
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.swarmNumber, self.botNumber) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.swarmNumber, self.botNumber, overallBot) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 

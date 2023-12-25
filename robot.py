@@ -9,16 +9,17 @@ import os
 import math
 
 class ROBOT:
-    def __init__(self,solutionID, swarmNumber, botNumber):
+    def __init__(self,solutionID, swarmNumber, botNumber, overallBot):
         self.solutionID = solutionID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
-
+        self.overallBot = int(overallBot)
+        self.posID = self.overallBot % c.botsPerSwarm
 
         if c.swarmType == 'case3':
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # give body unique ID depending on its position
         if c.swarmType == 'case1' or 'case2':
-            self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf")       # This will overwrite for every loop through a new swarm
+            self.robot = p.loadURDF(f"bodies/body_{self.posID}.urdf")       # This will overwrite for every loop through a new swarm
 
         pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
