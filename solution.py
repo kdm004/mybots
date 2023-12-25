@@ -14,7 +14,7 @@ class SOLUTION:
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
 
-
+        
         self.initialPos = c.botPositions[self.botNumber]                    # give solution.py the bot number
 
 

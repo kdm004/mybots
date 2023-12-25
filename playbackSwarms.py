@@ -17,3 +17,22 @@ for swarm in range(c.numberOfSwarms):
 
 
 
+if c.swarmType == 'case1':
+    swarmIndices = [j for j in range(c.numberOfSwarms) for i in range(c.numberOfSwarms)]
+    botIndices = [i for i in range(c.numberOfSwarms)]
+
+if c.swarmType == 'case2' or 'case3':
+    swarmIndices = list(range(c.numberOfSwarms))
+    botIndices = list(range(c.botsPerSwarm))
+
+
+for swarm in swarmIndices:
+    for bot in botIndices:
+        swarmSim = SWARM_SIMULATION('GUI', swarm, bot)
+        swarmSim.Run()
+        swarmSim.Get_Fitness()
+        swarmSim.Cleanup()
+
+
+
+

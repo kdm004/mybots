@@ -17,17 +17,12 @@ class SWARM_SIMULATION:
         self.botNumber = botNumber
         self.bestBrains = self.Get_Brain_IDs()
 
-
-        # for case1:
-        self.populationID = self.bestBrains[self.swarmNumber]
-
         # self.initialPos = c.botPositions[self.botNumber]
 
-        print('self.bestBrains=', self.bestBrains)
 
+        self.bestBrain = self.bestBrains[self.botNumber]  # is this going to actually be the bestBrain for case1 or for everything?
 
-        if c.swarmType == 'case1':
-            self.robot = ROBOT(self.populationID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
+        self.robot = ROBOT(self.bestBrain, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
 
 
     def Run(self):
