@@ -34,7 +34,7 @@ class SIMULATION:
         self.robot.Save_Values()
 
     def Get_Fitness(self):
-        self.robot.Get_Fitness()
+        self.robot.Get_Evolution_Fitness()
 
     def __del__(self):
         p.disconnect()
