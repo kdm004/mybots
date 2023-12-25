@@ -9,15 +9,14 @@ import os
 import math
 
 class ROBOT:
-    def __init__(self,solutionID, overallBot):
+    def __init__(self,solutionID, swarmNumber, botNumber):
         self.solutionID = solutionID
-        self.overallBot = int(overallBot)
-        self.swarmNumber = math.floor(self.overallBot / c.botsPerSwarm)
-        self.botNumber = self.overallBot % c.botsPerSwarm
+        self.swarmNumber = int(swarmNumber)
+        self.botNumber = int(botNumber)
 
-        
+
         if c.swarmType == 'case3':
-            self.robot = p.loadURDF(f"bodies/body_{self.overallBot}_{self.solutionID}.urdf")       # give body unique ID depending on its position
+            self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # give body unique ID depending on its position
         if c.swarmType == 'case1' or 'case2':
             self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf")       # This will overwrite for every loop through a new swarm
 
@@ -27,7 +26,7 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK("brains/brain_" + str(self.overallBot) + "_" + str(self.solutionID) + ".nndf")
+        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf") #"brains/brain_" + str(self.swarmNumber) + "_" + str(self.solutionID) + ".nndf"
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
@@ -62,10 +61,10 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robot,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        f = open("tmp" + str(self.overallBot) + "_" + str(self.solutionID) + ".txt", "w")
+        f = open("tmp" + str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID) + ".txt", "w")
         f.write(str(xCoordinateOfLinkZero))
-        f.close
-        os.system("mv" +" "+ "tmp"+ str(self.overallBot) + "_" + str(self.solutionID)+".txt" + " " + "fitness" + str(self.overallBot) + "_" + str(self.solutionID)+".txt")
+        f.close()
+        os.system("mv" +" "+ "tmp"+ str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID)+".txt" + " " + "fitness" + "_" + str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID)+".txt")
         print('fitness:', xCoordinateOfLinkZero)
         
     def Write_Playback_Fitness(self):

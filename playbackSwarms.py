@@ -8,8 +8,7 @@ import pybullet as p
 overallBot = 0
 for swarm in range(c.numberOfSwarms):
     for bot in range(c.botsPerSwarm):
-        botInSwarm = overallBot % 10
-        swarmSim = SWARM_SIMULATION('GUI', overallBot)
+        swarmSim = SWARM_SIMULATION('GUI', swarm, bot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()

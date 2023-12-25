@@ -2,10 +2,12 @@ import os
 from parallelHillClimber import PARALLEL_HILL_CLIMBER
 import sys
 
-overallBot = sys.argv[1]
+swarm = sys.argv[1]
+bot = sys.argv[2]
 
 
-phc = PARALLEL_HILL_CLIMBER(overallBot)
+
+phc = PARALLEL_HILL_CLIMBER(swarm, bot)
 phc.Evolve()
 phc.Show_Best()
 phc.Write_Best()
