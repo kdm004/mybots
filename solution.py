@@ -9,11 +9,12 @@ import math
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, overallBot):
+    def __init__(self, nextAvailableID, swarmNumber, botNumber):
         self.myID = nextAvailableID
-        self.overallBot = int(overallBot)
-        self.swarmNumber = math.floor(self.overallBot / c.botsPerSwarm)
-        self.botNumber = self.overallBot % c.botsPerSwarm
+        self.swarmNumber = int(swarmNumber)
+        self.botNumber = int(botNumber)
+
+
         self.initialPos = c.botPositions[self.botNumber]                    # give solution.py the bot number
 
 
@@ -22,7 +23,7 @@ class SOLUTION:
         
         # Load weights from disk if continuing evolution 
         if c.continueEvolution == True: 
-            with open(f'weights/weights_{self.overallBot}_{self.myID}.txt', 'r') as f:
+            with open(f'weights/weights_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt', 'r') as f:
                 self.weights = np.loadtxt(f)
 
 
@@ -37,7 +38,7 @@ class SOLUTION:
         if c.swarmType == 'case1' or 'case2':
             pyrosim.Start_URDF(f"bodies/body_{self.botNumber}.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
         elif c.swarmType == 'case3':
-            pyrosim.Start_URDF(f"bodies/body_{self.overallBot}_{self.myID}.urdf")   # differentiate files by their evolution traits ie overallBot and myID since we evolve body for case3
+            pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # differentiate files by their evolution traits ie overallBot and myID since we evolve body for case3
 
         # Root link
         pyrosim.Send_Cube(name="Torso", pos=[xi, yi, zi], size=[1,1,1])
@@ -70,7 +71,8 @@ class SOLUTION:
         #exit() # uncommenting this allows you to see effects of code on body.urdf
 
     def Generate_Brain(self): 
-        pyrosim.Start_NeuralNetwork("brains/brain_" + str(self.overallBot) + "_" + str(self.myID) + ".nndf")
+        pyrosim.Start_NeuralNetwork(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.myID}.nndf")    #       pyrosim.Start_NeuralNetwork("brains/brain_" + str(self.swarmNumber) + "_" + str(self.myID) + ".nndf")
+
 
         # Note: Do not add neuron for Torso. Root links have the same index as SDF links, so their touchValues will be conflated. 
 
@@ -105,7 +107,7 @@ class SOLUTION:
 
 
     def Save_Weights(self):
-        file_path = f'weights/weights_{self.overallBot}_{self.myID}.txt'
+        file_path = f'weights/weights_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt'
         with open(file_path, 'w') as f: 
             np.savetxt(f,self.weights)
                       
@@ -114,19 +116,19 @@ class SOLUTION:
         self.Generate_Body(*self.initialPos)   # (0,0,1)
         self.Generate_Brain()
         self.Create_World()
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.overallBot) + " &")
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " &")
 
     def Wait_For_Simulation_To_End(self):
-        while not os.path.exists("fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt"):
+        while not os.path.exists(f"fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt"): #"fitness" + "_" + str(self.swarmNumber) + "_" + str(self.botNumber)+ "_" + str(self.myID) + ".txt"
             time.sleep(0.01)
 
-        f = open("fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt","r")
+        f = open(f"fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt","r")
         time.sleep(0.1)
         lines = f.read()
         time.sleep(0.1)
         self.fitness = float(lines)
         f.close()
 
-        os.system("rm fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt")
-        while os.path.exists("rm fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt"):
-            os.system("rm fitness" + str(self.overallBot) + "_" + str(self.myID) + ".txt")
+        os.system(f"rm fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt")
+        while os.path.exists(f"fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt"):       # might not need this
+            os.system(f"rm fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt")

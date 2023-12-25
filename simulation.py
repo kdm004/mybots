@@ -6,10 +6,11 @@ import pybullet as p
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self,directOrGUI, solutionID, overallBot):
+    def __init__(self,directOrGUI, solutionID, swarmNumber, botNumber):
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI 
-        self.overallBot = overallBot
+        self.swarmNumber = swarmNumber
+        self.botNumber = botNumber
         if directOrGUI == "DIRECT":
             p.connect(p.DIRECT)
         else:
@@ -17,7 +18,7 @@ class SIMULATION:
 
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
-        self.robot = ROBOT(self.solutionID, self.overallBot)
+        self.robot = ROBOT(self.solutionID, self.swarmNumber, self.botNumber)
         self.world = WORLD()
 
 
