@@ -8,7 +8,7 @@ import pybullet as p
 overallBot = 0
 for swarm in range(c.numberOfSwarms):
     for bot in range(c.botsPerSwarm):
-        swarmSim = SWARM_SIMULATION('GUI', swarm, bot)
+        swarmSim = SWARM_SIMULATION('DIRECT', swarm, bot, overallBot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
@@ -17,9 +17,9 @@ for swarm in range(c.numberOfSwarms):
 
 
 
-if c.swarmType == 'case1':
-    swarmIndices = [j for j in range(c.numberOfSwarms) for i in range(c.numberOfSwarms)]
-    botIndices = [i for i in range(c.numberOfSwarms)]
+if c.swarmType == 'case1':  
+    swarmIndices = [j for j in range(c.numberOfSwarms)]                                         # seems correct
+    botIndices = [j for j in range(c.numberOfSwarms) for i in range(c.botsPerSwarm)]            # seems correct                                    
 
 if c.swarmType == 'case2' or 'case3':
     swarmIndices = list(range(c.numberOfSwarms))
@@ -28,7 +28,7 @@ if c.swarmType == 'case2' or 'case3':
 
 for swarm in swarmIndices:
     for bot in botIndices:
-        swarmSim = SWARM_SIMULATION('GUI', swarm, bot)
+        swarmSim = SWARM_SIMULATION('DIRECT', swarm, bot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()

@@ -9,11 +9,12 @@ import math
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, swarmNumber, botNumber):
+    def __init__(self, nextAvailableID, swarmNumber, botNumber, overallBot):
         self.myID = nextAvailableID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
-
+        self.overallBot = int(overallBot)
+        self.posID = self.overallBot % c.botsPerSwarm
         
         self.initialPos = c.botPositions[self.botNumber]                    # give solution.py the bot number
 
@@ -36,7 +37,7 @@ class SOLUTION:
 
     def Generate_Body(self, xi, yi, zi=1):
         if c.swarmType == 'case1' or 'case2':
-            pyrosim.Start_URDF(f"bodies/body_{self.botNumber}.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+            pyrosim.Start_URDF(f"bodies/body_{self.posID}.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
         elif c.swarmType == 'case3':
             pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # differentiate files by their evolution traits ie overallBot and myID since we evolve body for case3
 
@@ -116,7 +117,7 @@ class SOLUTION:
         self.Generate_Body(*self.initialPos)   # (0,0,1)
         self.Generate_Brain()
         self.Create_World()
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " &")
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " " + str(self.overallBot) + " &")
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists(f"fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt"): #"fitness" + "_" + str(self.swarmNumber) + "_" + str(self.botNumber)+ "_" + str(self.myID) + ".txt"
