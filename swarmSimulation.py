@@ -10,11 +10,11 @@ import math
 
 
 class SWARM_SIMULATION:
-    def __init__(self,directOrGUI, overallBot):
+    def __init__(self,directOrGUI, swarmNumber, botNumber):
         self.directOrGUI = p.connect(p.GUI) 
-        self.overallBot = overallBot
-        self.swarmNumber = math.floor(self.overallBot / c.botsPerSwarm)
-        self.botNumber = self.overallBot % c.botsPerSwarm
+
+        self.swarmNumber = swarmNumber
+        self.botNumber = botNumber
         self.bestBrains = self.Get_Brain_IDs()
 
 
@@ -27,7 +27,7 @@ class SWARM_SIMULATION:
 
 
         if c.swarmType == 'case1':
-            self.robot = ROBOT(self.populationID, self.overallBot) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
+            self.robot = ROBOT(self.populationID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
 
 
     def Run(self):

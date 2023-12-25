@@ -5,11 +5,12 @@ import os
 import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self, overallBot):
+    def __init__(self, swarmNumber, botNumber):
         # os.system("rm brains/brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") 
         self.parents = {}
-        self.overallBot = overallBot
+        self.swarmNumber = int(swarmNumber)
+        self.botNumber = int(botNumber)
 
 
         if c.continueEvolution == True:
@@ -19,7 +20,7 @@ class PARALLEL_HILL_CLIMBER:
 
         self.nextAvailableID = 0
         for i in range(c.populationSize): 
-            self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot) 
+            self.parents[i] = SOLUTION(self.nextAvailableID, self.swarmNumber, self.botNumber) 
             self.nextAvailableID = self.nextAvailableID + 1
 
     def Evolve(self): 
@@ -105,13 +106,13 @@ class PARALLEL_HILL_CLIMBER:
     def Save_Evolution_History(self):
         if c.continueEvolution == True:
             itemset = []
-            with open(f'fitnessCurves/fitnessCurve_{int(self.overallBot)}.txt', "r") as f:
+            with open(f'fitnessCurves/fitnessCurve_{self.swarmNumber}_{self.botNumber}.txt', "r") as f:
                 for line in f:
                     items = line.strip().split(",")
                     itemset.append(items)
             itemset.extend(self.evolutionHistory)  # extend with self.evolutionHistor
             itemset = np.array(itemset, dtype=float)  # convert to float
             # print('itemset = ', itemset)
-            np.savetxt(f'fitnessCurves/fitnessCurve_{int(self.overallBot)}.txt', itemset, delimiter=',')
+            np.savetxt(f'fitnessCurves/fitnessCurve_{self.swarmNumber}_{self.botNumber}.txt', itemset, delimiter=',')
         else:
-            np.savetxt(f'fitnessCurves/fitnessCurve_{self.overallBot}.txt', self.evolutionHistory, delimiter=',') 
+            np.savetxt(f'fitnessCurves/fitnessCurve_{self.swarmNumber}_{self.botNumber}.txt', self.evolutionHistory, delimiter=',') 
