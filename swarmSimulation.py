@@ -20,7 +20,10 @@ class SWARM_SIMULATION:
 
         # for case1:
         self.populationID = self.bestBrains[self.swarmNumber]
-        self.initialPos = c.botPositions[self.botNumber]
+
+        # self.initialPos = c.botPositions[self.botNumber]
+
+        print('self.bestBrains=', self.bestBrains)
 
 
         
@@ -30,20 +33,32 @@ class SWARM_SIMULATION:
             p.connect(p.GUI)
 
 
-
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
         self.robot = ROBOT(self.populationID, self.overallBot)
         self.world = WORLD()
 
+    def Run(self):
+        for i in range (c.loopLength):
+            p.stepSimulation()
+            self.robot.Sense(i)
+            self.robot.Think()
+            self.robot.Act(i)   
+
+            if self.directOrGUI == "GUI":
+                time.sleep(c.sleepRate)
+        # self.robot.Save_Values()
+
+    def Get_Fitness(self):
+        self.robot.Write_Playback_Fitness()
 
     def Get_Brain_IDs(self):
         with open("bestBrains.txt", "r") as f:
             bestBrains = [int(line.strip()) for line in f]
         return bestBrains
     
-
-
+    # def __del__(self):
+    #     p.disconnect()
 
 
 

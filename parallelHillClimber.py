@@ -10,14 +10,14 @@ class PARALLEL_HILL_CLIMBER:
         os.system("rm fitness*.txt") 
         self.parents = {}
         self.overallBot = overallBot
-        self.nextAvailableID = 0
+
 
         if c.continueEvolution == True:
             self.evolutionHistory = np.zeros((c.numberOfGenerations,c.populationSize))  
         else: 
             self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize))  
 
-
+        self.nextAvailableID = 0
         for i in range(c.populationSize): 
             self.parents[i] = SOLUTION(self.nextAvailableID, self.overallBot) 
             self.nextAvailableID = self.nextAvailableID + 1
