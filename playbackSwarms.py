@@ -12,7 +12,9 @@ for swarm in range(c.numberOfSwarms):
         swarmSim = SWARM_SIMULATION('GUI', overallBot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
+        swarmSim.Cleanup()
+        # p.disconnect()                  # the error that was occuring was a result of the p.disconnect() being in the wrong place.
         overallBot += 1
-p.disconnect()
+
 
 

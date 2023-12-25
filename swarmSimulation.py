@@ -11,7 +11,7 @@ import math
 
 class SWARM_SIMULATION:
     def __init__(self,directOrGUI, overallBot):
-        self.directOrGUI = directOrGUI 
+        self.directOrGUI = p.connect(p.GUI) 
         self.overallBot = overallBot
         self.swarmNumber = math.floor(self.overallBot / c.botsPerSwarm)
         self.botNumber = self.overallBot % c.botsPerSwarm
@@ -26,20 +26,17 @@ class SWARM_SIMULATION:
         print('self.bestBrains=', self.bestBrains)
 
 
-        
-        if directOrGUI == "DIRECT":
-            p.connect(p.DIRECT)
-        else:
-            p.connect(p.GUI)
+        if c.swarmType == 'case1':
+            self.robot = ROBOT(self.populationID, self.overallBot) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
 
-
-        p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        p.setGravity(0,0,c.gravityConstant)
-        self.robot = ROBOT(self.populationID, self.overallBot)
-        self.world = WORLD()
 
     def Run(self):
+        p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        p.setGravity(0,0,c.gravityConstant)
+        self.world = WORLD()
+
         for i in range (c.loopLength):
+
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
@@ -51,14 +48,15 @@ class SWARM_SIMULATION:
 
     def Get_Fitness(self):
         self.robot.Write_Playback_Fitness()
+        
 
     def Get_Brain_IDs(self):
         with open("bestBrains.txt", "r") as f:
             bestBrains = [int(line.strip()) for line in f]
         return bestBrains
     
-    # def __del__(self):
-    #     p.disconnect()
+    def Cleanup(self):
+        p.disconnect()
 
 
 
