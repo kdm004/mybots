@@ -19,7 +19,7 @@ numberOfGenerations = 2
 populationSize = 3
 
 # collection parameters
-swarmType = 'case1'  # Choose swarmType: case1, case2, case3
+swarmType = 'case2'  # Choose swarmType: case1, case2, case3
 numberOfSwarms = 2
 botsPerSwarm = 10
 continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
@@ -28,7 +28,7 @@ continueCollection = False # currently not implemented completely. Might appear 
 # List of robot x,y positions in the swarm
 
 botPositions = [
-    (0, 0),        
+    (0, -18),        
     (0, -14),
     (0, -10),
     (0, -6),
