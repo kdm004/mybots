@@ -19,7 +19,7 @@ if c.swarmType == 'case1':
             print(f"{swarmNumber} and {botNumber} and {overallBot}")
             print('\n')
 
-            swarmSim = SWARM_SIMULATION('DIRECT', swarmNumber, botNumber, overallBot)
+            swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
             swarmSim.Run()
             swarmSim.Get_Fitness()
             swarmSim.Cleanup()
@@ -36,7 +36,7 @@ elif c.swarmType == 'case2' or c.SwarmType == 'case3':
             print(f"{swarmNumber} and {botNumber} and {overallBot}")
             print('\n')
 
-            swarmSim = SWARM_SIMULATION('DIRECT', swarmNumber, botNumber, overallBot)
+            swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
             swarmSim.Run()
             swarmSim.Get_Fitness()
             swarmSim.Cleanup()
