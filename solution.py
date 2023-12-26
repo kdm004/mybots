@@ -32,11 +32,11 @@ class SOLUTION:
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
+        # pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
         pyrosim.End()
 
     def Generate_Body(self, xi, yi, zi=1):
-        if c.swarmType == 'case1' or 'case2':
+        if c.swarmType == 'case1' or c.swarmType == 'case2':
             pyrosim.Start_URDF(f"bodies/body_{self.posID}.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
         elif c.swarmType == 'case3':
             pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # differentiate files by their evolution traits ie overallBot and myID since we evolve body for case3
