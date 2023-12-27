@@ -13,6 +13,7 @@ legMaxForce = 120
 motorJointRange = 0.8 
 numSensorNeurons = 4 
 numMotorNeurons = 8
+legLengthRange = (0.5, 1.5) # only used for case3
 
 # Evolution Parameters
 numberOfGenerations = 2
@@ -38,7 +39,7 @@ botPositions = [
     (0, 14),
     (0, 18)
 ]
-playbackView = 'DIRECT'
+playbackView = 'GUI'
 
 # Assertions
 assert len(botPositions) == botsPerSwarm    # kind of unecessary
