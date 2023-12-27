@@ -64,7 +64,7 @@ class SWARM_SIMULATION:
     
     # def Create_World(self):
     #     pyrosim.Start_SDF("world.sdf")
-    #     # pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
+    #     # pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])            this does not work when called in playbackSwarms.py
     #     pyrosim.End()
     
     def Cleanup(self):
