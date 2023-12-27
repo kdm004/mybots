@@ -16,10 +16,11 @@ class ROBOT:
         self.overallBot = int(overallBot)
         self.posID = self.overallBot % c.botsPerSwarm
 
-        if c.swarmType == 'case3':
-            self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # give body unique ID depending on its position
-        if c.swarmType == 'case1' or 'case2':
+        if c.swarmType == 'case1' or c.swarmType == 'case2':
             self.robot = p.loadURDF(f"bodies/body_{self.posID}.urdf")       # This will overwrite for every loop through a new swarm
+        elif c.swarmType == 'case3':
+            self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # give body unique ID depending on its position
+
 
         pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
