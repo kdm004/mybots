@@ -12,9 +12,9 @@ import pyrosim.pyrosim as pyrosim
 # pyrosim.End()
 
 overallBot = 0
-for swarm in range(c.numberOfSwarms):
-    for bot in range(c.botsPerSwarm):
-        initialPos = c.botPositions[overallBot % c.botsPerSwarm]      # bot position --> used to determine which part of a grid of obstacles to generate. Also used to keep obstacles closest to bot from generating
+for swarmNumber in range(c.numberOfSwarms):
+    for botNumber in range(c.botsPerSwarm):
+        # initialPos = c.botPositions[overallBot % c.botsPerSwarm]      # bot position --> used to determine which part of a grid of obstacles to generate. Also used to keep obstacles closest to bot from generating
 
         if c.swarmType == 'case1':
             swarmNumber = overallBot // c.botsPerSwarm**2
@@ -24,7 +24,7 @@ for swarm in range(c.numberOfSwarms):
         print(f"{swarmNumber} and {botNumber} and {overallBot}")
         print('\n')
 
-        swarmSim = SWARM_SIMULATION('GUI', swarmNumber, botNumber, overallBot)
+        swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         # swarmSim.Create_World(*initialPos)                                        Causes an error whenever it is called. Why?
         swarmSim.Run()
         swarmSim.Get_Fitness()

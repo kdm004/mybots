@@ -27,21 +27,10 @@ continueEvolution = False  # if continueEvolution = True, add more generations (
 # continueCollection = False # currently not implemented completely. Might appear in codebase occasionally.
 
 # playback parameters
-botPositions = [
-    (0, -18),        
-    (0, -14),
-    (0, -10),
-    (0, -6),
-    (0, -2),
-    (0, 2),
-    (0, 6),
-    (0, 10),
-    (0, 14),
-    (0, 18)
-]
+botPosition = (0,0)
 playbackView = 'DIRECT'
 
 # Assertions
-assert len(botPositions) == botsPerSwarm    # kind of unecessary
+# assert len(botPositions) == botsPerSwarm    # kind of unecessary      Not needed if all bots have a (0,0) position
 
 

@@ -9,13 +9,10 @@ import math
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, swarmNumber, botNumber, overallBot):
+    def __init__(self, nextAvailableID, swarmNumber, botNumber):
         self.myID = nextAvailableID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
-        self.overallBot = int(overallBot)
-        self.posID = self.overallBot % c.botsPerSwarm
-        self.initialPos = c.botPositions[self.botNumber]  
 
         # Create array of weights and leg lengths
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
@@ -40,9 +37,9 @@ class SOLUTION:
 
     def Generate_Body(self, xi, yi, zi):
         if c.swarmType == 'case1' or c.swarmType == 'case2':
-            pyrosim.Start_URDF(f"bodies/body_{self.posID}.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+            pyrosim.Start_URDF(f"bodies/body.urdf")            # differentiate files by 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
         elif c.swarmType == 'case3':
-            pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # differentiate files by their evolution traits ie overallBot and myID since we evolve body for case3
+            pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # differentiate files by their evolution traits ie swarmNumber, botNumber, myID since we evolve body for case3
 
         # Root link
         pyrosim.Send_Cube(name="Torso", pos=[xi, yi, zi], size=[1,1,1])
@@ -128,10 +125,10 @@ class SOLUTION:
                       
 
     def Start_Simulation(self, directOrGUI):
-        self.Generate_Body(*self.initialPos, np.max(self.weights[-1]))   # (0,0,1)
+        self.Generate_Body(*c.botPosition, np.max(self.weights[-1]))   # (0,0,1)
         self.Generate_Brain()
         self.Create_World()
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " " + str(self.overallBot) + " &")
+        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " &")
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists(f"fitness_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt"): #"fitness" + "_" + str(self.swarmNumber) + "_" + str(self.botNumber)+ "_" + str(self.myID) + ".txt"
