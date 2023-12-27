@@ -26,7 +26,7 @@ if c.swarmType == 'case1':
             overallBot += 1
 
 
-elif c.swarmType == 'case2' or c.SwarmType == 'case3':
+elif c.swarmType == 'case2' or c.swarmType == 'case3':
     overallBot = 0
     for swarmNumber in range(c.numberOfSwarms):
         for botNumber in range(c.botsPerSwarm):
