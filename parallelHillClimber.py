@@ -40,14 +40,6 @@ class PARALLEL_HILL_CLIMBER:
                 else:
                     self.evolutionHistory[g+1,p] = lookFitness
 
-    # def Evolve(self):
-    #     '''TO DO: Figure out why the first row in fitnessCurves is not being written'''
-
-
-    # def Evolve(self):
-    #     self.Evaluate(self.parents)
-    #     for currentGeneration in range(c.numberOfGenerations):
-    #         self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -86,7 +78,7 @@ class PARALLEL_HILL_CLIMBER:
         self.sortedParents[0].Start_Simulation("DIRECT")   
 
     def Write_Best(self):
-        with open("bestBrains.txt", "a") as f:                                   # Write the best brain file ID to bestBrains.txt
+        with open("bestBrains.txt", "a") as f:   
             f.write(str(self.sortedParents[0].myID))
             f.write('\n')
         if c.continueEvolution == True:
@@ -111,7 +103,7 @@ class PARALLEL_HILL_CLIMBER:
                 for line in f:
                     items = line.strip().split(",")
                     itemset.append(items)
-            itemset.extend(self.evolutionHistory)  # extend with self.evolutionHistor
+            itemset.extend(self.evolutionHistory)  # extend with self.evolutionHistory
             itemset = np.array(itemset, dtype=float)  # convert to float
             # print('itemset = ', itemset)
             np.savetxt(f'fitnessCurves/fitnessCurve_{self.swarmNumber}_{self.botNumber}.txt', itemset, delimiter=',')
