@@ -9,15 +9,13 @@ import os
 import math
 
 class ROBOT:
-    def __init__(self,solutionID, swarmNumber, botNumber, overallBot):
+    def __init__(self,solutionID, swarmNumber, botNumber):
         self.solutionID = solutionID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
-        self.overallBot = int(overallBot)
-        self.posID = self.overallBot % c.botsPerSwarm
 
         if c.swarmType == 'case1' or c.swarmType == 'case2':
-            self.robot = p.loadURDF(f"bodies/body_{self.posID}.urdf")       # This will overwrite for every loop through a new swarm
+            self.robot = p.loadURDF(f"bodies/body.urdf")       # This will overwrite for every loop through a new swarm
         elif c.swarmType == 'case3':
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # give body unique ID depending on its position
 
