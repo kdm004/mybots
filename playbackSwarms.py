@@ -7,9 +7,11 @@ import pyrosim.pyrosim as pyrosim
 
 
 # Generate world with obstacles ... you could put this in the inner loop, and shift the obstacles by some amount based on "bot" number.  Could do this for bots in diff pos or same pos. 
-# pyrosim.Start_SDF("world.sdf")
-# pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
-# pyrosim.End()
+pyrosim.Start_SDF("world.sdf")
+# for i in range(10):
+#     for j in range(4):
+#         pyrosim.Send_Cube(name="Box", pos=[-10+i*-1.5,-10+j*-1.5,.51] , size=[1,1,1])
+pyrosim.End()
 
 overallBot = 0
 for swarmNumber in range(c.numberOfSwarms):

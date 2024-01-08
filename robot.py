@@ -31,6 +31,7 @@ class ROBOT:
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
+            # print('linkName = ', linkName)
             
     def Sense(self,t):
         for linkName in self.sensors:
@@ -39,6 +40,7 @@ class ROBOT:
     def Prepare_To_Act(self):
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
+            # print('jointName = ', jointName)
     
     def Act(self,t): 
         for neuronName in self.nn.Get_Neuron_Names():
@@ -74,4 +76,5 @@ class ROBOT:
         with open("foreignFits.txt", "a") as f:
             f.write(str(xCoordinateOfLinkZero))
             f.write("\n")
+        print(str(xCoordinateOfLinkZero))
 
