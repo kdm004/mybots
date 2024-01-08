@@ -20,7 +20,7 @@ numberOfGenerations = 2
 populationSize = 1
 
 # collection parameters
-swarmType = 'case2'  # Choose swarmType: case1, case2, case3
+swarmType = 'case1'  # Choose swarmType: case1, case2, case3
 numberOfSwarms = 2
 botsPerSwarm = 10
 continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
