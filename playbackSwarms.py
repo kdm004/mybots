@@ -13,9 +13,23 @@ pyrosim.Start_SDF("world.sdf")
 #         pyrosim.Send_Cube(name="Box", pos=[-10+i*-1.5,-10+j*-1.5,.51] , size=[1,1,1])
 pyrosim.End()
 
-overallBot = 0
-for swarmNumber in range(c.numberOfSwarms):
-    for botNumber in range(c.botsPerSwarm):
+
+
+overallBot = 0                                    
+currentSwarmNum = 0
+currentBotNum = 0
+filePath = 'foreignFits.txt'
+if os.path.exists(filePath):
+   with open(filePath, 'r') as file:
+      numPastBots = sum(1 for line in file if line.strip())
+      overallBot = numPastBots                                    # + 1
+      currentSwarmNum = overallBot // c.botsPerSwarm
+      currentBotNum = overallBot % c.botsPerSwarm
+
+
+
+for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+    for botNumber in range(currentBotNum, c.botsPerSwarm):
         # initialPos = c.botPositions[overallBot % c.botsPerSwarm]      # bot position --> used to determine which part of a grid of obstacles to generate. Also used to keep obstacles closest to bot from generating
 
         if c.swarmType == 'case1':
@@ -31,6 +45,7 @@ for swarmNumber in range(c.numberOfSwarms):
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
+        currentBotNum = 0
         overallBot += 1
 
 
