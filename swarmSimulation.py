@@ -29,22 +29,27 @@ class SWARM_SIMULATION:
         # self.initialPos = c.botPositions[self.botNumber]
 
         if c.swarmType == 'case1':
-            self.brainID = self.bestBrains[self.botNumber]  # is this going to actually be the bestBrain for case1 or for everything?
+            self.brainID = self.bestBrains[self.botNumber]  
 
         if c.swarmType == 'case2' or c.swarmType == 'case3':
-            self.brainID = self.bestBrains[self.overallBot]  # is this going to actually be the bestBrain for case1 or for everything?
-            
-        self.robot = ROBOT(self.brainID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
+            self.brainID = self.bestBrains[self.overallBot] 
 
+
+        # p.setPhysicsEngineParameter(fixedTimeStep=1/240, numSolverIterations=10, numSubSteps=1)
+        p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
+
+        p.setGravity(0,0,c.gravityConstant)
+        
+
+        self.robot = ROBOT(self.brainID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
+        self.world = WORLD()
+                    
 
     def Run(self):
-        p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        p.setGravity(0,0,c.gravityConstant)
-        self.world = WORLD()
-
         for i in range (c.loopLength):
 
-            p.stepSimulation()
+            p.stepSimulation()              # try decreasing step size
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)   
