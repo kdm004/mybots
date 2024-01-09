@@ -80,14 +80,9 @@ class PARALLEL_HILL_CLIMBER:
         with open("bestBrains.txt", "a") as f:   
             f.write(str(self.sortedParents[0].myID))
             f.write('\n')
-        if c.continueEvolution == True:
-            with open("familiarFitsContinued.txt", "a") as f:
-                f.write(str(self.sortedParents[0].fitness))
-                f.write('\n')
-        else:
-            with open("familiarFits.txt", "a") as f:
-                f.write(str(self.sortedParents[0].fitness))
-                f.write('\n')
+        with open("familiarFits.txt", "a") as f:
+            f.write(str(self.sortedParents[0].fitness))
+            f.write('\n')
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
