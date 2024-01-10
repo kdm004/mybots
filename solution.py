@@ -30,6 +30,12 @@ class SOLUTION:
             with open(f'weights/weights_{self.swarmNumber}_{self.botNumber}_{self.myID}.txt', 'r') as f:
                 self.weights = np.loadtxt(f)
 
+        if c.numberOfGenerations == 0:
+            if c.continueEvolution == True:
+                ValueError("numberOfGenerations must be an integer greater than 0 when continuing evolution.")
+            else:
+                self.Save_Weights()                                                                                 # if gens = 0, then we never used to save weights. This saves the weights in that case.
+
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
         # pyrosim.Send_Cube(name="Box", pos=[-10,5,.5] , size=[1,1,1])
