@@ -4,13 +4,20 @@ import constants as c
 from swarmSimulation import SWARM_SIMULATION
 import pybullet as p
 import pyrosim.pyrosim as pyrosim
-
+import math
 
 # Generate world with obstacles ... you could put this in the inner loop, and shift the obstacles by some amount based on "bot" number.  Could do this for bots in diff pos or same pos. 
 pyrosim.Start_SDF("world.sdf")
-# for i in range(10):
-#     for j in range(4):
-#         pyrosim.Send_Cube(name="Box", pos=[-10+i*-1.5,-10+j*-1.5,.51] , size=[1,1,1])
+
+for x in range(8, -20-4, -4):
+    for y in range(-20, 20+2, 2):  # Adjust the range to narrow the field
+
+        # Calculate distance from the origin
+        distance_from_origin = math.sqrt(x**2 + y**2)
+
+        # Check if the distance is within a 6 unit radius
+        if distance_from_origin >= 4:
+            pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, .5], size=[1/3, 1/3, 1/3])
 pyrosim.End()
 
 
