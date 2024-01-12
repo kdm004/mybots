@@ -35,12 +35,14 @@ class SWARM_SIMULATION:
             self.brainID = self.bestBrains[self.overallBot] 
 
 
-        # p.setPhysicsEngineParameter(fixedTimeStep=1/240, numSolverIterations=10, numSubSteps=1)
+        p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize,                   # default value = 1/240
+                                    # numSolverIterations = c.numSolverIterations     # default value = 50
+                                    )    
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
-
         p.setGravity(0,0,c.gravityConstant)
-        
+        currentParams = p.getPhysicsEngineParameters()
+        print(currentParams)
 
         self.robot = ROBOT(self.brainID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
         self.world = WORLD()
