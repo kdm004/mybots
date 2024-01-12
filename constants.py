@@ -2,8 +2,10 @@ import numpy as np
 
 # Simulation Parameters
 gravityConstant = -9.8 * 2.5 
-loopLength = 1000 # was evolved for 5000
+loopLength = 5000 # was evolved for 5000
 sleepRate = 1/5000 
+timeStepSize = 1/3800
+# numSolverIterations = 50 # default is 50
 
 # Robot Parameters
 amplitude = np.pi /4
@@ -16,8 +18,8 @@ numMotorNeurons = 8
 legLengthRange = (0.5, 1.5) # only used for case3
 
 # Evolution Parameters
-numberOfGenerations = 0
-populationSize = 1 # 20
+numberOfGenerations = 100
+populationSize = 20 # 20
 
 # collection parameters
 swarmType = 'case1'  # Choose swarmType: case1, case2, case3

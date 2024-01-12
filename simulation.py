@@ -16,8 +16,11 @@ class SIMULATION:
         else:
             p.connect(p.GUI)
 
+        p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize)      # 1/1400   #default value = 1/240
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
+        currentParams = p.getPhysicsEngineParameters()
+        print(currentParams)
         self.robot = ROBOT(self.solutionID, self.swarmNumber, self.botNumber)
         self.world = WORLD()
 
