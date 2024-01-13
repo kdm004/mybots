@@ -44,7 +44,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        self.Print() 
+        # self.Print() 
         self.Select()
         for p in self.parents:
             self.parents[p].Save_Weights()
