@@ -67,7 +67,7 @@ class ROBOT:
         f.write(str(xCoordinateOfLinkZero))
         f.close()
         os.system("mv" +" "+ "tmp"+ str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID)+".txt" + " " + "fitness" + "_" + str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID)+".txt")
-        print('fitness:', xCoordinateOfLinkZero)
+        # print('fitness:', xCoordinateOfLinkZero)
         
     def Write_Playback_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robot,0)

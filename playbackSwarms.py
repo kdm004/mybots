@@ -9,8 +9,8 @@ import math
 # Generate world with obstacles ... you could put this in the inner loop, and shift the obstacles by some amount based on "bot" number.  Could do this for bots in diff pos or same pos. 
 pyrosim.Start_SDF("world.sdf")
 
-for x in range(8, -20-4, -4):
-    for y in range(-20, 20+2, 2):  # Adjust the range to narrow the field
+for x in range(8, -16-4, -4):
+    for y in range(-12, 12+2, 2):  # Adjust the range to narrow the field
 
         # Calculate distance from the origin
         distance_from_origin = math.sqrt(x**2 + y**2)
