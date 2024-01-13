@@ -20,7 +20,7 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,c.gravityConstant)
         currentParams = p.getPhysicsEngineParameters()
-        print(currentParams)
+        # print(currentParams)
         self.robot = ROBOT(self.solutionID, self.swarmNumber, self.botNumber)
         self.world = WORLD()
 
@@ -35,7 +35,7 @@ class SIMULATION:
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
-        self.robot.Save_Values()
+        # self.robot.Save_Values()
 
     def Get_Fitness(self):
         self.robot.Get_Evolution_Fitness()
