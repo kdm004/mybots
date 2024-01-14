@@ -9,15 +9,22 @@ import math
 # Generate world with obstacles ... you could put this in the inner loop, and shift the obstacles by some amount based on "bot" number.  Could do this for bots in diff pos or same pos. 
 pyrosim.Start_SDF("world.sdf")
 
-for x in range(8, -16-4, -4):
+for x in range(8, -12-4, -4):
     for y in range(-12, 12+2, 2):  # Adjust the range to narrow the field
+        pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, (1/6)/2 + 0.01], size=[1/6, 1/6, 1/6])                      # cube field for experiment
 
-        # Calculate distance from the origin
-        distance_from_origin = math.sqrt(x**2 + y**2)
 
-        # Check if the distance is within a 6 unit radius
-        if distance_from_origin >= 4:
-            pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, .5], size=[1/3, 1/3, 1/3])
+# for x in range(8 - 30, -12 - 30 - 4, -4):
+#     for y in range(-12, 12 + 2, 2):  # Adjust the range to narrow the field                                       # cube field very far away
+#         pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, (1/6)/2 + 0.01], size=[1/6, 1/6, 1/6])
+
+
+        # # Calculate distance from the origin
+        # distance_from_origin = math.sqrt(x**2 + y**2)
+
+        # # Check if the distance is within a 6 unit radius
+        # if distance_from_origin >= 4:
+        #     pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, .5], size=[1/3, 1/3, 1/3])
 pyrosim.End()
 
 
