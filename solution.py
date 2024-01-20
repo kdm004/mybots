@@ -131,7 +131,7 @@ class SOLUTION:
                       
 
     def Start_Simulation(self, directOrGUI):
-        self.Generate_Body(*c.botPosition, np.max(self.weights[-1]))   # (0,0,1)
+        self.Generate_Body(*c.botPosition, np.max(self.weights[-1, -4:])) 
         self.Generate_Brain()
         self.Create_World()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " &")
