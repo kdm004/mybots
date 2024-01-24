@@ -42,7 +42,7 @@ class SWARM_SIMULATION:
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
         p.setGravity(0,0,c.gravityConstant)
         currentParams = p.getPhysicsEngineParameters()
-        # print(currentParams)
+        print(currentParams)
 
         self.robot = ROBOT(self.brainID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
         self.world = WORLD()
