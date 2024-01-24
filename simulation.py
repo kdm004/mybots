@@ -18,6 +18,8 @@ class SIMULATION:
 
         p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize)      # 1/1400   #default value = 1/240
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
+
         p.setGravity(0,0,c.gravityConstant)
         currentParams = p.getPhysicsEngineParameters()
         # print(currentParams)
@@ -35,7 +37,7 @@ class SIMULATION:
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
-        # self.robot.Save_Values()
+        self.robot.Save_Values()
 
     def Get_Fitness(self):
         self.robot.Get_Evolution_Fitness()
