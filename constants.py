@@ -2,10 +2,10 @@ import numpy as np
 
 # Simulation Parameters
 gravityConstant = -9.8 
-loopLength = 10000 # was evolved for 5000
+loopLength = 1000 # was evolved for 5000
 sleepRate = 1/5000 
-timeStepSize = 1/9040 #1/3800
-# numSolverIterations = 50 # default is 50
+timeStepSize = 1/240 #1/3800
+numSolverIterations = 500 # default is 50
 
 # Robot Parameters
 amplitude = np.pi /4
@@ -22,7 +22,7 @@ numberOfGenerations = 0# 50 # 100
 populationSize = 1 # 10 # 20
 
 # collection parameters
-swarmType = 'case3'  # Choose swarmType: case1, case2, case3
+swarmType = 'case1'  # Choose swarmType: case1, case2, case3
 numberOfSwarms = 1
 botsPerSwarm = 1
 continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
@@ -31,7 +31,7 @@ stopStart = False           # if stopStart = True, you can continue collecting m
 
 # playback parameters
 botPosition = (0,0)
-playbackView = 'DIRECT'
+playbackView = 'GUI'
 
 # Assertions
 # assert len(botPositions) == botsPerSwarm    # kind of unecessary      Not needed if all bots have a (0,0) position
