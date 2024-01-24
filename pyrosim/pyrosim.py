@@ -43,22 +43,13 @@ def End_Model():
     model.Save_End_Tag(f)
 
 def Get_Touch_Sensor_Value_For_Link(linkName):
-
-    touchValue = -1.0
-
     desiredLinkIndex = linkNamesToIndices[linkName]
-
     pts = p.getContactPoints()
+    if any(pt[3] == desiredLinkIndex or pt[4] == desiredLinkIndex for pt in pts):
+        return 1.0 
+    return -1.0 
 
-    for pt in pts:
 
-        linkIndex = pt[4]
-
-        if ( linkIndex == desiredLinkIndex ):
-
-            touchValue = 1.0
-
-    return touchValue
 
 def Prepare_Link_Dictionary(bodyID):
 

@@ -13,8 +13,8 @@ class SENSOR:
 
         # if self.linkName == 'Box':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
-        # if self.linkName == 'Torso':  
-        #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
+        if self.linkName == 'RightLowerLeg':  
+            print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
 
         return self.values
 
