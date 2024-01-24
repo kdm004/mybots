@@ -16,7 +16,10 @@ class SIMULATION:
         else:
             p.connect(p.GUI)
 
-        p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize)      # 1/1400   #default value = 1/240
+        p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize,                   # default value = 1/240
+                                    numSolverIterations = c.numSolverIterations     # default value = 50
+                                    )    
+        
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
 

@@ -36,7 +36,7 @@ class SWARM_SIMULATION:
 
 
         p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize,                   # default value = 1/240
-                                    # numSolverIterations = c.numSolverIterations     # default value = 50
+                                    numSolverIterations = c.numSolverIterations     # default value = 50
                                     )    
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
