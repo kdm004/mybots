@@ -12,7 +12,10 @@ pyrosim.Start_SDF("world.sdf")
 for x in range(8 - 30, -12 - 30 - 2, -2):
     for y in range(-6, 6 + 2, 2):  # Adjust the range to narrow the field                                       # cube field very far away
         pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, (0.3)/2 + 0.01], size=[0.3, 0.3, 0.3])
-        
+
+
+# pyrosim.Send_Cube(name=f"Box", pos=[0, 0, .01], size=[10, 10, 0.3])           # sdf plane
+
 pyrosim.End()
 
 
