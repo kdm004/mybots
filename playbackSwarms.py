@@ -7,6 +7,15 @@ import pyrosim.pyrosim as pyrosim
 import math
 import numpy as np
 
+pyrosim.Start_SDF("world.sdf")
+
+for x in range(8 - 30, -12 - 30 - 2, -2):
+    for y in range(-6, 6 + 2, 2):  # Adjust the range to narrow the field                                       # cube field very far away
+        pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, (0.3)/2 + 0.01], size=[0.3, 0.3, 0.3])
+        
+pyrosim.End()
+
+
 
 overallBot = 0                                    
 currentSwarmNum = 0
@@ -34,92 +43,92 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
 
 #-----------------Generate the cluttered environment. Skip cubes if they are close enough to a leg that its corner can touch the leg's corner
         
-        with open("bestBrains.txt", "r") as file:
-            lines = file.readlines()
-        botID = int(lines[overallBot].strip())
+        # with open("bestBrains.txt", "r") as file:
+        #     lines = file.readlines()
+        # botID = int(lines[overallBot].strip())
 
-        # open body file
-        if c.swarmType == 'case3':
-            bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"
-        else:
-            bodyFile = "bodies/body.urdf"
-        with open(bodyFile, "r") as body_file:
-            bodyLines = body_file.readlines()
+        # # open body file
+        # if c.swarmType == 'case3':
+        #     bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"
+        # else:
+        #     bodyFile = "bodies/body.urdf"
+        # with open(bodyFile, "r") as body_file:
+        #     bodyLines = body_file.readlines()
             
-        # get x and y coordinates
-        lowerLegXY = []
-        for i, line in enumerate(bodyLines):
-            if '<joint name=' and "LowerLeg"in line:
-                for j in range(2):
-                    lowerLegLine = bodyLines[i + j]
-                    if 'xyz=' in lowerLegLine:
-                        coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
-                        coords = [float(coord) for coord in coordsStr.split()]
-                        lowerLegXY.append(coords[:2])
-                        print(coords)
-        print('relative coords:',lowerLegXY)
+        # # get x and y coordinates
+        # lowerLegXY = []
+        # for i, line in enumerate(bodyLines):
+        #     if '<joint name=' and "LowerLeg"in line:
+        #         for j in range(2):
+        #             lowerLegLine = bodyLines[i + j]
+        #             if 'xyz=' in lowerLegLine:
+        #                 coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
+        #                 coords = [float(coord) for coord in coordsStr.split()]
+        #                 lowerLegXY.append(coords[:2])
+        #                 print(coords)
+        # print('relative coords:',lowerLegXY)
 
-        # translate from x and y relative coordinates to absolute coordinates
-        for i in range(len(lowerLegXY)):
-            for j in range(len(lowerLegXY[i])):
-                if lowerLegXY[i][j] > 0:
-                    lowerLegXY[i][j] += 0.5
-                elif lowerLegXY[i][j] <0:
-                    lowerLegXY[i][j] += -0.5
-        print('absolute coords:', lowerLegXY)
+        # # translate from x and y relative coordinates to absolute coordinates
+        # for i in range(len(lowerLegXY)):
+        #     for j in range(len(lowerLegXY[i])):
+        #         if lowerLegXY[i][j] > 0:
+        #             lowerLegXY[i][j] += 0.5
+        #         elif lowerLegXY[i][j] <0:
+        #             lowerLegXY[i][j] += -0.5
+        # print('absolute coords:', lowerLegXY)
 
-        # get z coords
-        lowerLegs = []
-        for i, line in enumerate(bodyLines):
-            if '<link name=' and "LowerLeg"in line:
-                lowerLegLine = bodyLines[i + 9]          # 9th line below
-                if 'box size=' in lowerLegLine:
-                    legsStr = lowerLegLine.split('box size="')[1].split('"')[0]
-                    print("leg string",legsStr)
-                    legs = [float(coord) for coord in legsStr.split()]
-                    lowerLegs.append(legs[2])
+        # # get z coords
+        # lowerLegs = []
+        # for i, line in enumerate(bodyLines):
+        #     if '<link name=' and "LowerLeg"in line:
+        #         lowerLegLine = bodyLines[i + 9]          # 9th line below
+        #         if 'box size=' in lowerLegLine:
+        #             legsStr = lowerLegLine.split('box size="')[1].split('"')[0]
+        #             print("leg string",legsStr)
+        #             legs = [float(coord) for coord in legsStr.split()]
+        #             lowerLegs.append(legs[2])
 
-        # Get lower most positions of the legs in absolute coordinates        
-        longestLeg = np.max(lowerLegs)
-        lowerLegZ = []
-        for leg in lowerLegs:
-            lowerLegZ.append(longestLeg - leg)      # calculate the distance of the leg's lowest point from the ground for each leg
+        # # Get lower most positions of the legs in absolute coordinates        
+        # longestLeg = np.max(lowerLegs)
+        # lowerLegZ = []
+        # for leg in lowerLegs:
+        #     lowerLegZ.append(longestLeg - leg)      # calculate the distance of the leg's lowest point from the ground for each leg
 
 
-        # Put together x,y,z of lowermost leg position
-        lowerLegCoords = [[x, y, z] for [x, y], z in zip(lowerLegXY, lowerLegZ)]   # this is the lowermost location of each of the lower legs
+        # # Put together x,y,z of lowermost leg position
+        # lowerLegCoords = [[x, y, z] for [x, y], z in zip(lowerLegXY, lowerLegZ)]   # this is the lowermost location of each of the lower legs
 
-        print(lowerLegCoords)
+        # print(lowerLegCoords)
 
-        cubeLength = 0.3
-        cubeWidth = 0.3
-        cubeHeight = 0.3
+        # cubeLength = 0.3
+        # cubeWidth = 0.3
+        # cubeHeight = 0.3
 
-        legLength = 0.2
-        legWidth = 0.2
-        legSafetyDistance = 0.02    # issue might arise since initial height of cubes are 0.01. This is to stop those issues. added another 0.01 here for redundancy
+        # legLength = 0.2
+        # legWidth = 0.2
+        # legSafetyDistance = 0.02    # issue might arise since initial height of cubes are 0.01. This is to stop those issues. added another 0.01 here for redundancy
 
-        pyrosim.Start_SDF("world.sdf")
+        # pyrosim.Start_SDF("world.sdf")
 
-        for x in range(8, -12 - 2, -2):
-            for y in range(-6, 6 + 2, 2):
-                cubePosition = np.array([x, y, (cubeHeight) / 2])            # we could assume that cube position is not dropped from 0.01 to avoid any bugs from leg touching ground but cube not
+        # for x in range(8, -12 - 2, -2):
+        #     for y in range(-6, 6 + 2, 2):
+        #         cubePosition = np.array([x, y, (cubeHeight) / 2])            # we could assume that cube position is not dropped from 0.01 to avoid any bugs from leg touching ground but cube not
 
-                # check if the cube is too close to any lower leg
-                tooClose = False
-                for legCoord in lowerLegCoords:
-                    legX, legY, legZ = legCoord
-                    if (abs(x - legX) < cubeLength / 2 + legLength / 2 + legSafetyDistance and
-                            abs(y - legY) < cubeWidth / 2 + legWidth / 2 + legSafetyDistance and
-                            abs(cubePosition[2] - legZ) < (cubeHeight) / 2 + legSafetyDistance):
-                        tooClose = True
-                        break
+        #         # check if the cube is too close to any lower leg
+        #         tooClose = False
+        #         for legCoord in lowerLegCoords:
+        #             legX, legY, legZ = legCoord
+        #             if (abs(x - legX) < cubeLength / 2 + legLength / 2 + legSafetyDistance and
+        #                     abs(y - legY) < cubeWidth / 2 + legWidth / 2 + legSafetyDistance and
+        #                     abs(cubePosition[2] - legZ) < (cubeHeight) / 2 + legSafetyDistance):
+        #                 tooClose = True
+        #                 break
 
-                # gen cube only if not too close to any lower leg
-                if not tooClose:
-                    pyrosim.Send_Cube(name=f"Box{x}{y}", pos=cubePosition, size=[0.3, 0.3, 0.3])
+        #         # gen cube only if not too close to any lower leg
+        #         if not tooClose:
+        #             pyrosim.Send_Cube(name=f"Box{x}{y}", pos=cubePosition, size=[0.3, 0.3, 0.3])
 
-        pyrosim.End()
+        # pyrosim.End()
 #-----------------
 
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
