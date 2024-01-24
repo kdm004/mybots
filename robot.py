@@ -76,5 +76,5 @@ class ROBOT:
         with open("foreignFits.txt", "a") as f:
             f.write(str(xCoordinateOfLinkZero))
             f.write("\n")
-        print(str(xCoordinateOfLinkZero))
+        # print(str(xCoordinateOfLinkZero))
 
