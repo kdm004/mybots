@@ -18,11 +18,11 @@ numMotorNeurons = 8
 legLengthRange = (0.5, 1.5) # only used for case3
 
 # Evolution Parameters
-numberOfGenerations = 50 # 50 # 100
+numberOfGenerations = 25 # 50 # 100
 populationSize = 10 # 10 # 20
 
 # collection parameters
-swarmType = 'case3'  # Choose swarmType: case1, case2, case3
+swarmType = 'case1'  # Choose swarmType: case1, case2, case3
 numberOfSwarms = 30
 botsPerSwarm = 10
 continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
@@ -31,7 +31,7 @@ stopStart = False           # if stopStart = True, you can continue collecting m
 
 # playback parameters
 botPosition = (0,0)
-playbackView = 'GUI'
+playbackView = 'DIRECT'
 
 # Assertions
 # assert len(botPositions) == botsPerSwarm    # kind of unecessary      Not needed if all bots have a (0,0) position
