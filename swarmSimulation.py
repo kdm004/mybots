@@ -21,6 +21,8 @@ class SWARM_SIMULATION:
 
         self.swarmNumber = swarmNumber
         self.botNumber = botNumber
+
+
         self.overallBot = overallBot
 
 
@@ -29,7 +31,9 @@ class SWARM_SIMULATION:
         # self.initialPos = c.botPositions[self.botNumber]
 
         if c.swarmType == 'case1':
-            self.brainID = self.bestBrains[self.botNumber]  
+            self.brainID = self.bestBrains[self.overallBot//c.botsPerSwarm]  
+            print('self.botNumber = ',self.overallBot//c.botsPerSwarm)
+
 
         if c.swarmType == 'case2' or c.swarmType == 'case3':
             self.brainID = self.bestBrains[self.overallBot] 
@@ -42,7 +46,7 @@ class SWARM_SIMULATION:
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)    
         p.setGravity(0,0,c.gravityConstant)
         currentParams = p.getPhysicsEngineParameters()
-        print(currentParams)
+        # print(currentParams)
 
         self.robot = ROBOT(self.brainID, self.swarmNumber, self.botNumber) # fix this for case1. overallBot isn't the correct number to pass in here. We want them to be 0 for the first 10, 1 for the next 10, etc...
         self.world = WORLD()
