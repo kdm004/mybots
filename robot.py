@@ -60,21 +60,30 @@ class ROBOT:
         self.nn.Print()
 
     def Get_Evolution_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robot,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        positionOfBase = basePositionAndOrientation[0]
+        xCoordinateOfBase = positionOfBase[0]
         f = open("tmp" + str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID) + ".txt", "w")
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str(xCoordinateOfBase))
         f.close()
         os.system("mv" +" "+ "tmp"+ str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID)+".txt" + " " + "fitness" + "_" + str(self.swarmNumber) + "_" + str(self.botNumber) + "_" + str(self.solutionID)+".txt")
         # print('fitness:', xCoordinateOfLinkZero)
         
     def Write_Playback_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robot,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        positionOfBase = basePositionAndOrientation[0]
+        xCoordinateOfBase = positionOfBase[0]
         with open("foreignFits.txt", "a") as f:
-            f.write(str(xCoordinateOfLinkZero))
+            f.write(str(xCoordinateOfBase))
             f.write("\n")
         # print(str(xCoordinateOfLinkZero))
+            
+    def Record_XY(self, swarm, bot, overall):
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        positionOfBase = basePositionAndOrientation[0]
+        xCoordinateOfBase= positionOfBase[0]
+        yCoordinateOfBase = positionOfBase[1]
+        with open(f"trajectories/trajectory_s{swarm}_b{bot}_o{overall}.txt", "a") as f:
+            f.write(f"{xCoordinateOfBase} {yCoordinateOfBase}")
+            f.write("\n")
 
