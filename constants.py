@@ -18,13 +18,13 @@ numMotorNeurons = 8
 legLengthRange = (0.5, 1.5) # only used for case3
 
 # Evolution Parameters
-numberOfGenerations = 25 # 50 # 100
-populationSize = 10 # 10 # 20
+numberOfGenerations = 3 # 50 # 100
+populationSize = 2 # 10 # 20
 
 # collection parameters
-swarmType = 'case1'  # Choose swarmType: case1, case2, case3
-numberOfSwarms = 30
-botsPerSwarm = 10
+swarmType = 'case3'  # Choose swarmType: case1, case2, case3
+numberOfSwarms = 1
+botsPerSwarm = 1
 continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
 stopStart = False           # if stopStart = True, you can continue collecting more data by evolving more controllers. This will pickup where you left off.
 # continueCollection = False # currently not implemented completely. Might appear in codebase occasionally.
