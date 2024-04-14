@@ -18,22 +18,23 @@ numMotorNeurons = 8
 legLengthRange = (0.5, 1.5) # only used for case3
 
 # Evolution Parameters
-numberOfGenerations = 3 # 50 # 100
-populationSize = 2 # 10 # 20
+numberOfGenerations = 0 # 50 # 100
+populationSize = 1 # 10 # 20
 
 # collection parameters
 swarmType = 'case3'  # Choose swarmType: case1, case2, case3
-numberOfSwarms = 1
-botsPerSwarm = 1
+numberOfSwarms = 55
+botsPerSwarm = 10
 continueEvolution = False  # if continueEvolution = True, add more generations (assuming same number of parents)
 stopStart = False           # if stopStart = True, you can continue collecting more data by evolving more controllers. This will pickup where you left off.
 # continueCollection = False # currently not implemented completely. Might appear in codebase occasionally.
 
 # playback parameters
 botPosition = (0,0)
-playbackView = 'DIRECT'
+playbackView = 'GUI' # GUI mode automatically collects video
 
 # Assertions
 # assert len(botPositions) == botsPerSwarm    # kind of unecessary      Not needed if all bots have a (0,0) position
 
 
+# ORIGINAL CODEBASE with current updates

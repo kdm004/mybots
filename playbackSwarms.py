@@ -50,6 +50,7 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
             pyrosim.Start_SDF("world.sdf")
             for x in range(10, -14 - 2, -2):
                 for y in range(-8, 8 + 2, 2):
+                    # pass
                     pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x,y, cubeHeight/2], size=[cubeLength, cubeWidth, cubeHeight])
             pyrosim.End()
 

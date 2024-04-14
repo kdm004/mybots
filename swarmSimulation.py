@@ -11,7 +11,7 @@ import numpy as np
 import cv2
 
 class SWARM_SIMULATION:
-    def __init__(self,directOrGUI, swarmNumber, botNumber, overallBot):
+    def __init__(self,directOrGUI, swarmNumber, botNumber, overallBot): # we use these attributes for case 2 and case 3, but we're making case 1 find this stuff given the max index of the 10 robots it finds the max of
 
         self.directOrGUI = directOrGUI
         if self.directOrGUI == "DIRECT":
@@ -23,9 +23,26 @@ class SWARM_SIMULATION:
         self.botNumber = botNumber
         self.overallBot = overallBot
         self.bestBrains = self.Get_Brain_IDs()
+        self.familiarFits = self.Get_Familiar_Fits()
 
-        if c.swarmType == 'case1':
-            self.brainID = self.bestBrains[self.overallBot//c.botsPerSwarm]  
+        # if c.swarmType == 'case1':
+        #     self.brainID = self.bestBrains[self.overallBot//c.botsPerSwarm]  
+
+        if c.swarmType == 'case1':                                          # we evolved 550 robots. Now, we group them in groups of #botsPerSwarm, finding the max of them, and then assigning them to the entire swarm.
+            range_start = (self.overallBot // c.botsPerSwarm) * 10  # this 10 is used to represent #botsPerSwarm
+            range_end = range_start + 9                             # this 9 is used to represent botsPerSwarm-1... this botsPerSwarm stuff is because we're using these 10 robots to add computational power...
+            sublist = self.familiarFits[range_start:range_end + 1]  # ... becasue case 2 and case 3 evolve 10 robots per swarm. Now, case 1 does too. Could also accomplish this by multiplying #parents by 10
+            max_value = min(sublist)                                
+            max_index = self.familiarFits.index(max_value)
+
+            print('LOOK:', swarmNumber, botNumber, f'{self.bestBrains[max_index]}')
+            self.swarmNumber = max_index // c.botsPerSwarm # insert equation to calculate swarmNumber using max_index
+            self.botNumber = max_index % c.botsPerSwarm # insert equation to calculate botNumber using max_index
+
+            #   currentSwarmNum = overallBot // c.botsPerSwarm
+            #   currentBotNum = overallBot % c.botsPerSwarm
+            self.brainID = self.bestBrains[max_index]
+
 
         if c.swarmType == 'case2' or c.swarmType == 'case3':
             self.brainID = self.bestBrains[self.overallBot] 
@@ -108,6 +125,11 @@ class SWARM_SIMULATION:
         with open("bestBrains.txt", "r") as f:
             bestBrains = [int(line.strip()) for line in f]
         return bestBrains
+
+    def Get_Familiar_Fits(self):
+        with open("familiarFits.txt", "r") as f:
+            familiarFits = [float(line.strip()) for line in f]
+        return familiarFits
 
     def Cleanup(self):
         p.disconnect()
