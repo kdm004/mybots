@@ -11,4 +11,4 @@ os.system("rm familiarFits.txt")
 os.system("rm weights/weights*.txt")
 os.system("rm familiarFitsContinued.txt")
 os.system("rm foreignFits.txt")
-
+os.system("rm *.mov")
