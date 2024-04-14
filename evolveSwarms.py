@@ -26,6 +26,8 @@ if c.continueEvolution == True and c.stopStart == False:
       os.system("rm bestBrains.txt")                     # these 3 files are contain the information that corresponds to the previously evolved best controller. After continuing evolution, this information is irrelevant
       os.system("rm familiarFits.txt")                   # and will be overwritten with the information for the controllers as they are evolved for more generations (given that stopStart == False)
       os.system("rm foreignFits.txt")
+      os.system("rm trajectories/trajectory*.txt")
+
 
 if c.continueEvolution == True and c.stopStart == True:
    filePath = 'familiarFits.txt'                                                             # use most recent familiar fits?
