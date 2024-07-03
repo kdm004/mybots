@@ -6,18 +6,15 @@ import numpy as np
 #------------------------------------
 class PARALLEL_HILL_CLIMBER:
     def __init__(self, swarmNumber, botNumber):
-        # os.system("rm brains/brain*.nndf") # step 82 parallelHC
         os.system("rm fitness*.txt") 
         self.parents = {}
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
 
-
         if c.continueEvolution == True:
             self.evolutionHistory = np.zeros((c.numberOfGenerations,c.populationSize))  
         else: 
             self.evolutionHistory = np.zeros((c.numberOfGenerations+1,c.populationSize))  
-
         self.nextAvailableID = 0
         for i in range(c.populationSize): 
             self.parents[i] = SOLUTION(self.nextAvailableID, self.swarmNumber, self.botNumber) 
@@ -26,19 +23,18 @@ class PARALLEL_HILL_CLIMBER:
     def Evolve(self): 
         self.Evaluate(self.parents)
         for p in self.parents:
-            if c.continueEvolution == False:                # maybe put this above its for loop?
+            if c.continueEvolution == False:               
                 initialFitness = self.parents[p].fitness
-                self.evolutionHistory[0, p] = initialFitness  # Fill the first row            # if 'continue', then this shouldn't happen
+                self.evolutionHistory[0, p] = initialFitness  
 
         for g in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
             for p in range(c.populationSize): 
                 lookFitness = self.parents[p].fitness
                 if c.continueEvolution == True:
-                    self.evolutionHistory[g,p] = lookFitness                                # if 'continue', then [g,p] not [g+1,p]
+                    self.evolutionHistory[g,p] = lookFitness                               
                 else:
                     self.evolutionHistory[g+1,p] = lookFitness
-
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -51,10 +47,8 @@ class PARALLEL_HILL_CLIMBER:
 
     def Spawn(self):
         self.children = {}
-
         for i in self.parents:
             self.children[i] = copy.deepcopy(self.parents[i])
-            #self.children[i].Set_ID()
             self.nextAvailableID = self.nextAvailableID + 1
             
     def Mutate(self):
@@ -97,7 +91,7 @@ class PARALLEL_HILL_CLIMBER:
                 for line in f:
                     items = line.strip().split(",")
                     itemset.append(items)
-            itemset.extend(self.evolutionHistory)  # extend with self.evolutionHistory
+            itemset.extend(self.evolutionHistory)     # extend with self.evolutionHistory
             itemset = np.array(itemset, dtype=float)  # convert to float
             # print('itemset = ', itemset)
             np.savetxt(f'fitnessCurves/fitnessCurve_{self.swarmNumber}_{self.botNumber}.txt', itemset, delimiter=',')

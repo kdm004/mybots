@@ -17,7 +17,7 @@ class SIMULATION:
             p.connect(p.GUI)
 
         p.setPhysicsEngineParameter(fixedTimeStep=c.timeStepSize,                   # default value = 1/240
-                                    numSolverIterations = c.numSolverIterations     # default value = 50
+                                    numSolverIterations = c.numSolverIterations     # default value = 50. We used 500 for the data collected for our paper.
                                     )    
         
         p.setAdditionalSearchPath(pybullet_data.getDataPath())

@@ -15,9 +15,9 @@ class ROBOT:
         self.botNumber = int(botNumber)
 
         if c.swarmType == 'case1' or c.swarmType == 'case2':
-            self.robot = p.loadURDF(f"bodies/body.urdf")       # This will overwrite for every loop through a new swarm
+            self.robot = p.loadURDF(f"bodies/body.urdf") 
         elif c.swarmType == 'case3':
-            self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # give body unique ID depending on its position
+            self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # Give body unique ID depending on its position
 
 
         pyrosim.Prepare_To_Simulate(self.robot)
@@ -26,7 +26,7 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf") #"brains/brain_" + str(self.swarmNumber) + "_" + str(self.solutionID) + ".nndf"
+        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")        
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
@@ -73,7 +73,14 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         positionOfBase = basePositionAndOrientation[0]
         xCoordinateOfBase = positionOfBase[0]
-        with open("foreignFits.txt", "a") as f:
+        print('hello')
+        if c.playbackEnvironment == 'foreign':
+            playbackFile = 'foreignFits.txt'
+        elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case2' or c.swarmType=='case3'):
+            playbackFile = 'familiarFits.txt' 
+        elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case1'):
+            playbackFile = 'familiarFits_full.txt'
+        with open(playbackFile, "a") as f:
             f.write(str(xCoordinateOfBase))
             f.write("\n")
         # print(str(xCoordinateOfLinkZero))
@@ -81,9 +88,21 @@ class ROBOT:
     def Record_XY(self, swarm, bot, overall):
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         positionOfBase = basePositionAndOrientation[0]
-        xCoordinateOfBase= positionOfBase[0]
+        xCoordinateOfBase = positionOfBase[0]
         yCoordinateOfBase = positionOfBase[1]
-        with open(f"trajectories/trajectory_s{swarm}_b{bot}_o{overall}.txt", "a") as f:
-            f.write(f"{xCoordinateOfBase} {yCoordinateOfBase}")
-            f.write("\n")
-
+        if c.playbackEnvironment == 'familiar':
+            trajectoryFolder = 'trajectoryFamiliar'
+        elif c.playbackEnvironment == 'foreign':
+            trajectoryFolder = 'trajectoryForeign'
+        # Check the number of entries in the file
+        trajectoryFile = f"{trajectoryFolder}/trajectory_s{swarm}_b{bot}_o{overall}.txt"
+        if os.path.exists(trajectoryFile):
+            with open(trajectoryFile, "r") as f:
+                num_entries = sum(1 for _ in f)
+            # If the number of entries exceeds 1001, do not write new entries
+            if num_entries >= 1001:
+                # print("Maximum number of entries reached. Not writing new entry.")
+                return
+            # Otherwise, write the new entry
+        with open(trajectoryFile, "a") as f:
+            f.write(f"{xCoordinateOfBase} {yCoordinateOfBase}\n")

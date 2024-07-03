@@ -18,5 +18,3 @@ simulation = SIMULATION(directOrGUI, solutionID, swarmNumber, botNumber)
 simulation.Run()
 simulation.Get_Fitness()
 
-# while os.path.exists('fitness*.txt'):
-#     time.sleep(100)

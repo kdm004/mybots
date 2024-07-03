@@ -28,16 +28,14 @@ class SWARM_SIMULATION:
         # if c.swarmType == 'case1':
         #     self.brainID = self.bestBrains[self.overallBot//c.botsPerSwarm]  
 
-        if c.swarmType == 'case1':                                          # we evolved 550 robots. Now, we group them in groups of #botsPerSwarm, finding the max of them, and then assigning them to the entire swarm.
-            range_start = (self.overallBot // c.botsPerSwarm) * 10  # this 10 is used to represent #botsPerSwarm
-            range_end = range_start + 9                             # this 9 is used to represent botsPerSwarm-1... this botsPerSwarm stuff is because we're using these 10 robots to add computational power...
-            sublist = self.familiarFits[range_start:range_end + 1]  # ... becasue case 2 and case 3 evolve 10 robots per swarm. Now, case 1 does too. Could also accomplish this by multiplying #parents by 10
+        if c.swarmType == 'case1':                                              # we evolved 550 robots. Now, we group them in groups of #botsPerSwarm, finding the max of them, and then assigning them to the entire swarm.
+            range_start = (self.overallBot // c.botsPerSwarm) * c.botsPerSwarm  # this 10 is used to represent #botsPerSwarm
+            range_end = range_start + (c.botsPerSwarm-1)                         # this 9 is used to represent (botsPerSwarm-1)... this botsPerSwarm stuff is because we're using these 10 robots to add computational power...
+            sublist = self.familiarFits[range_start:range_end + 1]               # ... becasue case 2 and case 3 evolve 10 robots per swarm. Now, case 1 does too. Could also accomplish this by multiplying #parents by 10?
             max_value = min(sublist)                                
             max_index = self.familiarFits.index(max_value)
-
-            print('LOOK:', swarmNumber, botNumber, f'{self.bestBrains[max_index]}')
             self.swarmNumber = max_index // c.botsPerSwarm # insert equation to calculate swarmNumber using max_index
-            self.botNumber = max_index % c.botsPerSwarm # insert equation to calculate botNumber using max_index
+            self.botNumber = max_index % c.botsPerSwarm    # insert equation to calculate botNumber using max_index
 
             #   currentSwarmNum = overallBot // c.botsPerSwarm
             #   currentBotNum = overallBot % c.botsPerSwarm
@@ -59,8 +57,8 @@ class SWARM_SIMULATION:
         # Initialize camera parameters
         self.camera_width = 500
         self.camera_height = 880
-        self.camera_pos = [0, 0, 18]  # Adjust the position 
-        self.camera_target_pos = [0, 0, 0]  # Adjust the target position
+        self.camera_pos = [0, 0, 18]        # Adjust the camera position 
+        self.camera_target_pos = [0, 0, 0]  # Adjust the camera target position
         self.camera_up_vector = [-1, 0, 0]
         
         # Adjust the field of view (FOV) (in degrees)
@@ -80,7 +78,7 @@ class SWARM_SIMULATION:
                                                 (self.camera_width, self.camera_height))
 
 
-    def capture_image(self):
+    def Capture_Image(self):
         # Capture image from the camera
         (_, _, px, _, _) = p.getCameraImage(
             width=self.camera_width, height=self.camera_height,
@@ -109,7 +107,7 @@ class SWARM_SIMULATION:
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
                 # Capture image at each step
-                image = self.capture_image()
+                image = self.Capture_Image()
                 # Convert image to compatible depth (e.g., CV_8U)
                 image = image.astype(np.uint8)
                 # Save the image
