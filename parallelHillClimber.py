@@ -68,7 +68,7 @@ class PARALLEL_HILL_CLIMBER:
         
     def Show_Best(self):
         self.sortedParents = sorted(self.parents.values(), key=lambda x: x.fitness)           
-        self.sortedParents[0].Start_Simulation("DIRECT")   
+        self.sortedParents[0].Start_Simulation("DIRECT")                                    # start simulation uses Generate_Body()... so we want to change the position of each generated body in batches of 10. 
 
     def Write_Best(self):
         with open("bestBrains.txt", "a") as f:   
@@ -80,7 +80,7 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evaluate(self, solutions):
         for i in range(len(solutions)):
-            solutions[i].Start_Simulation("DIRECT") 
+            solutions[i].Start_Simulation("DIRECT")                                         # start simulation uses Generate_Body()
         for i in range(len(solutions)):         
             solutions[i].Wait_For_Simulation_To_End()
 

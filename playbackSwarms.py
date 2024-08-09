@@ -91,7 +91,8 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
             pyrosim.Start_SDF("world.sdf")
             for i, pos in enumerate(positions):
                 x, y, z = pos
-                pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
+                # pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])   # commented out 08/07/2024
+                pass
             pyrosim.End()
 
 #-------------------------------------------------------
@@ -175,7 +176,8 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
                         if c.playbackEnvironment == 'familiar':
                             pass
                         elif c.playbackEnvironment == 'foreign':
-                            pyrosim.Send_Cube(name=f"Box{x}{y}", pos=cubePosition, size=[cubeLength, cubeWidth, cubeHeight])
+                            # pyrosim.Send_Cube(name=f"Box{x}{y}", pos=cubePosition, size=[cubeLength, cubeWidth, cubeHeight])      # commented out 08/07/2024
+                            pass
             pyrosim.End()
 
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
