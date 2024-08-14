@@ -9,10 +9,11 @@ import math
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, swarmNumber, botNumber):
+    def __init__(self, nextAvailableID, swarmNumber, botNumber, overallBot):
         self.myID = nextAvailableID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
+        self.overallBot = int(overallBot)
 
         # Create array of weights and leg lengths
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
@@ -130,7 +131,7 @@ class SOLUTION:
                       
 
     def Start_Simulation(self, directOrGUI):
-        self.Generate_Body(*c.botPosition, np.max(self.weights[-1, -4:]))   # (0,0, z-spawnPoint based on longest lower leg section)
+        self.Generate_Body(*c.botPosition[self.overallBot % c.botsPerSwarm], np.max(self.weights[-1, -4:]))   # (0,0, z-spawnPoint based on longest lower leg section) ... added self.overallBot % c.botsPerSwarm as index of which bot position for current bot
         self.Generate_Brain()
         self.Create_World()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " &")
