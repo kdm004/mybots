@@ -24,7 +24,7 @@ populationSize = 1              # 1 for random. 10 for evolved.
 # Collection parameters
 swarmType = 'case1'             # Choose swarmType:                [case1, case2, or case3]
 playbackEnvironment = 'foreign' # Choose environment for playback: [foreign or familiar].  Under current codebase, case2 and case3 familiarFits.txt outputted during evolution implicitly results in fitness values from their deployment. This does not hold for case1 due to controller assignment requiring manipulation through max{f1,f2,...,fb}.
-numberOfSwarms = 2             # 55 
+numberOfSwarms = 3             # 55 
 botsPerSwarm = 10               # 10
 continueEvolution = False       # if continueEvolution = True, add more generations to current data (assuming same number of parents). This will evolve new bots, this will just evolve current bots further.
 stopStart = False               # if stopStart = True, you can continue collecting more data by evolving more controllers. This will pickup evolution or playback data collection where you left off. This will not evolve current bots further.

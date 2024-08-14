@@ -104,9 +104,9 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
 
             # open body file
             if c.swarmType == 'case3':
-                bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"
+                bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"            # botID is the solutionID which helps us find the best body from that evolutionary run
             else:
-                bodyFile = "bodies/body.urdf"
+                bodyFile = f"bodies/body_{botNumber}.urdf"                              # overallBot % c.botsPerSwarm helps us just iterate the body from 0 through 9. 
             with open(bodyFile, "r") as body_file:
                 bodyLines = body_file.readlines()
                 

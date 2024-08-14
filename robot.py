@@ -15,7 +15,7 @@ class ROBOT:
         self.botNumber = int(botNumber)
 
         if c.swarmType == 'case1' or c.swarmType == 'case2':
-            self.robot = p.loadURDF(f"bodies/body.urdf") 
+            self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf") 
         elif c.swarmType == 'case3':
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # Give body unique ID depending on its position
 

@@ -9,11 +9,10 @@ import math
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID, swarmNumber, botNumber, overallBot):
+    def __init__(self, nextAvailableID, swarmNumber, botNumber):
         self.myID = nextAvailableID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
-        self.overallBot = int(overallBot)
 
         # Create array of weights and leg lengths
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
@@ -44,7 +43,7 @@ class SOLUTION:
 
     def Generate_Body(self, xi, yi, zi):
         if c.swarmType == 'case1' or c.swarmType == 'case2':
-            pyrosim.Start_URDF(f"bodies/body.urdf")                                                   # All bodies are identical
+            pyrosim.Start_URDF(f"bodies/body_{self.botNumber}.urdf")                                                   # All bodies are identical
         elif c.swarmType == 'case3':
             pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # Differentiate body files for case3. Differentiate files by their evolution traits ie swarmNumber, botNumber, myID
 
@@ -131,7 +130,7 @@ class SOLUTION:
                       
 
     def Start_Simulation(self, directOrGUI):
-        self.Generate_Body(*c.botPosition[self.overallBot % c.botsPerSwarm], np.max(self.weights[-1, -4:]))   # (0,0, z-spawnPoint based on longest lower leg section) ... added self.overallBot % c.botsPerSwarm as index of which bot position for current bot
+        self.Generate_Body(*c.botPosition[self.botNumber], np.max(self.weights[-1, -4:]))   # (0,0, z-spawnPoint based on longest lower leg section) ... added self.overallBot % c.botsPerSwarm as index of which bot position for current bot
         self.Generate_Brain()
         self.Create_World()
         os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " " + str(self.swarmNumber) + " " + str(self.botNumber) + " &")
