@@ -16,8 +16,10 @@ class ROBOT:
 
         if c.swarmType == 'case1' or c.swarmType == 'case2':
             self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf") 
+            print(f"bodies/body_{self.botNumber}.urdf")
         elif c.swarmType == 'case3':
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # Give body unique ID depending on its position
+            print(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")
 
 
         pyrosim.Prepare_To_Simulate(self.robot)
@@ -27,6 +29,7 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")        
+        print(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
