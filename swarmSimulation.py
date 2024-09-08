@@ -30,17 +30,10 @@ class SWARM_SIMULATION:
         p.setGravity(0, 0, c.gravityConstant)
 
         self.world = WORLD()
-
-        # Initialize swarm of robots
-        self.robots = []
-        for botNumber in range(c.botsPerSwarm):
-            self.robots.append(ROBOT(self.Get_Brain_ID(botNumber, overallBot), swarmNumber, botNumber))
-
-    def Get_Brain_ID(self, botNumber, overallBot):
         bestBrains = self.Get_Brain_IDs()
         familiarFits = self.Get_Familiar_Fits()
 
-        # Logic for case1: select the best brain for the entire swarm
+        # Logic for case1: select the best brain for the entire swarm                                       # THIS IS WHAT NEEDS TO BE EDITED (I THINK)
         if c.swarmType == 'case1':
             range_start = (overallBot // c.botsPerSwarm) * c.botsPerSwarm
             range_end = range_start + (c.botsPerSwarm - 1)
@@ -48,11 +41,18 @@ class SWARM_SIMULATION:
             max_value = min(sublist)  # Minimization problem, lower fitness is better
             max_index = familiarFits.index(max_value)
             best_brain_for_swarm = bestBrains[max_index]
-            return best_brain_for_swarm  # Assign the best brain to all bots in the swarm
+
+            best_ID = best_brain_for_swarm  # Assign the best brain to all bots in the swarm
+            self.botNumber = max_index # Use the botNumber that corresponds to the best fitness of c.botsPerSwarm robots from the familiar environment
 
         # Logic for case2 and case3: each robot has its own brain
         elif c.swarmType == 'case2' or c.swarmType == 'case3':
-            return bestBrains[overallBot + botNumber]
+            best_ID = bestBrains[overallBot + botNumber]        
+
+        # Initialize swarm of robots
+        self.robots = []
+        for botNumber in range(c.botsPerSwarm):
+            self.robots.append(ROBOT(best_ID, swarmNumber, botNumber))
 
     def Run(self):
         # Run simulation for all robots
