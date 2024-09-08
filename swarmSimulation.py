@@ -38,7 +38,8 @@ class SWARM_SIMULATION:
             range_start = (overallBot // c.botsPerSwarm) * c.botsPerSwarm
             range_end = range_start + (c.botsPerSwarm - 1)
             sublist = familiarFits[range_start:range_end + 1]
-            max_value = min(sublist)  # Minimization problem, lower fitness is better
+            max_value = min(sublist)  # Lower fitnesses are better, so we find the lowest-fitness-robot in the swarm
+            print(max_value)
             max_index = familiarFits.index(max_value)
             best_brain_for_swarm = bestBrains[max_index]
 
@@ -47,12 +48,13 @@ class SWARM_SIMULATION:
 
         # Logic for case2 and case3: each robot has its own brain
         elif c.swarmType == 'case2' or c.swarmType == 'case3':
-            best_ID = bestBrains[overallBot + botNumber]        
+            best_ID = bestBrains[overallBot + botNumber]  # We need to figure out how to give each bot the appropriate best_ID. Currently, we're just setting a best_ID? Idk, we'll have to test it. Maybe we can move this inside of the for loop below to use the overallBot from the loop instead of self.overallBot?
 
         # Initialize swarm of robots
         self.robots = []
-        for botNumber in range(c.botsPerSwarm):
-            self.robots.append(ROBOT(best_ID, swarmNumber, botNumber))
+        for overallBot in range(c.botsPerSwarm):
+            self.robots.append(ROBOT(best_ID, swarmNumber, botNumber, overallBot))
+            print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={overallBot} ")
 
     def Run(self):
         # Run simulation for all robots

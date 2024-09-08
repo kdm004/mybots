@@ -9,17 +9,22 @@ import os
 import math
 
 class ROBOT:
-    def __init__(self,solutionID, swarmNumber, botNumber):
+    def __init__(self,solutionID, swarmNumber, botNumber, overallBot = None):
         self.solutionID = solutionID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
+        print('Here is an instance of ROBOT')
+
+
 
         if c.swarmType == 'case1' or c.swarmType == 'case2':
-            self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf") 
-            print(f"bodies/body_{self.botNumber}.urdf")
+            if overallBot is not None:
+                self.overallBot = overallBot
+                self.robot = p.loadURDF(f"bodies/body_{self.overallBot}.urdf") 
+            else:
+                self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf") 
         elif c.swarmType == 'case3':
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # Give body unique ID depending on its position
-            print(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")
 
 
         pyrosim.Prepare_To_Simulate(self.robot)

@@ -33,46 +33,46 @@ if os.path.exists(filePath):
 for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
     leg_positions_of_all_bots = []
 
-    for botNumber in range(currentBotNum, c.botsPerSwarm):
-        if c.swarmType == 'case1':
-            swarmNumber = overallBot // c.botsPerSwarm**2
-            botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
-        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")
+    # for botNumber in range(currentBotNum, c.botsPerSwarm):
+    if c.swarmType == 'case1':
+        swarmNumber = overallBot // c.botsPerSwarm**2
+        botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
+    print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")
 
-        # Collect leg positions for all bots in the swarm
-        with open("bestBrains.txt", "r") as file:
-            lines = file.readlines()
-        botID = int(lines[overallBot].strip())
+    # Collect leg positions for all bots in the swarm
+    with open("bestBrains.txt", "r") as file:
+        lines = file.readlines()
+    botID = int(lines[overallBot].strip())
 
-        if c.swarmType == 'case3':
-            bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"
-        else:
-            bodyFile = f"bodies/body_{botNumber}.urdf"
+    if c.swarmType == 'case3':
+        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"
+    else:
+        bodyFile = f"bodies/body_{botNumber}.urdf"
 
-        with open(bodyFile, "r") as body_file:
-            bodyLines = body_file.readlines()
+    with open(bodyFile, "r") as body_file:
+        bodyLines = body_file.readlines()
 
-        lowerLegXY = []
-        for i, line in enumerate(bodyLines):
-            if '<joint name=' and "LowerLeg" in line:
-                for j in range(2):  # Assuming coordinates are in the next two lines
-                    lowerLegLine = bodyLines[i + j]
-                    if 'xyz=' in lowerLegLine:
-                        coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
-                        coords = [float(coord) for coord in coordsStr.split()]
-                        lowerLegXY.append(coords[:2])  # Extract XY coordinates only
+    lowerLegXY = []
+    for i, line in enumerate(bodyLines):
+        if '<joint name=' and "LowerLeg" in line:
+            for j in range(2):  # Assuming coordinates are in the next two lines
+                lowerLegLine = bodyLines[i + j]
+                if 'xyz=' in lowerLegLine:
+                    coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
+                    coords = [float(coord) for coord in coordsStr.split()]
+                    lowerLegXY.append(coords[:2])  # Extract XY coordinates only
 
-        leg_positions_of_all_bots.extend(lowerLegXY)  # Collect leg positions from all bots
+    leg_positions_of_all_bots.extend(lowerLegXY)  # Collect leg positions from all bots
 
-        # Initialize and run the swarm simulation
-        swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
-        swarmSim.Run()
-        swarmSim.Get_Fitness()
-        swarmSim.Cleanup()
+    # Initialize and run the swarm simulation
+    swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
+    swarmSim.Run()
+    swarmSim.Get_Fitness()
+    swarmSim.Cleanup()
 
-        # Reset the bot number and update the overall bot index
-        currentBotNum = 0
-        overallBot += 1
+    # Reset the bot number and update the overall bot index
+    currentBotNum = 0
+    overallBot += 1
 
     # Generate cubes, avoiding leg positions
     if c.swarmType == 'case1' or c.swarmType == 'case2':
