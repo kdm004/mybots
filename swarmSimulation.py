@@ -46,10 +46,10 @@ class SWARM_SIMULATION:
             num_populated_lines_in_foreign = len(foreignFits)
 
             # Determine the range in familiarFits.txt to observe
-            if num_populated_lines_in_foreign == 0:
+            if num_populated_lines_in_foreign == 0 or not os.path.exists("foreignFits.txt"):
                 range_start = 0
             else:
-                range_start = num_populated_lines_in_foreign - c.botsPerSwarm
+                range_start = num_populated_lines_in_foreign  # - c.botsPerSwarm    THIS WAS THE ISSUE!!!
 
             range_end = range_start + (c.botsPerSwarm - 1)
 
