@@ -30,25 +30,47 @@ class SWARM_SIMULATION:
         p.setGravity(0, 0, c.gravityConstant)
 
         self.world = WORLD()
-        bestBrains = self.Get_Brain_IDs()
-        familiarFits = self.Get_Familiar_Fits()
+        self.bestBrains = self.Get_Brain_IDs()
+        self.familiarFits = self.Get_Familiar_Fits()
 
         # Logic for case1: select the best brain for the entire swarm                                       # THIS IS WHAT NEEDS TO BE EDITED (I THINK)
         if c.swarmType == 'case1':
-            range_start = (overallBot // c.botsPerSwarm) * c.botsPerSwarm
-            range_end = range_start + (c.botsPerSwarm - 1)
-            sublist = familiarFits[range_start:range_end + 1]
-            max_value = min(sublist)  # Lower fitnesses are better, so we find the lowest-fitness-robot in the swarm
-            print(max_value)
-            max_index = familiarFits.index(max_value)
-            best_brain_for_swarm = bestBrains[max_index]
+            # Read the number of populated lines in foreignFits.txt
+            foreignFitsPath = "foreignFits.txt"
+            if os.path.exists(foreignFitsPath):
+                with open(foreignFitsPath, "r") as f:
+                    foreignFits = [line.strip() for line in f if line.strip()]  # Remove empty lines
+            else:
+                foreignFits = []
 
-            best_ID = best_brain_for_swarm  # Assign the best brain to all bots in the swarm
-            self.botNumber = max_index # Use the botNumber that corresponds to the best fitness of c.botsPerSwarm robots from the familiar environment
+            num_populated_lines_in_foreign = len(foreignFits)
+
+            # Determine the range in familiarFits.txt to observe
+            if num_populated_lines_in_foreign == 0:
+                range_start = 0
+            else:
+                range_start = num_populated_lines_in_foreign - c.botsPerSwarm
+
+            range_end = range_start + (c.botsPerSwarm - 1)
+
+            # Get the sublist from familiarFits.txt for this range
+            sublist = self.familiarFits[range_start:range_end + 1]
+
+            # Find the robot with the lowest fitness in the familiar environment
+            max_value = min(sublist)  # Lower fitnesses are better
+            print(f"Range: {range_start}, {range_end}")
+            print("here's max value:", max_value)
+            max_index = self.familiarFits.index(max_value)
+
+            best_brain_for_swarm = self.bestBrains[max_index]
+
+            # Assign the best brain and set the botNumber to the best one in the sublist
+            best_ID = best_brain_for_swarm
+            self.botNumber = max_index  # Set botNumber to correspond to the best fitness in familiarFits
 
         # Logic for case2 and case3: each robot has its own brain
         elif c.swarmType == 'case2' or c.swarmType == 'case3':
-            best_ID = bestBrains[overallBot + botNumber]  # We need to figure out how to give each bot the appropriate best_ID. Currently, we're just setting a best_ID? Idk, we'll have to test it. Maybe we can move this inside of the for loop below to use the overallBot from the loop instead of self.overallBot?
+            best_ID = self.bestBrains[overallBot + botNumber]  # We need to figure out how to give each bot the appropriate best_ID. Currently, we're just setting a best_ID? Idk, we'll have to test it. Maybe we can move this inside of the for loop below to use the overallBot from the loop instead of self.overallBot?
 
         # Initialize swarm of robots
         self.robots = []
@@ -70,7 +92,7 @@ class SWARM_SIMULATION:
                 robot.Record_XY(self.swarmNumber, self.botNumber, self.overallBot)
 
                 if self.directOrGUI == "GUI":
-                    time.sleep(1/200)     # c.sleepRate
+                    time.sleep(1/5000)     # c.sleepRate
 
     def Get_Fitness(self):
         for robot in self.robots:

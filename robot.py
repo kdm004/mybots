@@ -13,7 +13,6 @@ class ROBOT:
         self.solutionID = solutionID
         self.swarmNumber = int(swarmNumber)
         self.botNumber = int(botNumber)
-        print('Here is an instance of ROBOT')
 
 
 
@@ -81,7 +80,6 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         positionOfBase = basePositionAndOrientation[0]
         xCoordinateOfBase = positionOfBase[0]
-        print('hello')
         if c.playbackEnvironment == 'foreign':
             playbackFile = 'foreignFits.txt'
         elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case2' or c.swarmType=='case3'):
