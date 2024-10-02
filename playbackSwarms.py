@@ -34,10 +34,13 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
     leg_positions_of_all_bots = []
 
     # for botNumber in range(currentBotNum, c.botsPerSwarm):
-    if c.swarmType == 'case1':
+    if c.swarmType == 'case1':                                                              # We only don't generate cubes for case 2 and case 3. That's why we don't define body files for case1.
         swarmNumber = overallBot // c.botsPerSwarm**2
         botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
-    print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")
+    else: 
+        swarmNumber = overallBot // c.botsPerSwarm                                          # Added these two statements.
+        botNumber = overallBot % c.botsPerSwarm
+        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")
 
     # Collect leg positions for all bots in the swarm
     with open("bestBrains.txt", "r") as file:
@@ -45,7 +48,7 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
     botID = int(lines[overallBot].strip())
 
     if c.swarmType == 'case3':
-        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"
+        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"            
     else:
         bodyFile = f"bodies/body_{botNumber}.urdf"
 

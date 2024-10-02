@@ -49,23 +49,17 @@ class SWARM_SIMULATION:
             if num_populated_lines_in_foreign == 0 or not os.path.exists("foreignFits.txt"):
                 range_start = 0
             else:
-                range_start = num_populated_lines_in_foreign  # - c.botsPerSwarm    THIS WAS THE ISSUE!!!
-
+                range_start = num_populated_lines_in_foreign
             range_end = range_start + (c.botsPerSwarm - 1)
 
             # Get the sublist from familiarFits.txt for this range
             sublist = self.familiarFits[range_start:range_end + 1]
-
-            # Find the robot with the lowest fitness in the familiar environment
-            max_value = min(sublist)  # Lower fitnesses are better
+            max_value = min(sublist)                                     # Find the robot with the lowest fitness in the familiar environment...Lower fitnesses are better
             print(f"Range: {range_start}, {range_end}")
             print("here's max value:", max_value)
             max_index = self.familiarFits.index(max_value)
-
             best_brain_for_swarm = self.bestBrains[max_index]
-
-            # Assign the best brain and set the botNumber to the best one in the sublist
-            best_ID = best_brain_for_swarm
+            best_ID = best_brain_for_swarm # Assign the best brain and set the botNumber to the best one in the sublist
             self.botNumber = max_index  # Set botNumber to correspond to the best fitness in familiarFits
 
         # Logic for case2 and case3: each robot has its own brain
