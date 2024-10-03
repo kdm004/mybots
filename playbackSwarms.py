@@ -21,35 +21,9 @@ def is_valid_position(new_pos, positions, leg_positions, min_separation):
             return False
     return True
 
-# Determine the correct fitness file based on the environment and swarm type
-if c.playbackEnvironment == 'foreign':
-    filePath = 'foreignFits.txt'
-elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case2' or c.swarmType == 'case3'):
-    filePath = 'familiarFits.txt'
-elif c.playbackEnvironment == 'familiar' and c.swarmType == 'case1':
-    filePath = 'familiarFits_full.txt'
-
-# Load the fitness file to determine how many robots have been simulated already
-if os.path.exists(filePath):
-    with open(filePath, 'r') as file:
-        numPastBots = sum(1 for line in file if line.strip())
-        overallBot = numPastBots
-        currentSwarmNum = overallBot // c.botsPerSwarm
-        currentBotNum = overallBot % c.botsPerSwarm
-
-if c.swarmType == 'case1':
-    overallBot = 0
-    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
-        leg_positions_of_all_bots = []                              # Reset the recorded leg positions for each swarm. Not really necessary for case1 or case2
-
-        # Define swarmNumber and botNumber for case1
-        swarmNumber = overallBot // c.botsPerSwarm**2
-        botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
-        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")  # this doesn't really do what we want for case 2 or 3. Only can be used for case1 because we use the same botNumber for multiple robots. 
-        
-        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
-
-        # Read the body file contents
+def Create_Foreign_Environment(bodyFile):
+        leg_positions_of_all_bots = []
+            # Read the body file contents
         with open(bodyFile, "r") as body_file:
                 bodyLines = body_file.readlines()
 
@@ -94,6 +68,34 @@ if c.swarmType == 'case1':
             pass
         pyrosim.End()
 
+# Determine the correct fitness file based on the environment and swarm type
+if c.playbackEnvironment == 'foreign':
+    filePath = 'foreignFits.txt'
+elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case2' or c.swarmType == 'case3'):
+    filePath = 'familiarFits.txt'
+elif c.playbackEnvironment == 'familiar' and c.swarmType == 'case1':
+    filePath = 'familiarFits_full.txt'
+
+# Load the fitness file to determine how many robots have been simulated already
+if os.path.exists(filePath):
+    with open(filePath, 'r') as file:
+        numPastBots = sum(1 for line in file if line.strip())
+        overallBot = numPastBots
+        currentSwarmNum = overallBot // c.botsPerSwarm
+        currentBotNum = overallBot % c.botsPerSwarm
+
+if c.swarmType == 'case1':
+    overallBot = 0
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+
+        # Define swarmNumber and botNumber for case1
+        swarmNumber = overallBot // c.botsPerSwarm**2
+        botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
+        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")  # this doesn't really do what we want for case 2 or 3. Only can be used for case1 because we use the same botNumber for multiple robots. 
+        
+        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
+        Create_Foreign_Environment(bodyFile)
+
         # Initialize and run the swarm simulation
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
@@ -106,10 +108,13 @@ if c.swarmType == 'case1':
 
 elif c.swarmType == 'case2':
     overallBot = 0
-    swarmNumber = overallBot // c.botsPerSwarm
+    swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
     botNumber = overallBot % c.botsPerSwarm
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
-        leg_positions_of_all_bots = []                              # Reset the recorded leg positions for each swarm. Not really necessary for case1 or case2
+
+        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
+        Create_Foreign_Environment(bodyFile)
+
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
@@ -122,7 +127,15 @@ elif c.swarmType == 'case3':
     swarmNumber = overallBot // c.botsPerSwarm
     botNumber = overallBot % c.botsPerSwarm
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
-        leg_positions_of_all_bots = []                              # Reset the recorded leg positions for each swarm. Not really necessary for case1 or case2
+
+        # Collect leg positions for all bots in the swarm
+        with open("bestBrains.txt", "r") as file:
+            lines = file.readlines()
+        botID = int(lines[overallBot].strip())
+        
+        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"       
+        Create_Foreign_Environment(bodyFile)
+        
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()

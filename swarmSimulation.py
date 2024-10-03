@@ -76,12 +76,11 @@ class SWARM_SIMULATION:
         if c.swarmType == 'case2' or c.swarmType == 'case3':
             # Initialize swarm of robots
             self.robots = []
-            overallBot = 0
             for botNumber in range(c.botsPerSwarm):
-                best_ID = self.bestBrains[overallBot]
+                best_ID = self.bestBrains[botNumber + self.swarmNumber*10]
                 self.robots.append(ROBOT(best_ID, swarmNumber, botNumber))
-                print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={overallBot} ")
-                overallBot += 1
+                print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={botNumber + self.swarmNumber*10} ")
+
 
 
 
