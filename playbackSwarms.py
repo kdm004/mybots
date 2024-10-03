@@ -66,7 +66,7 @@ if c.swarmType == 'case1':
         leg_positions_of_all_bots.extend(lowerLegXY)   # Collect leg positions from all bots
 
         # Set random seed so that every robot gets a unique set of obstacles
-        seed_value = overallBot
+        seed_value = swarmNumber
         random.seed(seed_value)
         np.random.seed(seed_value)
 
@@ -90,7 +90,7 @@ if c.swarmType == 'case1':
         pyrosim.Start_SDF("world.sdf")
         for i, pos in enumerate(positions):
             x, y, z = pos
-            # pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
+            pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
             pass
         pyrosim.End()
 
