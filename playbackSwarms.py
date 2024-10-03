@@ -9,9 +9,17 @@ cubeLength = 0.2
 cubeWidth = 0.2
 cubeHeight = 0.2
 
-overallBot = 0
 currentSwarmNum = 0
 currentBotNum = 0
+
+def is_valid_position(new_pos, positions, leg_positions, min_separation):
+    for pos in positions:
+        if np.linalg.norm(np.array(new_pos) - np.array(pos)) < min_separation:
+            return False
+    for leg_pos in leg_positions:
+        if np.linalg.norm(np.array(new_pos[:2]) - np.array(leg_pos)) < min_separation:
+            return False
+    return True
 
 # Determine the correct fitness file based on the environment and swarm type
 if c.playbackEnvironment == 'foreign':
@@ -29,64 +37,33 @@ if os.path.exists(filePath):
         currentSwarmNum = overallBot // c.botsPerSwarm
         currentBotNum = overallBot % c.botsPerSwarm
 
-# Replay each swarm based on the swarm type
-for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
-    leg_positions_of_all_bots = []
+if c.swarmType == 'case1':
+    overallBot = 0
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+        leg_positions_of_all_bots = []                              # Reset the recorded leg positions for each swarm. Not really necessary for case1 or case2
 
-    # for botNumber in range(currentBotNum, c.botsPerSwarm):
-    if c.swarmType == 'case1':                                                              # We only don't generate cubes for case 2 and case 3. That's why we don't define body files for case1.
+        # Define swarmNumber and botNumber for case1
         swarmNumber = overallBot // c.botsPerSwarm**2
         botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
-    else: 
-        swarmNumber = overallBot // c.botsPerSwarm                                          # Added these two statements.
-        botNumber = overallBot % c.botsPerSwarm
-        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")
+        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")  # this doesn't really do what we want for case 2 or 3. Only can be used for case1 because we use the same botNumber for multiple robots. 
+        
+        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
 
-    # Collect leg positions for all bots in the swarm
-    with open("bestBrains.txt", "r") as file:
-        lines = file.readlines()
-    botID = int(lines[overallBot].strip())
+        # Read the body file contents
+        with open(bodyFile, "r") as body_file:
+                bodyLines = body_file.readlines()
 
-    if c.swarmType == 'case3':
-        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"            
-    else:
-        bodyFile = f"bodies/body_{botNumber}.urdf"
-
-    with open(bodyFile, "r") as body_file:
-        bodyLines = body_file.readlines()
-
-    lowerLegXY = []
-    for i, line in enumerate(bodyLines):
-        if '<joint name=' and "LowerLeg" in line:
-            for j in range(2):  # Assuming coordinates are in the next two lines
-                lowerLegLine = bodyLines[i + j]
-                if 'xyz=' in lowerLegLine:
-                    coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
-                    coords = [float(coord) for coord in coordsStr.split()]
-                    lowerLegXY.append(coords[:2])  # Extract XY coordinates only
-
-    leg_positions_of_all_bots.extend(lowerLegXY)  # Collect leg positions from all bots
-
-    # Initialize and run the swarm simulation
-    swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
-    swarmSim.Run()
-    swarmSim.Get_Fitness()
-    swarmSim.Cleanup()
-
-    # Reset the bot number and update the overall bot index
-    currentBotNum = 0
-    overallBot += 1
-
-    # Generate cubes, avoiding leg positions
-    if c.swarmType == 'case1' or c.swarmType == 'case2':
-        def is_valid_position(new_pos, positions, leg_positions, min_separation):
-            for pos in positions:
-                if np.linalg.norm(np.array(new_pos) - np.array(pos)) < min_separation:
-                    return False
-            for leg_pos in leg_positions:
-                if np.linalg.norm(np.array(new_pos[:2]) - np.array(leg_pos)) < min_separation:
-                    return False
-            return True
+        # Determine leg positions
+        lowerLegXY = []
+        for i, line in enumerate(bodyLines):
+            if '<joint name=' and "LowerLeg" in line:
+                for j in range(2):  # Assuming coordinates are in the next two lines
+                    lowerLegLine = bodyLines[i + j]
+                    if 'xyz=' in lowerLegLine:
+                        coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
+                        coords = [float(coord) for coord in coordsStr.split()]
+                        lowerLegXY.append(coords[:2])  # Extract XY coordinates only
+        leg_positions_of_all_bots.extend(lowerLegXY)   # Collect leg positions from all bots
 
         # Set random seed so that every robot gets a unique set of obstacles
         seed_value = overallBot
@@ -116,3 +93,39 @@ for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
             # pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
             pass
         pyrosim.End()
+
+        # Initialize and run the swarm simulation
+        swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
+        swarmSim.Run()
+        swarmSim.Get_Fitness()
+        swarmSim.Cleanup()
+
+        # Reset the bot number and update the overall bot index
+        currentBotNum = 0
+        overallBot += 1
+
+elif c.swarmType == 'case2':
+    overallBot = 0
+    swarmNumber = overallBot // c.botsPerSwarm
+    botNumber = overallBot % c.botsPerSwarm
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+        leg_positions_of_all_bots = []                              # Reset the recorded leg positions for each swarm. Not really necessary for case1 or case2
+        print(swarmNumber, botNumber)
+        swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
+        swarmSim.Run()
+        swarmSim.Get_Fitness()
+        swarmSim.Cleanup()
+        overallBot += 1
+
+elif c.swarmType == 'case3':
+    overallBot = 0
+    swarmNumber = overallBot // c.botsPerSwarm
+    botNumber = overallBot % c.botsPerSwarm
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+        leg_positions_of_all_bots = []                              # Reset the recorded leg positions for each swarm. Not really necessary for case1 or case2
+        print(swarmNumber, botNumber)
+        swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
+        swarmSim.Run()
+        swarmSim.Get_Fitness()
+        swarmSim.Cleanup()
+        overallBot += 1

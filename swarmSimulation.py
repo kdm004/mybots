@@ -33,7 +33,7 @@ class SWARM_SIMULATION:
         self.bestBrains = self.Get_Brain_IDs()
         self.familiarFits = self.Get_Familiar_Fits()
 
-        # Logic for case1: select the best brain for the entire swarm                                       # THIS IS WHAT NEEDS TO BE EDITED (I THINK)
+        # Logic for case1: select the best brain for the entire swarm ###############                                     # THIS IS WHAT NEEDS TO BE EDITED (I THINK)
         if c.swarmType == 'case1':
             # Read the number of populated lines in foreignFits.txt
             foreignFitsPath = "foreignFits.txt"
@@ -62,15 +62,30 @@ class SWARM_SIMULATION:
             best_ID = best_brain_for_swarm # Assign the best brain and set the botNumber to the best one in the sublist
             self.botNumber = max_index  # Set botNumber to correspond to the best fitness in familiarFits
 
-        # Logic for case2 and case3: each robot has its own brain
-        elif c.swarmType == 'case2' or c.swarmType == 'case3':
-            best_ID = self.bestBrains[overallBot + botNumber]  # We need to figure out how to give each bot the appropriate best_ID. Currently, we're just setting a best_ID? Idk, we'll have to test it. Maybe we can move this inside of the for loop below to use the overallBot from the loop instead of self.overallBot?
+        # # Logic for case2 and case3: each robot has its own brain
+        # elif c.swarmType == 'case2' or c.swarmType == 'case3':
+        #     best_ID = self.bestBrains[overallBot + botNumber]  # We need to figure out how to give each bot the appropriate best_ID. Currently, we're just setting a best_ID? Idk, we'll have to test it. Maybe we can move this inside of the for loop below to use the overallBot from the loop instead of self.overallBot?
 
-        # Initialize swarm of robots
-        self.robots = []
-        for overallBot in range(c.botsPerSwarm):
-            self.robots.append(ROBOT(best_ID, swarmNumber, botNumber, overallBot))
-            print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={overallBot} ")
+        if c.swarmType == 'case1':
+            # Initialize swarm of robots
+            self.robots = []
+            for overallBot in range(c.botsPerSwarm):
+                self.robots.append(ROBOT(best_ID, swarmNumber, botNumber, overallBot))
+                # print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={overallBot} ")
+        
+        if c.swarmType == 'case2' or c.swarmType == 'case3':
+            # Initialize swarm of robots
+            self.robots = []
+            overallBot = 0
+            for botNumber in range(c.botsPerSwarm):
+                best_ID = self.bestBrains[overallBot]
+                self.robots.append(ROBOT(best_ID, swarmNumber, botNumber))
+                print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={overallBot} ")
+                overallBot += 1
+
+
+
+
 
     def Run(self):
         # Run simulation for all robots
