@@ -21,6 +21,10 @@ def is_valid_position(new_pos, positions, leg_positions, min_separation):
             return False
     return True
 
+def Create_Familiar_Environment():
+     pyrosim.Start_SDF("world.sdf")
+     pyrosim.End()
+
 def Create_Foreign_Environment(bodyFile):
         leg_positions_of_all_bots = []
             # Read the body file contents
@@ -84,6 +88,8 @@ if os.path.exists(filePath):
         currentSwarmNum = overallBot // c.botsPerSwarm
         currentBotNum = overallBot % c.botsPerSwarm
 
+
+#########################################################################################################
 if c.swarmType == 'case1':
     overallBot = 0
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
@@ -94,7 +100,12 @@ if c.swarmType == 'case1':
         print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")  # this doesn't really do what we want for case 2 or 3. Only can be used for case1 because we use the same botNumber for multiple robots. 
         
         bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
-        Create_Foreign_Environment(bodyFile)
+
+        # Decide which environment to use
+        if c.playbackEnvironment == 'foreign':
+            Create_Foreign_Environment(bodyFile)
+        elif c.playbackEnvironment == 'familiar':
+            Create_Familiar_Environment()
 
         # Initialize and run the swarm simulation
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
@@ -113,7 +124,12 @@ elif c.swarmType == 'case2':
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
 
         bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
-        Create_Foreign_Environment(bodyFile)
+
+        # Decide which environment to use
+        if c.playbackEnvironment == 'foreign':
+            Create_Foreign_Environment(bodyFile)
+        elif c.playbackEnvironment == 'familiar':
+            Create_Familiar_Environment
 
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
@@ -134,7 +150,12 @@ elif c.swarmType == 'case3':
         botID = int(lines[overallBot].strip())
         
         bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"       
-        Create_Foreign_Environment(bodyFile)
+
+        # Decide which environment to use
+        if c.playbackEnvironment == 'foreign':
+            Create_Foreign_Environment(bodyFile)
+        elif c.playbackEnvironment == 'familiar':
+            Create_Familiar_Environment
         
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
@@ -142,3 +163,4 @@ elif c.swarmType == 'case3':
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
         overallBot += 1
+#########################################################################################################
