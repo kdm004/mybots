@@ -75,10 +75,8 @@ def Create_Foreign_Environment(bodyFile):
 # Determine the correct fitness file based on the environment and swarm type
 if c.playbackEnvironment == 'foreign':
     filePath = 'foreignFits.txt'
-elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case2' or c.swarmType == 'case3'):
-    filePath = 'familiarFits.txt'
-elif c.playbackEnvironment == 'familiar' and c.swarmType == 'case1':
-    filePath = 'familiarFits_full.txt'
+elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case1' or c.swarmType == 'case2' or c.swarmType == 'case3'):
+    filePath = 'familiarFits_playback.txt'
 
 # Load the fitness file to determine how many robots have been simulated already
 if os.path.exists(filePath):
@@ -129,7 +127,7 @@ elif c.swarmType == 'case2':
         if c.playbackEnvironment == 'foreign':
             Create_Foreign_Environment(bodyFile)
         elif c.playbackEnvironment == 'familiar':
-            Create_Familiar_Environment
+            Create_Familiar_Environment()
 
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
@@ -155,7 +153,7 @@ elif c.swarmType == 'case3':
         if c.playbackEnvironment == 'foreign':
             Create_Foreign_Environment(bodyFile)
         elif c.playbackEnvironment == 'familiar':
-            Create_Familiar_Environment
+            Create_Familiar_Environment()
         
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
