@@ -18,12 +18,12 @@ numMotorNeurons = 8             # 8
 legLengthRange = (0.5, 1.5)     # Only used for case3
 
 # Evolution Parameters
-numberOfGenerations = 2         # 0 for random. 75 for evolved.
-populationSize = 3              # 1 for random. 10 for evolved.
+numberOfGenerations = 3         # 0 for random. 75 for evolved.
+populationSize = 2              # 1 for random. 10 for evolved.
 
 # Collection parameters
-swarmType = 'case3'             # Choose swarmType:                [case1, case2, or case3]
-playbackEnvironment = 'foreign' # Choose environment for playback: [foreign or familiar].  Under current codebase, case2 and case3 familiarFits.txt outputted during evolution implicitly results in fitness values from their deployment. This does not hold for case1 due to controller assignment requiring manipulation through max{f1,f2,...,fb}.
+swarmType = 'case2'             # Choose swarmType:                [case1, case2, or case3]
+playbackEnvironment = 'familiar' # Choose environment for playback: [foreign or familiar].  Under current codebase, case2 and case3 familiarFits.txt outputted during evolution implicitly results in fitness values from their deployment. This does not hold for case1 due to controller assignment requiring manipulation through max{f1,f2,...,fb}.
 numberOfSwarms = 3             # 55 
 botsPerSwarm = 10               # 10
 continueEvolution = False       # if continueEvolution = True, add more generations to current data (assuming same number of parents). This will evolve new bots, this will just evolve current bots further.

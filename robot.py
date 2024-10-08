@@ -82,10 +82,8 @@ class ROBOT:
         xCoordinateOfBase = positionOfBase[0]
         if c.playbackEnvironment == 'foreign':
             playbackFile = 'foreignFits.txt'
-        elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case2' or c.swarmType=='case3'):
-            playbackFile = 'familiarFits.txt' 
-        elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case1'):
-            playbackFile = 'familiarFits_full.txt'
+        elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case1' or c.swarmType == 'case2' or c.swarmType=='case3'):
+            playbackFile = 'familiarFits_playback.txt' 
         with open(playbackFile, "a") as f:
             f.write(str(xCoordinateOfBase))
             f.write("\n")

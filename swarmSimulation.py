@@ -35,18 +35,23 @@ class SWARM_SIMULATION:
 
         # Logic for case1: select the best brain for the entire swarm ###############                                     # THIS IS WHAT NEEDS TO BE EDITED (I THINK)
         if c.swarmType == 'case1':
-            # Read the number of populated lines in foreignFits.txt
-            foreignFitsPath = "foreignFits.txt"
-            if os.path.exists(foreignFitsPath):
-                with open(foreignFitsPath, "r") as f:
-                    foreignFits = [line.strip() for line in f if line.strip()]  # Remove empty lines
+            # Read the number of populated lines in foreignFits.txt or familiarFits_playback.txt
+            if c.playbackEnvironment == 'foreign':
+                playbackFitsPath = "foreignFits.txt"
+            elif c.playbackEnvironment == 'familiar':
+                 playbackFitsPath = "familiarFits_playback.txt"
+            if os.path.exists(playbackFitsPath):
+                with open(playbackFitsPath, "r") as f:
+                    playbackFits = [line.strip() for line in f if line.strip()]  # Remove empty lines
             else:
-                foreignFits = []
+                playbackFits = []
 
-            num_populated_lines_in_foreign = len(foreignFits)
+            num_populated_lines_in_foreign = len(playbackFits)
 
             # Determine the range in familiarFits.txt to observe
-            if num_populated_lines_in_foreign == 0 or not os.path.exists("foreignFits.txt"):
+            if num_populated_lines_in_foreign == 0 or (not os.path.exists("foreignFits.txt") and c.playbackEnvironment == 'foreign'):
+                range_start = 0
+            if num_populated_lines_in_foreign == 0 or (not os.path.exists("familiarFits_playback.txt") and c.playbackEnvironment == 'familiar'):
                 range_start = 0
             else:
                 range_start = num_populated_lines_in_foreign
