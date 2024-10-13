@@ -14,9 +14,9 @@ class SENSOR:
         # if self.linkName == 'Box':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
         # if self.linkName == 'RightLowerLeg':  
-        #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
+        #     print(f'{robot}_{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
 
         return self.values
 
-    def Save_Values(self):
-        np.save("data/"+str(self.linkName)+"Sensor", self.values)
+    def Save_Values(self, robot):
+        np.save(f"data/"+str(robot) + str(self.linkName)+"Sensor", self.values)

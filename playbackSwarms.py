@@ -122,6 +122,7 @@ elif c.swarmType == 'case2':
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
 
         bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
+        print(f'Here is the bodyFile: {bodyFile}')
 
         # Decide which environment to use
         if c.playbackEnvironment == 'foreign':

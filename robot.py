@@ -36,12 +36,18 @@ class ROBOT:
         print(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")
 
     def Prepare_To_Sense(self):
+        print('\n')
+        print('----')
+        print(pyrosim.linkNamesToIndices)
+        print('\n')
+        print('----')
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
             # print('linkName = ', linkName)
             
     def Sense(self,t):
         for linkName in self.sensors:
+            # print(f'try to sense {linkName}')
             self.sensors[linkName].Get_Value(t)
 
     def Prepare_To_Act(self):

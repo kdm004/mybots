@@ -96,16 +96,22 @@ class SWARM_SIMULATION:
         for i in range(c.loopLength):
             p.stepSimulation()
 
-            for robot in self.robots:
-                robot.Sense(i)
-                robot.Think()
-                robot.Act(i)
 
-                # Record positions of each robot
-                robot.Record_XY(self.swarmNumber, self.botNumber, self.overallBot)
+            self.robots[0].Sense(i)
+            self.robots[0].Think()
+            self.robots[0].Act(i)
 
-                if self.directOrGUI == "GUI":
-                    time.sleep(1/5000)     # c.sleepRate
+            # Record positions of each robot
+            self.robots[0].Record_XY(self.swarmNumber, self.botNumber, self.overallBot)
+
+            if self.directOrGUI == "GUI":
+                time.sleep(1/50)     # c.sleepRate
+
+            if i == (c.loopLength-1):
+                print('saving sensor values')
+                robot.Save_Values(robot)
+            
+                
 
     def Get_Fitness(self):
         for robot in self.robots:

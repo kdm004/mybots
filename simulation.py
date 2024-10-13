@@ -40,7 +40,7 @@ class SIMULATION:
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.sleepRate)
-        self.robot.Save_Values()
+        # self.robot.Save_Values(self.robot)
 
     def Get_Fitness(self):
         self.robot.Get_Evolution_Fitness()

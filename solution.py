@@ -48,31 +48,32 @@ class SOLUTION:
             pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # Differentiate body files for case3. Differentiate files by their evolution traits ie swarmNumber, botNumber, myID
 
         # Root link
-        pyrosim.Send_Cube(name=f"Torso", pos=[xi, yi, zi], size=[1,1,1])
+        pyrosim.Send_Cube(name=f"Torso{self.botNumber}", pos=[xi, yi, zi], size=[1,1,1])
+        print(f"Torso{self.botNumber}")
 
         # Upper joints (from root link)
-        pyrosim.Send_Joint(name=f"Torso_FrontLeg", parent=f"Torso", child=f"FrontLeg", type="revolute", position=[xi, yi+0.5,zi], jointAxis="1 0 1")
-        pyrosim.Send_Joint(name=f"Torso_BackLeg", parent=f"Torso", child=f"BackLeg", type="revolute", position=[xi, yi-0.5,zi], jointAxis="1 0 1")
-        pyrosim.Send_Joint(name=f"Torso_LeftLeg", parent=f"Torso", child=f"LeftLeg", type="revolute", position=[xi-0.5, yi, zi], jointAxis="0 1 1")
-        pyrosim.Send_Joint(name=f"Torso_RightLeg", parent=f"Torso", child=f"RightLeg", type="revolute", position=[xi+0.5, yi, zi], jointAxis="0 1 1")
+        pyrosim.Send_Joint(name=f"Torso_FrontLeg{self.botNumber}", parent=f"Torso{self.botNumber}", child=f"FrontLeg{self.botNumber}", type="revolute", position=[xi, yi+0.5,zi], jointAxis="1 0 1")
+        pyrosim.Send_Joint(name=f"Torso_BackLeg{self.botNumber}", parent=f"Torso{self.botNumber}", child=f"BackLeg{self.botNumber}", type="revolute", position=[xi, yi-0.5,zi], jointAxis="1 0 1")
+        pyrosim.Send_Joint(name=f"Torso_LeftLeg{self.botNumber}", parent=f"Torso{self.botNumber}", child=f"LeftLeg{self.botNumber}", type="revolute", position=[xi-0.5, yi, zi], jointAxis="0 1 1")
+        pyrosim.Send_Joint(name=f"Torso_RightLeg{self.botNumber}", parent=f"Torso{self.botNumber}", child=f"RightLeg{self.botNumber}", type="revolute", position=[xi+0.5, yi, zi], jointAxis="0 1 1")
 
         # LowerLeg joints
-        pyrosim.Send_Joint(name=f"FrontLeg_FrontLowerLeg", parent=f"FrontLeg", child=f"FrontLowerLeg", type="revolute", position=[0,self.weights[-1][0],0], jointAxis="1 0 1")
-        pyrosim.Send_Joint(name=f"BackLeg_BackLowerLeg", parent=f"BackLeg", child=f"BackLowerLeg", type="revolute", position=[0,-self.weights[-1][1],0], jointAxis="1 0 1")
-        pyrosim.Send_Joint(name=f"LeftLeg_LeftLowerLeg", parent=f"LeftLeg", child=f"LeftLowerLeg", type="revolute", position=[-self.weights[-1][2],0,0], jointAxis="0 1 1")
-        pyrosim.Send_Joint(name=f"RightLeg_RightLowerLeg", parent=f"RightLeg", child=f"RightLowerLeg", type="revolute", position=[self.weights[-1][3],0,0], jointAxis="0 1 1")
+        pyrosim.Send_Joint(name=f"FrontLeg{self.botNumber}_FrontLowerLeg{self.botNumber}", parent=f"FrontLeg{self.botNumber}", child=f"FrontLowerLeg{self.botNumber}", type="revolute", position=[0,self.weights[-1][0],0], jointAxis="1 0 1")
+        pyrosim.Send_Joint(name=f"BackLeg{self.botNumber}_BackLowerLeg{self.botNumber}", parent=f"BackLeg{self.botNumber}", child=f"BackLowerLeg{self.botNumber}", type="revolute", position=[0,-self.weights[-1][1],0], jointAxis="1 0 1")
+        pyrosim.Send_Joint(name=f"LeftLeg{self.botNumber}_LeftLowerLeg{self.botNumber}", parent=f"LeftLeg{self.botNumber}", child=f"LeftLowerLeg{self.botNumber}", type="revolute", position=[-self.weights[-1][2],0,0], jointAxis="0 1 1")
+        pyrosim.Send_Joint(name=f"RightLeg{self.botNumber}_RightLowerLeg{self.botNumber}", parent=f"RightLeg{self.botNumber}", child=f"RightLowerLeg{self.botNumber}", type="revolute", position=[self.weights[-1][3],0,0], jointAxis="0 1 1")
 
         # Upper legs
-        pyrosim.Send_Cube(name=f"FrontLeg", pos=[0, 0.5*self.weights[-1][0], 0], size=[0.2, self.weights[-1][0], 0.2])
-        pyrosim.Send_Cube(name=f"BackLeg", pos=[0, -0.5*self.weights[-1][1], 0], size=[0.2, self.weights[-1][1], 0.2])
-        pyrosim.Send_Cube(name=f"LeftLeg", pos=[-0.5*self.weights[-1][2],0, 0], size=[self.weights[-1][2], 0.2, 0.2])
-        pyrosim.Send_Cube(name=f"RightLeg", pos=[0.5*self.weights[-1][3], 0, 0], size=[self.weights[-1][3], 0.2, 0.2])
+        pyrosim.Send_Cube(name=f"FrontLeg{self.botNumber}", pos=[0, 0.5*self.weights[-1][0], 0], size=[0.2, self.weights[-1][0], 0.2])
+        pyrosim.Send_Cube(name=f"BackLeg{self.botNumber}", pos=[0, -0.5*self.weights[-1][1], 0], size=[0.2, self.weights[-1][1], 0.2])
+        pyrosim.Send_Cube(name=f"LeftLeg{self.botNumber}", pos=[-0.5*self.weights[-1][2],0, 0], size=[self.weights[-1][2], 0.2, 0.2])
+        pyrosim.Send_Cube(name=f"RightLeg{self.botNumber}", pos=[0.5*self.weights[-1][3], 0, 0], size=[self.weights[-1][3], 0.2, 0.2])
 
         # LowerLeg legs
-        pyrosim.Send_Cube(name=f"FrontLowerLeg", pos=[0, 0, -0.5*self.weights[-1][4]], size=[0.2, 0.2, self.weights[-1][4]])
-        pyrosim.Send_Cube(name=f"BackLowerLeg", pos=[0, 0, -0.5*self.weights[-1][5]], size=[0.2, 0.2, self.weights[-1][5]])
-        pyrosim.Send_Cube(name=f"LeftLowerLeg", pos=[0, 0, -0.5*self.weights[-1][6]], size=[0.2, 0.2, self.weights[-1][6]])
-        pyrosim.Send_Cube(name=f"RightLowerLeg", pos=[0, 0, -0.5*self.weights[-1][7]], size=[0.2, 0.2, self.weights[-1][7]])
+        pyrosim.Send_Cube(name=f"FrontLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][4]], size=[0.2, 0.2, self.weights[-1][4]])
+        pyrosim.Send_Cube(name=f"BackLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][5]], size=[0.2, 0.2, self.weights[-1][5]])
+        pyrosim.Send_Cube(name=f"LeftLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][6]], size=[0.2, 0.2, self.weights[-1][6]])
+        pyrosim.Send_Cube(name=f"RightLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][7]], size=[0.2, 0.2, self.weights[-1][7]])
 
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf
@@ -83,22 +84,22 @@ class SOLUTION:
         # Note: Do not add neuron for Torso. Root links have the same index as SDF links. Pyrosim processes sensory based on link index, so links of same index will have their touchValues will be conflated. 
 
         # Sensor neurons (only lower legs)
-        pyrosim.Send_Sensor_Neuron(name=0, linkName=f"FrontLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name=1, linkName=f"BackLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name=2, linkName=f"LeftLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name=3, linkName=f"RightLowerLeg")
+        pyrosim.Send_Sensor_Neuron(name=0, linkName=f"FrontLowerLeg{self.botNumber}")
+        pyrosim.Send_Sensor_Neuron(name=1, linkName=f"BackLowerLeg{self.botNumber}")
+        pyrosim.Send_Sensor_Neuron(name=2, linkName=f"LeftLowerLeg{self.botNumber}")
+        pyrosim.Send_Sensor_Neuron(name=3, linkName=f"RightLowerLeg{self.botNumber}")
 
         # Upper motor neurons
-        pyrosim.Send_Motor_Neuron(name=4, jointName=f"Torso_FrontLeg")
-        pyrosim.Send_Motor_Neuron(name=5, jointName=f"Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron(name=6, jointName=f"Torso_LeftLeg")
-        pyrosim.Send_Motor_Neuron(name=7, jointName=f"Torso_RightLeg")
+        pyrosim.Send_Motor_Neuron(name=4, jointName=f"Torso_FrontLeg{self.botNumber}")
+        pyrosim.Send_Motor_Neuron(name=5, jointName=f"Torso_BackLeg{self.botNumber}")
+        pyrosim.Send_Motor_Neuron(name=6, jointName=f"Torso_LeftLeg{self.botNumber}")
+        pyrosim.Send_Motor_Neuron(name=7, jointName=f"Torso_RightLeg{self.botNumber}")
 
         # Lower motor neurons
-        pyrosim.Send_Motor_Neuron(name=8, jointName=f"FrontLeg_FrontLowerLeg")
-        pyrosim.Send_Motor_Neuron(name=9, jointName=f"BackLeg_BackLowerLeg")
-        pyrosim.Send_Motor_Neuron(name=10, jointName=f"LeftLeg_LeftLowerLeg")
-        pyrosim.Send_Motor_Neuron(name=11, jointName=f"RightLeg_RightLowerLeg")
+        pyrosim.Send_Motor_Neuron(name=8, jointName=f"FrontLeg{self.botNumber}_FrontLowerLeg{self.botNumber}")
+        pyrosim.Send_Motor_Neuron(name=9, jointName=f"BackLeg{self.botNumber}_BackLowerLeg{self.botNumber}")
+        pyrosim.Send_Motor_Neuron(name=10, jointName=f"LeftLeg{self.botNumber}_LeftLowerLeg{self.botNumber}")
+        pyrosim.Send_Motor_Neuron(name=11, jointName=f"RightLeg{self.botNumber}_RightLowerLeg{self.botNumber}")
 
         for currentRow in range(c.numSensorNeurons):
             for currentColumn in range(c.numMotorNeurons):
