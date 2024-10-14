@@ -4,12 +4,13 @@ import pyrosim.pyrosim as pyrosim
 
 
 class SENSOR:
-    def __init__(self,linkName):
+    def __init__(self,linkName, linkNamesToIndices):
         self.values = np.zeros(c.loopLength) 
         self.linkName = linkName
+        self.linkNamesToIndices = linkNamesToIndices
 
     def Get_Value(self,t):
-        self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName) 
+        self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName, self.linkNamesToIndices) 
 
         # if self.linkName == 'Box':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')

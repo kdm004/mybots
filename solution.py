@@ -24,6 +24,11 @@ class SOLUTION:
             self.legLengths = np.random.uniform(*c.legLengthRange, c.numMotorNeurons)
         self.weights = np.vstack([self.weights, self.legLengths])
 
+        # Initialize dictionaries for each robot
+        self.linkNamesToIndices = {}
+        self.jointNamesToIndices = {}
+        self.availableLinkIndex = -1
+        self.links = []
 
         # Load weights from disk if continuing evolution 
         if c.continueEvolution == True: 
@@ -48,7 +53,7 @@ class SOLUTION:
             pyrosim.Start_URDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.myID}.urdf")   # Differentiate body files for case3. Differentiate files by their evolution traits ie swarmNumber, botNumber, myID
 
         # Root link
-        pyrosim.Send_Cube(name=f"Torso{self.botNumber}", pos=[xi, yi, zi], size=[1,1,1])
+        pyrosim.Send_Cube(name=f"Torso{self.botNumber}", pos=[xi, yi, zi], size=[1,1,1], linkNamesToIndices=self.linkNamesToIndices)
         print(f"Torso{self.botNumber}")
 
         # Upper joints (from root link)
@@ -64,16 +69,16 @@ class SOLUTION:
         pyrosim.Send_Joint(name=f"RightLeg{self.botNumber}_RightLowerLeg{self.botNumber}", parent=f"RightLeg{self.botNumber}", child=f"RightLowerLeg{self.botNumber}", type="revolute", position=[self.weights[-1][3],0,0], jointAxis="0 1 1")
 
         # Upper legs
-        pyrosim.Send_Cube(name=f"FrontLeg{self.botNumber}", pos=[0, 0.5*self.weights[-1][0], 0], size=[0.2, self.weights[-1][0], 0.2])
-        pyrosim.Send_Cube(name=f"BackLeg{self.botNumber}", pos=[0, -0.5*self.weights[-1][1], 0], size=[0.2, self.weights[-1][1], 0.2])
-        pyrosim.Send_Cube(name=f"LeftLeg{self.botNumber}", pos=[-0.5*self.weights[-1][2],0, 0], size=[self.weights[-1][2], 0.2, 0.2])
-        pyrosim.Send_Cube(name=f"RightLeg{self.botNumber}", pos=[0.5*self.weights[-1][3], 0, 0], size=[self.weights[-1][3], 0.2, 0.2])
+        pyrosim.Send_Cube(name=f"FrontLeg{self.botNumber}", pos=[0, 0.5*self.weights[-1][0], 0], size=[0.2, self.weights[-1][0], 0.2], linkNamesToIndices=self.linkNamesToIndices)
+        pyrosim.Send_Cube(name=f"BackLeg{self.botNumber}", pos=[0, -0.5*self.weights[-1][1], 0], size=[0.2, self.weights[-1][1], 0.2], linkNamesToIndices=self.linkNamesToIndices)
+        pyrosim.Send_Cube(name=f"LeftLeg{self.botNumber}", pos=[-0.5*self.weights[-1][2],0, 0], size=[self.weights[-1][2], 0.2, 0.2], linkNamesToIndices=self.linkNamesToIndices)
+        pyrosim.Send_Cube(name=f"RightLeg{self.botNumber}", pos=[0.5*self.weights[-1][3], 0, 0], size=[self.weights[-1][3], 0.2, 0.2], linkNamesToIndices=self.linkNamesToIndices)
 
         # LowerLeg legs
-        pyrosim.Send_Cube(name=f"FrontLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][4]], size=[0.2, 0.2, self.weights[-1][4]])
-        pyrosim.Send_Cube(name=f"BackLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][5]], size=[0.2, 0.2, self.weights[-1][5]])
-        pyrosim.Send_Cube(name=f"LeftLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][6]], size=[0.2, 0.2, self.weights[-1][6]])
-        pyrosim.Send_Cube(name=f"RightLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][7]], size=[0.2, 0.2, self.weights[-1][7]])
+        pyrosim.Send_Cube(name=f"FrontLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][4]], size=[0.2, 0.2, self.weights[-1][4]], linkNamesToIndices=self.linkNamesToIndices)
+        pyrosim.Send_Cube(name=f"BackLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][5]], size=[0.2, 0.2, self.weights[-1][5]], linkNamesToIndices=self.linkNamesToIndices)
+        pyrosim.Send_Cube(name=f"LeftLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][6]], size=[0.2, 0.2, self.weights[-1][6]], linkNamesToIndices=self.linkNamesToIndices)
+        pyrosim.Send_Cube(name=f"RightLowerLeg{self.botNumber}", pos=[0, 0, -0.5*self.weights[-1][7]], size=[0.2, 0.2, self.weights[-1][7]], linkNamesToIndices=self.linkNamesToIndices)
 
         pyrosim.End()
         #exit() # uncommenting this allows you to see effects of code on body.urdf

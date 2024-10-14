@@ -26,23 +26,23 @@ class ROBOT:
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # Give body unique ID depending on its position
 
 
-        pyrosim.Prepare_To_Simulate(self.robot)
+        self.linkNamesToIndices, self.jointNamesToIndices = pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
         self.motors = {}
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")        
+        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf", self.linkNamesToIndices)        
         print(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")
 
     def Prepare_To_Sense(self):
         print('\n')
         print('----')
-        print(pyrosim.linkNamesToIndices)
+        print(self.linkNamesToIndices)
         print('\n')
         print('----')
-        for linkName in pyrosim.linkNamesToIndices:
-            self.sensors[linkName] = SENSOR(linkName)
+        for linkName in self.linkNamesToIndices:
+            self.sensors[linkName] = SENSOR(linkName, self.linkNamesToIndices)
             # print('linkName = ', linkName)
             
     def Sense(self,t):
@@ -51,8 +51,8 @@ class ROBOT:
             self.sensors[linkName].Get_Value(t)
 
     def Prepare_To_Act(self):
-        for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName] = MOTOR(jointName)
+        for jointName in self.jointNamesToIndices:
+            self.motors[jointName] = MOTOR(jointName, self.jointNamesToIndices)
             # print('jointName = ', jointName)
     
     def Act(self,t): 
@@ -60,7 +60,7 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) *  c.motorJointRange 
-                self.motors[jointName].Set_Value(self.robot, desiredAngle, t) 
+                self.motors[jointName].Set_Value(self.robot, desiredAngle, t, self.jointNamesToIndices) 
 
     def Save_Values(self):
         for key in self.motors:
