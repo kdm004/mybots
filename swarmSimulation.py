@@ -109,7 +109,7 @@ class SWARM_SIMULATION:
 
             if i == (c.loopLength-1):
                 print('saving sensor values')
-                robot.Save_Values(robot)
+                robot.Save_Values()
             
                 
 

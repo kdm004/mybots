@@ -8,7 +8,7 @@ import pyrosim.constants as c
 
 class NEURON: 
 
-    def __init__(self,line, linkNamesToIndices = None):
+    def __init__(self,line, linkNamesToIndices):
 
         self.Determine_Name(line)
 

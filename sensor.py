@@ -11,13 +11,20 @@ class SENSOR:
 
     def Get_Value(self,t):
         self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName, self.linkNamesToIndices) 
+        if t == 10:
+            print(self.values[t])
 
         # if self.linkName == 'Box':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
-        if self.linkName == 'RightLowerLeg0' or self.linkName == 'RightLowerLeg1':  
-            print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName, self.linkNamesToIndices)}')
+
+        # if self.linkName == 'RightLowerLeg0':  
+        #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName, self.linkNamesToIndices)}')
+        #     # print(f'Look here: {self.linkNamesToIndices}')
+        # if self.linkName == 'RightLowerLeg1':  
+        #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName, self.linkNamesToIndices)}')
+        #     # print(f'Look here: {self.linkNamesToIndices}')
 
         return self.values
 
     def Save_Values(self, robot):
-        np.save(f"data/"+str(robot) + str(self.linkName)+"Sensor", self.values)
+        np.save(f"data/" + str(self.linkName)+"Sensor", self.values)
