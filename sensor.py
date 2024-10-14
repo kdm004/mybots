@@ -14,8 +14,8 @@ class SENSOR:
 
         # if self.linkName == 'Box':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
-        # if self.linkName == 'RightLowerLeg':  
-        #     print(f'{robot}_{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
+        if self.linkName == 'RightLowerLeg0' or self.linkName == 'RightLowerLeg1':  
+            print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName, self.linkNamesToIndices)}')
 
         return self.values
 
