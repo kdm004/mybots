@@ -32,7 +32,7 @@ class ROBOT:
         self.values = {}  
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")        
+        self.nn = NEURAL_NETWORK(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf", self.botNumber)        
         print(f"brains/brain_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.nndf")
 
     def Prepare_To_Sense(self):
@@ -42,7 +42,7 @@ class ROBOT:
         print('\n')
         print('----')
         for linkName in pyrosim.linkNamesToIndices:
-            self.sensors[linkName] = SENSOR(linkName)
+            self.sensors[linkName] = SENSOR(self.botNumber, linkName)
             # print('linkName = ', linkName)
             
     def Sense(self,t):
