@@ -107,9 +107,9 @@ class SWARM_SIMULATION:
             if self.directOrGUI == "GUI":
                 time.sleep(1/50)     # c.sleepRate
 
-            if i == (c.loopLength-1):
-                print('saving sensor values')
-                robot.Save_Values()
+            # if i == (c.loopLength-1):
+            #     print('saving sensor values')
+            #     robot.Save_Values()
             
                 
 
