@@ -25,9 +25,9 @@ def End():
 def End_Model():
     model.Save_End_Tag(f)
 
-def Get_Touch_Sensor_Value_For_Link(linkName, linkNamesToIndices):
+def Get_Touch_Sensor_Value_For_Link(bodyID, linkName, linkNamesToIndices):
     desiredLinkIndex = linkNamesToIndices[linkName]
-    pts = p.getContactPoints()
+    pts = p.getContactPoints(bodyID)
     if any(pt[3] == desiredLinkIndex or pt[4] == desiredLinkIndex for pt in pts):
         return 1.0
     return -1.0
@@ -42,6 +42,7 @@ def Prepare_Link_Dictionary(bodyID):
         if jointIndex == 0:
             rootLinkName = jointName[0]
             linkNamesToIndices[rootLinkName] = -1
+    print(f"BodyID={bodyID}. LinkNamesToIndices={linkNamesToIndices}")
     return linkNamesToIndices  # Return the dictionary
 
 def Prepare_Joint_Dictionary(bodyID):

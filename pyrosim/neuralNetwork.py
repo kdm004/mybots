@@ -4,11 +4,13 @@ from pyrosim.synapse import SYNAPSE
 
 class NEURAL_NETWORK: 
 
-    def __init__(self,nndfFileName, linkNamesToIndices):
+    def __init__(self,nndfFileName, bodyID, linkNamesToIndices):
 
         self.neurons = {}
 
         self.synapses = {}
+
+        self.bodyID = bodyID
 
         self.linkNamesToIndices = linkNamesToIndices
 
@@ -55,7 +57,7 @@ class NEURAL_NETWORK:
 
     def Add_Neuron_According_To(self,line):
 
-        neuron = NEURON(line, self.linkNamesToIndices)
+        neuron = NEURON(line, self.bodyID, self.linkNamesToIndices)
 
         self.neurons[ neuron.Get_Name() ] = neuron # neurons step 32
 
