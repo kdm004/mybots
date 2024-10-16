@@ -27,7 +27,7 @@ def End_Model():
 
 def Get_Touch_Sensor_Value_For_Link(bodyID, linkName, linkNamesToIndices):
     desiredLinkIndex = linkNamesToIndices[linkName]
-    pts = p.getContactPoints(bodyID)
+    pts = p.getContactPoints(bodyID+1)                    # For some reason, front bot overwrites rear bot, but rear bot doesnt overwrite front bot. Apparently +1 here fixes this.
     if any(pt[3] == desiredLinkIndex or pt[4] == desiredLinkIndex for pt in pts):
         return 1.0
     return -1.0

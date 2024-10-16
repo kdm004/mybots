@@ -29,7 +29,7 @@ botsPerSwarm = 2               # 10
 continueEvolution = False       # if continueEvolution = True, add more generations to current data (assuming same number of parents). This will evolve new bots, this will just evolve current bots further.
 stopStart = False               # if stopStart = True, you can continue collecting more data by evolving more controllers. This will pickup evolution or playback data collection where you left off. This will not evolve current bots further.
 
-botPosition = [(0,-2), (0,2), (0,6), (0,10), (0,14), (0,18)]
+botPosition = [(0,-2),(0,18)]
 
 
 playbackView = 'GUI'         # DIRECT or GUI. DIRECT collects data, while GUI collects data AND shows you the simulation on-screen (affects data collection speed).     
