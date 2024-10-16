@@ -44,7 +44,7 @@ def End_Model():
 
 def Get_Touch_Sensor_Value_For_Link(bodyID, linkName):
     desiredLinkIndex = linkNamesToIndices[linkName]
-    pts = p.getContactPoints(bodyID)
+    pts = p.getContactPoints(bodyID+1)
     if any(pt[3] == desiredLinkIndex or pt[4] == desiredLinkIndex for pt in pts):
         return 1.0 
     return -1.0 
