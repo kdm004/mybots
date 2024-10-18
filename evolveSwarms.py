@@ -1,12 +1,25 @@
+import pyrosim.pyrosim as pyrosim
 import os
 import sys
 import constants as c
+import argparse
+
+
+###################################################################################################################
+parser = argparse.ArgumentParser()
+parser.add_argument('--mode', type=str, default='evolve', help='Mode of operation: evolve or playback')
+args = parser.parse_args()
+
+pyrosim.set_mode(args.mode)
+
+###################################################################################################################
+
+
 
 
 overallBot = 0                                    
 currentSwarmNum = 0
 currentBotNum = 0
-
 
 if c.continueEvolution == False and c.stopStart == False:
    pass

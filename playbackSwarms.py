@@ -4,6 +4,20 @@ from swarmSimulation import SWARM_SIMULATION
 import random
 import numpy as np
 import pyrosim.pyrosim as pyrosim  # Ensure pyrosim is imported for cube generation
+import argparse
+
+
+###################################################################################################################
+parser = argparse.ArgumentParser()
+parser.add_argument('--mode', type=str, default='playback', help='Mode of operation: evolve or playback')
+args = parser.parse_args()
+
+pyrosim.set_mode(args.mode)
+###################################################################################################################
+
+
+
+
 
 cubeLength = 0.2
 cubeWidth = 0.2
@@ -52,16 +66,16 @@ def Create_Foreign_Environment(bodyFiles):
 
     # Generate random positions for obstacles
     x_range = (10, -14) # (10, -14)
-    y_range = (-2, 2) # (-8, 8)
-    cube_size = 0.5
+    y_range = (-26, 26) # (-8, 8) --> (-26, 26)
+    cube_size = 0.2
     leg_size = 0.2
     min_separation = 0.5 # 0.5
-    total_cubes = 90 # 117
+    
 
     effective_separation = (cube_size/2) + (leg_size/2) + min_separation
     positions = []
     # Keep trying random cube positions until we get <total_cube> number of cubes
-    while len(positions) < total_cubes:
+    while len(positions) < c.total_cubes:
         x = random.uniform(min(x_range), max(x_range))
         y = random.uniform(min(y_range), max(y_range))
         new_pos = (x, y, cube_size / 2)

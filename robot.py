@@ -24,8 +24,8 @@ class ROBOT:
                 self.robot = p.loadURDF(f"bodies/body_{self.botNumber}.urdf") 
         elif c.swarmType == 'case3':
             self.robot = p.loadURDF(f"bodies/body_{self.swarmNumber}_{self.botNumber}_{self.solutionID}.urdf")       # Give body unique ID depending on its position
-
-
+        
+        print(f"unique robot ID is {self.robot}")
         pyrosim.Prepare_To_Simulate(self.robot)
         self.sensors = {}
         self.motors = {}
