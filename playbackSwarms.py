@@ -25,13 +25,15 @@ def Create_Familiar_Environment():
      pyrosim.Start_SDF("world.sdf")
      pyrosim.End()
 
-def Create_Foreign_Environment(bodyFile):
-        leg_positions_of_all_bots = []
-            # Read the body file contents
+def Create_Foreign_Environment(bodyFiles):
+    leg_positions_of_all_bots = []
+    
+    # Iterate over each robot body file in the list
+    for bodyFile in bodyFiles:
         with open(bodyFile, "r") as body_file:
-                bodyLines = body_file.readlines()
+            bodyLines = body_file.readlines()
 
-        # Determine leg positions
+        # Extract leg positions from each file
         lowerLegXY = []
         for i, line in enumerate(bodyLines):
             if '<joint name=' and "LowerLeg" in line:
@@ -41,36 +43,40 @@ def Create_Foreign_Environment(bodyFile):
                         coordsStr = lowerLegLine.split('xyz="')[1].split('"')[0]
                         coords = [float(coord) for coord in coordsStr.split()]
                         lowerLegXY.append(coords[:2])  # Extract XY coordinates only
-        leg_positions_of_all_bots.extend(lowerLegXY)   # Collect leg positions from all bots
+        leg_positions_of_all_bots.extend(lowerLegXY)  # Collect leg positions from all robots
 
-        # Set random seed so that every robot gets a unique set of obstacles
-        seed_value = swarmNumber
-        random.seed(seed_value)
-        np.random.seed(seed_value)
+    # Set random seed so that every robot gets a unique set of obstacles
+    seed_value = swarmNumber
+    random.seed(seed_value)
+    np.random.seed(seed_value)
 
-        # Generate random positions for obstacles
-        x_range = (10, -14)
-        y_range = (-8, 8)
-        cube_size = 0.2
-        min_separation = 0.5
-        total_cubes = 117
+    # Generate random positions for obstacles
+    x_range = (10, -14) # (10, -14)
+    y_range = (-2, 2) # (-8, 8)
+    cube_size = 0.5
+    leg_size = 0.2
+    min_separation = 0.5 # 0.5
+    total_cubes = 90 # 117
 
-        effective_separation = cube_size + min_separation
-        positions = []
-        while len(positions) < total_cubes:
-            x = random.uniform(min(x_range), max(x_range))
-            y = random.uniform(min(y_range), max(y_range))
-            new_pos = (x, y, cube_size / 2)
-            if is_valid_position(new_pos, positions, leg_positions_of_all_bots, effective_separation):
-                positions.append(new_pos)
+    effective_separation = (cube_size/2) + (leg_size/2) + min_separation
+    positions = []
+    # Keep trying random cube positions until we get <total_cube> number of cubes
+    while len(positions) < total_cubes:
+        x = random.uniform(min(x_range), max(x_range))
+        y = random.uniform(min(y_range), max(y_range))
+        new_pos = (x, y, cube_size / 2)
+        
+        # Check if the new cube position is valid (no overlap with other cubes or robot legs)
+        if is_valid_position(new_pos, positions, leg_positions_of_all_bots, effective_separation):
+            positions.append(new_pos)
 
-        # Generate cubes in the environment, avoiding leg positions
-        pyrosim.Start_SDF("world.sdf")
-        for i, pos in enumerate(positions):
-            x, y, z = pos
-            pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
-            pass
-        pyrosim.End()
+    # Generate cubes in the environment, avoiding leg positions
+    pyrosim.Start_SDF("world.sdf")
+    for i, pos in enumerate(positions):
+        x, y, z = pos
+        pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
+    pyrosim.End()
+
 
 # Determine the correct fitness file based on the environment and swarm type
 if c.playbackEnvironment == 'foreign':
@@ -89,22 +95,23 @@ if os.path.exists(filePath):
 
 #########################################################################################################
 if c.swarmType == 'case1':
-    overallBot = 0
-    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
 
-        # Define swarmNumber and botNumber for case1
+    # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
+    bodyFiles = []
+    for overallBot in range(c.numberOfSwarms * c.botsPerSwarm):
         swarmNumber = overallBot // c.botsPerSwarm**2
         botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
-        print(f"\nReplaying swarm {swarmNumber}, bot {botNumber}, overall bot {overallBot}\n")  # this doesn't really do what we want for case 2 or 3. Only can be used for case1 because we use the same botNumber for multiple robots. 
-        
         bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
-
-        # Decide which environment to use
-        if c.playbackEnvironment == 'foreign':
-            Create_Foreign_Environment(bodyFile)
-        elif c.playbackEnvironment == 'familiar':
+        bodyFiles.append(bodyFile)
+        if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
+            Create_Foreign_Environment(bodyFiles)
+        elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
             Create_Familiar_Environment()
-
+    
+    overallBot = 0
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+        swarmNumber = overallBot // c.botsPerSwarm**2               # This could be a problem. Idk why swarmNumber is in the loop here while for case2 and case3 it's outside the loop.
+        botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
         # Initialize and run the swarm simulation
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
@@ -115,47 +122,54 @@ if c.swarmType == 'case1':
         currentBotNum = 0
         overallBot += 1
 
+#########################################################################################################
 elif c.swarmType == 'case2':
+    # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
+    bodyFiles = []
+    for overallBot in range(c.numberOfSwarms * c.botsPerSwarm):
+        swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
+        botNumber = overallBot % c.botsPerSwarm
+        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
+        bodyFiles.append(bodyFile)
+        if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
+            Create_Foreign_Environment(bodyFiles)
+        elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
+            Create_Familiar_Environment()
+
     overallBot = 0
     swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
     botNumber = overallBot % c.botsPerSwarm
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
-
-        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
-        print(f'Here is the bodyFile: {bodyFile}')
-
-        # Decide which environment to use
-        if c.playbackEnvironment == 'foreign':
-            Create_Foreign_Environment(bodyFile)
-        elif c.playbackEnvironment == 'familiar':
-            Create_Familiar_Environment()
-
-        print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
         overallBot += 1
 
+#########################################################################################################
 elif c.swarmType == 'case3':
-    overallBot = 0
-    swarmNumber = overallBot // c.botsPerSwarm
-    botNumber = overallBot % c.botsPerSwarm
-    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+    # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
+    bodyFiles = []
+    for overallBot in range(c.numberOfSwarms * c.botsPerSwarm):
+        swarmNumber = overallBot // c.botsPerSwarm
+        botNumber = overallBot % c.botsPerSwarm
 
-        # Collect leg positions for all bots in the swarm
+        # Get the correct evolved body file (case3 only)
         with open("bestBrains.txt", "r") as file:
             lines = file.readlines()
         botID = int(lines[overallBot].strip())
-        
-        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"       
+        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"  
+        bodyFiles.append(bodyFile)
 
-        # Decide which environment to use
-        if c.playbackEnvironment == 'foreign':
-            Create_Foreign_Environment(bodyFile)
-        elif c.playbackEnvironment == 'familiar':
+        if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
+            Create_Foreign_Environment(bodyFiles)
+        elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
             Create_Familiar_Environment()
-        
+
+    overallBot = 0
+    swarmNumber = overallBot // c.botsPerSwarm
+    botNumber = overallBot % c.botsPerSwarm
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):        
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()

@@ -23,7 +23,7 @@ populationSize = 1              # 1 for random. 10 for evolved.
 
 # Collection parameters
 swarmType = 'case2'             # Choose swarmType:                [case1, case2, or case3]
-playbackEnvironment = 'familiar' # Choose environment for playback: [foreign or familiar].  Under current codebase, case2 and case3 familiarFits.txt outputted during evolution implicitly results in fitness values from their deployment. This does not hold for case1 due to controller assignment requiring manipulation through max{f1,f2,...,fb}.
+playbackEnvironment = 'foreign' # Choose environment for playback: [foreign or familiar].  Under current codebase, case2 and case3 familiarFits.txt outputted during evolution implicitly results in fitness values from their deployment. This does not hold for case1 due to controller assignment requiring manipulation through max{f1,f2,...,fb}.
 numberOfSwarms = 1             # 55 
 botsPerSwarm = 2               # 10
 continueEvolution = False       # if continueEvolution = True, add more generations to current data (assuming same number of parents). This will evolve new bots, this will just evolve current bots further.
@@ -32,5 +32,5 @@ stopStart = False               # if stopStart = True, you can continue collecti
 botPosition = [(0,-2), (0,2), (0,6), (0,10), (0,14), (0,18)]
 
 
-playbackView = 'DIRECT'         # DIRECT or GUI. DIRECT collects data, while GUI collects data AND shows you the simulation on-screen (affects data collection speed).     
+playbackView = 'GUI'         # DIRECT or GUI. DIRECT collects data, while GUI collects data AND shows you the simulation on-screen (affects data collection speed).     
                                 # Note: GUI mode automatically collects video
