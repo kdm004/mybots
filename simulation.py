@@ -26,10 +26,10 @@ class SIMULATION:
         p.setGravity(0,0,c.gravityConstant)
         currentParams = p.getPhysicsEngineParameters()
         # print(currentParams)
-        self.robot = ROBOT(self.solutionID, self.swarmNumber, self.botNumber)
+
         self.world = WORLD()
-
-
+        self.robot = ROBOT(self.solutionID, self.swarmNumber, self.botNumber)
+        
         
     def Run(self):
         for i in range (c.loopLength):

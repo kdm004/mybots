@@ -26,8 +26,6 @@ NNDF_FILETYPE   = 2
 
 # global linkNamesToIndices
 
-mode = "evolve"  # Global variable for mode
-
 def End():
 
     if filetype == SDF_FILETYPE:
@@ -46,36 +44,11 @@ def End_Model():
 
     model.Save_End_Tag(f)
 
-def set_mode(m):
-
-    global mode
-
-    mode = m
-
-    print(f"Mode has been set to: {mode}")
-
 def Get_Touch_Sensor_Value_For_Link(bodyID, linkName):
-
-    global mode
-
-    # print(f"Mode in Get_Touch_Sensor_Value_For_Link: {mode}")
 
     desiredLinkIndex = linkNamesToIndices[linkName]
 
-    if mode == "evolve" or c.playbackEnvironment == "familiar":
-
-        pts = p.getContactPoints(bodyID+ 1)
-
-        # print("Evolve")
-
-    elif mode == "playback" and c.playbackEnvironment == "foreign":
-
-        pts = p.getContactPoints(bodyID + c.total_cubes + 1)
-
-        # print("Playback")
-
-    else:
-        raise ValueError(f"Unknown mode: {mode}. Mode must be 'evolve' or 'playback'.")
+    pts = p.getContactPoints(bodyID-1) 
 
     if any(pt[3] == desiredLinkIndex or pt[4] == desiredLinkIndex for pt in pts):
 

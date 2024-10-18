@@ -5,14 +5,14 @@ import constants as c
 import argparse
 
 
-###################################################################################################################
-parser = argparse.ArgumentParser()
-parser.add_argument('--mode', type=str, default='evolve', help='Mode of operation: evolve or playback')
-args = parser.parse_args()
+# ###################################################################################################################
+# parser = argparse.ArgumentParser()
+# parser.add_argument('--mode', type=str, default='evolve', help='Mode of operation: evolve or playback')
+# args = parser.parse_args()
 
-pyrosim.set_mode(args.mode)
+# pyrosim.set_mode(args.mode)
 
-###################################################################################################################
+# ###################################################################################################################
 
 
 

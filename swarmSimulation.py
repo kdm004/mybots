@@ -29,7 +29,7 @@ class SWARM_SIMULATION:
         p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
         p.setGravity(0, 0, c.gravityConstant)
 
-        self.world = WORLD()
+        
         self.bestBrains = self.Get_Brain_IDs()
         self.familiarFits = self.Get_Familiar_Fits()
 
@@ -90,7 +90,7 @@ class SWARM_SIMULATION:
 
 
 
-
+        self.world = WORLD()
     def Run(self):
         # Run simulation for all robots
         for i in range(c.loopLength):

@@ -4,7 +4,8 @@ import pybullet_data
 
 class WORLD:
     def __init__(self):
-        self.planeId = p.loadURDF("plane.urdf")
+        self.planeID = p.loadURDF("plane.urdf")
+        print(f"Here is plane ID {self.planeID}")
         p.loadSDF("world.sdf")
 
 
