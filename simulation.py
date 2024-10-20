@@ -27,9 +27,9 @@ class SIMULATION:
         currentParams = p.getPhysicsEngineParameters()
         # print(currentParams)
 
-        self.world = WORLD()
         self.robot = ROBOT(self.solutionID, self.swarmNumber, self.botNumber)
-        
+        self.world = WORLD()
+
         
     def Run(self):
         for i in range (c.loopLength):

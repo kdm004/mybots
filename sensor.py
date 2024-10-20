@@ -16,7 +16,7 @@ class SENSOR:
         # if self.linkName == 'Box':  
         #     print(f'{self.linkName} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)}')
         if self.linkName == 'RightLowerLeg':  
-            print(f'{self.linkName}{self.bodyID} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.bodyID+1, self.linkName)}') # self.bodyID+1 is how it should be. I think 0 isn't a valid bodyID.
+            print(f'{self.linkName}{self.bodyID} = {pyrosim.Get_Touch_Sensor_Value_For_Link(self.bodyID, self.linkName)}') # self.bodyID+1 is how it should be. I think 0 isn't a valid bodyID.
 
         return self.values
 
