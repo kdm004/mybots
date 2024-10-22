@@ -91,6 +91,14 @@ class SWARM_SIMULATION:
 
 
         self.world = WORLD()
+
+        # Make environment cubes red
+        if c.playbackEnvironment == 'foreign':
+            self.obstacles = self.world.environment
+            for obstacle in self.obstacles:
+                p.changeVisualShape(obstacle, -1, rgbaColor=[1, 0, 0, 1])   # [1, 0, 0, 1] = red
+
+
     def Run(self):
         # Run simulation for all robots
         for i in range(c.loopLength):

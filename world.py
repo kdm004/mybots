@@ -6,7 +6,7 @@ class WORLD:
     def __init__(self):
         self.planeID = p.loadURDF("plane.urdf")
         print(f"Here is plane ID {self.planeID}")
-        p.loadSDF("world.sdf")
+        self.environment = p.loadSDF("world.sdf")
 
 
 
