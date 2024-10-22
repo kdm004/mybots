@@ -92,11 +92,11 @@ class SWARM_SIMULATION:
 
         self.world = WORLD()
 
-        # Make environment cubes red
+        # Make environment cubes purple
         if c.playbackEnvironment == 'foreign':
             self.obstacles = self.world.environment
             for obstacle in self.obstacles:
-                p.changeVisualShape(obstacle, -1, rgbaColor=[1, 0, 0, 1])   # [1, 0, 0, 1] = red
+                p.changeVisualShape(obstacle, -1, rgbaColor=[0.5, 0, 0.5, 1])
 
 
     def Run(self):
