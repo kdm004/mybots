@@ -31,7 +31,7 @@ stopStart = False               # if stopStart = True, you can continue collecti
 
 # Playback parameters
 botPosition = [(0,-18), (0,-14), (0,-10), (0,-6), (0,-2), (0,2), (0,6), (0,10), (0,14), (0,18)]
-total_cubes = 400 # 117
+total_cubes = 380 # 117 ... 380 cubes with the new area for the environment gives us around the same cube density as we had in the first paper
 
 
 
