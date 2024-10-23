@@ -6,25 +6,9 @@ import numpy as np
 import pyrosim.pyrosim as pyrosim  # Ensure pyrosim is imported for cube generation
 import argparse
 
-
-# ###################################################################################################################
-# parser = argparse.ArgumentParser()
-# parser.add_argument('--mode', type=str, default='playback', help='Mode of operation: evolve or playback')
-# args = parser.parse_args()
-
-# pyrosim.set_mode(args.mode)
-# ###################################################################################################################
-
-
-
-
-
 cubeLength = 0.2
 cubeWidth = 0.2
 cubeHeight = 0.2
-
-currentSwarmNum = 0
-currentBotNum = 0
 
 def is_valid_position(new_pos, positions, leg_positions, min_separation):
     for pos in positions:
@@ -70,9 +54,8 @@ def Create_Foreign_Environment(bodyFiles, swarmSeed):
     cube_size = 0.2
     leg_size = 0.2
     min_separation = 0.5 # 0.5
-    
-
     effective_separation = (cube_size/2) + (leg_size/2) + min_separation
+
     positions = []
     # Keep trying random cube positions until we get <total_cube> number of cubes
     while len(positions) < c.total_cubes:
@@ -107,18 +90,17 @@ if os.path.exists(filePath):
         print(overallBot)        
 else:
     numPastBots = 0
-    overallBot = 0                                    
+    overallBot = 0           
+# currentSwarmNum = 0
+currentBotNum = 0                         
+currentSwarmNum = overallBot // c.botsPerSwarm
 
 #########################################################################################################
 if c.swarmType == 'case1':
     # swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
-    botNumber = overallBot % c.botsPerSwarm
+    # botNumber = overallBot % c.botsPerSwarm
 
-    # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
     bodyFiles = []
-    currentSwarmNum = overallBot // c.botsPerSwarm
-    print(f"Here is current swarm num {currentSwarmNum}")
-    print(f"Here is overallBot {overallBot}")
 
     # currentBotNum = overallBot % c.botsPerSwarm
     for bot in range(c.botsPerSwarm):     # We don't want every single body file. We just want the 10 files
@@ -140,19 +122,15 @@ if c.swarmType == 'case1':
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
 
-        # Reset the bot number and update the overall bot index
-        # currentBotNum = 0
-        # overallBot += 1
-
 #########################################################################################################
 elif c.swarmType == 'case2':
+    
     bodyFiles = []
     # currentBotNum = overallBot % c.botsPerSwarm
     for bot in range(c.botsPerSwarm):     # We don't want every single body file. We just want the 10 files
         bodyFile = f"bodies/body_{bot}.urdf"  # Define body file
         bodyFiles.append(bodyFile)
 
-    botNumber = overallBot % c.botsPerSwarm
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
         # Create environment with different swarm seed
         if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
@@ -160,6 +138,7 @@ elif c.swarmType == 'case2':
         elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
             Create_Familiar_Environment()
 
+        botNumber = overallBot % c.botsPerSwarm
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
