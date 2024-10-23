@@ -39,7 +39,7 @@ def Create_Familiar_Environment():
      pyrosim.Start_SDF("world.sdf")
      pyrosim.End()
 
-def Create_Foreign_Environment(bodyFiles):
+def Create_Foreign_Environment(bodyFiles, swarmSeed):
     leg_positions_of_all_bots = []
     
     # Iterate over each robot body file in the list
@@ -60,7 +60,7 @@ def Create_Foreign_Environment(bodyFiles):
         leg_positions_of_all_bots.extend(lowerLegXY)  # Collect leg positions from all robots
 
     # Set random seed so that every robot gets a unique set of obstacles
-    seed_value = swarmNumber
+    seed_value = swarmSeed
     random.seed(seed_value)
     np.random.seed(seed_value)
 
@@ -103,30 +103,37 @@ elif c.playbackEnvironment == 'familiar' and (c.swarmType == 'case1' or c.swarmT
 if os.path.exists(filePath):
     with open(filePath, 'r') as file:
         numPastBots = sum(1 for line in file if line.strip())
-        overallBot = numPastBots
-        currentSwarmNum = overallBot // c.botsPerSwarm
-        currentBotNum = overallBot % c.botsPerSwarm
-
+        overallBot = numPastBots   
+        print(overallBot)        
+else:
+    numPastBots = 0
+    overallBot = 0                                    
 
 #########################################################################################################
 if c.swarmType == 'case1':
+    # swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
+    botNumber = overallBot % c.botsPerSwarm
 
     # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
     bodyFiles = []
-    for overallBot in range(c.numberOfSwarms * c.botsPerSwarm):
-        swarmNumber = overallBot // c.botsPerSwarm**2
-        botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
-        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
+    currentSwarmNum = overallBot // c.botsPerSwarm
+    print(f"Here is current swarm num {currentSwarmNum}")
+    print(f"Here is overallBot {overallBot}")
+
+    # currentBotNum = overallBot % c.botsPerSwarm
+    for bot in range(c.botsPerSwarm):     # We don't want every single body file. We just want the 10 files
+        bodyFile = f"bodies/body_{bot}.urdf"  # Define body file
         bodyFiles.append(bodyFile)
+
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+
         if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
-            Create_Foreign_Environment(bodyFiles)
+            Create_Foreign_Environment(bodyFiles, swarmNumber)
         elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
             Create_Familiar_Environment()
-    
-    overallBot = 0
-    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
-        swarmNumber = overallBot // c.botsPerSwarm**2               # This could be a problem. Idk why swarmNumber is in the loop here while for case2 and case3 it's outside the loop.
-        botNumber = (overallBot // c.botsPerSwarm) % c.botsPerSwarm
+
+        # swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
+        botNumber = overallBot % c.botsPerSwarm
         # Initialize and run the swarm simulation
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
@@ -134,57 +141,56 @@ if c.swarmType == 'case1':
         swarmSim.Cleanup()
 
         # Reset the bot number and update the overall bot index
-        currentBotNum = 0
-        overallBot += 1
+        # currentBotNum = 0
+        # overallBot += 1
 
 #########################################################################################################
 elif c.swarmType == 'case2':
-    # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
     bodyFiles = []
-    for overallBot in range(c.numberOfSwarms * c.botsPerSwarm):
-        swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
-        botNumber = overallBot % c.botsPerSwarm
-        bodyFile = f"bodies/body_{botNumber}.urdf"  # Define body file
+    # currentBotNum = overallBot % c.botsPerSwarm
+    for bot in range(c.botsPerSwarm):     # We don't want every single body file. We just want the 10 files
+        bodyFile = f"bodies/body_{bot}.urdf"  # Define body file
         bodyFiles.append(bodyFile)
+
+    botNumber = overallBot % c.botsPerSwarm
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
+        # Create environment with different swarm seed
         if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
-            Create_Foreign_Environment(bodyFiles)
+            Create_Foreign_Environment(bodyFiles, swarmNumber)
         elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
             Create_Familiar_Environment()
 
-    overallBot = 0
-    swarmNumber = overallBot // c.botsPerSwarm  ############## is this necessary? ##############
-    botNumber = overallBot % c.botsPerSwarm
-    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
-        overallBot += 1
+        # overallBot += 1
 
 #########################################################################################################
 elif c.swarmType == 'case3':
-    # Generate the environment. This block is separate in order to populate the list of robot body files such that foreign env can avoid placing cubes near their initial positions.
-    bodyFiles = []
-    for overallBot in range(c.numberOfSwarms * c.botsPerSwarm):
-        swarmNumber = overallBot // c.botsPerSwarm
-        botNumber = overallBot % c.botsPerSwarm
-
-        # Get the correct evolved body file (case3 only)
-        with open("bestBrains.txt", "r") as file:
-            lines = file.readlines()
-        botID = int(lines[overallBot].strip())
-        bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"  
-        bodyFiles.append(bodyFile)
-
-        if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
-            Create_Foreign_Environment(bodyFiles)
-        elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
-            Create_Familiar_Environment()
-
-    overallBot = 0
-    swarmNumber = overallBot // c.botsPerSwarm
+    # overallBot = 0
+    # swarmNumber = overallBot // c.botsPerSwarm
     botNumber = overallBot % c.botsPerSwarm
-    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):        
+    for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):   
+
+        # For every c.botsPerSwarm bot in swarm, append the bodyFile to a list.  
+        botNumbers = [x for x in range(c.botsPerSwarm)]
+        bodyFiles = []
+        for botNumber in botNumbers:
+            with open("bestBrains.txt", "r") as file:
+                lines = file.readlines()
+                botID = int(lines[overallBot].strip())
+                bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"  
+                print(bodyFile)
+                bodyFiles.append(bodyFile)
+
+                # For every bodyFile in the list, create the foreign environment avoiding those body positions.
+                if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
+                    Create_Foreign_Environment(bodyFiles)
+                elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
+                    Create_Familiar_Environment()
+
+
         print(swarmNumber, botNumber)
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
