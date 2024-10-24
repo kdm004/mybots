@@ -124,7 +124,7 @@ if c.swarmType == 'case1':
 
 #########################################################################################################
 elif c.swarmType == 'case2':
-    
+
     bodyFiles = []
     # currentBotNum = overallBot % c.botsPerSwarm
     for bot in range(c.botsPerSwarm):     # We don't want every single body file. We just want the 10 files
@@ -153,19 +153,22 @@ elif c.swarmType == 'case3':
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):   
 
         # For every c.botsPerSwarm bot in swarm, append the bodyFile to a list.  
-        botNumbers = [x for x in range(c.botsPerSwarm)]
         bodyFiles = []
-        for botNumber in botNumbers:
+        for botNumber in range(c.botsPerSwarm):
             with open("bestBrains.txt", "r") as file:
                 lines = file.readlines()
+                print(f"Overallbot={overallBot}")
                 botID = int(lines[overallBot].strip())
                 bodyFile = f"bodies/body_{swarmNumber}_{botNumber}_{botID}.urdf"  
                 print(bodyFile)
                 bodyFiles.append(bodyFile)
 
+                # Iterate overallBot for each robot. This ensures that correct botID is used for each bodyFile
+                overallBot+=1
+
                 # For every bodyFile in the list, create the foreign environment avoiding those body positions.
                 if c.playbackEnvironment == 'foreign':      # If foreign environment, create foreign environment
-                    Create_Foreign_Environment(bodyFiles)
+                    Create_Foreign_Environment(bodyFiles, swarmNumber)
                 elif c.playbackEnvironment == 'familiar':   # If familiar environment, create familiar environment
                     Create_Familiar_Environment()
 
@@ -175,5 +178,5 @@ elif c.swarmType == 'case3':
         swarmSim.Run()
         swarmSim.Get_Fitness()
         swarmSim.Cleanup()
-        overallBot += 1
+        # overallBot += 1               # Needed to comment this out
 #########################################################################################################
