@@ -129,6 +129,7 @@ elif c.swarmType == 'case2':
     # currentBotNum = overallBot % c.botsPerSwarm
     for bot in range(c.botsPerSwarm):     # We don't want every single body file. We just want the 10 files
         bodyFile = f"bodies/body_{bot}.urdf"  # Define body file
+        print(bodyFile)
         bodyFiles.append(bodyFile)
 
     for swarmNumber in range(currentSwarmNum, c.numberOfSwarms):
@@ -139,6 +140,9 @@ elif c.swarmType == 'case2':
             Create_Familiar_Environment()
 
         botNumber = overallBot % c.botsPerSwarm
+        # print(f"botNumber={botNumber}")
+        # print(f"overallBot={overallBot}")
+
         swarmSim = SWARM_SIMULATION(c.playbackView, swarmNumber, botNumber, overallBot)
         swarmSim.Run()
         swarmSim.Get_Fitness()

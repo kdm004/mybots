@@ -85,7 +85,7 @@ class SWARM_SIMULATION:
             for botNumber in range(c.botsPerSwarm):
                 best_ID = self.bestBrains[botNumber + self.swarmNumber*c.botsPerSwarm]
                 self.robots.append(ROBOT(best_ID, swarmNumber, botNumber))
-                print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={botNumber + self.swarmNumber*10} ")
+                print(f"best_ID={best_ID}, swarm#={swarmNumber}, botNumber={botNumber}, overallBot={botNumber + self.swarmNumber*c.botsPerSwarm} ")
 
 
 
