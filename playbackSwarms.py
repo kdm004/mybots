@@ -71,8 +71,7 @@ def Create_Foreign_Environment(bodyFiles, swarmSeed):
     pyrosim.Start_SDF("world.sdf")
     for i, pos in enumerate(positions):
         x, y, z = pos
-        # pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
-        pass
+        pyrosim.Send_Cube(name=f"Box{x}{y}", pos=[x, y, z], size=[cube_size, cube_size, cube_size])
     pyrosim.End()
 
 
